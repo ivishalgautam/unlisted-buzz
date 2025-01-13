@@ -71,6 +71,60 @@ export const sidebarData = [
     ],
   },
   {
+    title: "Events",
+    url: "#",
+    icon: FileText,
+    roles: [ROLES.ADMIN],
+    isVisible: true,
+    items: [
+      {
+        title: "All events",
+        url: "/events",
+        roles: [ROLES.ADMIN],
+        isVisible: true,
+      },
+      {
+        title: "Create",
+        url: "/events/create",
+        roles: [ROLES.ADMIN],
+        isVisible: true,
+      },
+      {
+        title: "Edit",
+        url: "/events/edit/[id]",
+        roles: [ROLES.ADMIN],
+        isVisible: false,
+      },
+    ],
+  },
+  {
+    title: "Promoters / Management",
+    url: "#",
+    icon: FileText,
+    roles: [ROLES.ADMIN],
+    isVisible: true,
+    items: [
+      {
+        title: "All",
+        url: "/promoters",
+        roles: [ROLES.ADMIN],
+        isVisible: true,
+      },
+      {
+        title: "Create",
+        url: "/promoters/create",
+        roles: [ROLES.ADMIN],
+        isVisible: true,
+      },
+      {
+        title: "Edit",
+        url: "/promoters/edit/[id]",
+        roles: [ROLES.ADMIN],
+        isVisible: false,
+      },
+    ],
+  },
+  {
     title: "Shares",
     url: "#",
     icon: FileText,

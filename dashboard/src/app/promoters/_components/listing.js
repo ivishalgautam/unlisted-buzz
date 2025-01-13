@@ -6,13 +6,12 @@ import { toast } from "sonner";
 import { DataTable } from "@/components/ui/table/data-table";
 import { useRouter, useSearchParams } from "next/navigation";
 import { DataTableSkeleton } from "@/components/ui/table/data-table-skeleton";
-import { DeleteDialog } from "./dialog/delete-dialog";
-import { deleteShare, fetchShares, updatePrice } from "@/server/share";
-import { PriceUpdateDialog } from "./dialog/price-update";
+import { DeleteDialog } from "./delete-dialog";
+import { deleteEvent, fetchEvents } from "@/server/event";
+import { deletePromoter, fetchPromoters } from "@/server/promoter";
 
 export default function Listing() {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
-  const [isPriceUpdateOpen, setIsPriceUpdateOpen] = useState(false);
   const [id, setId] = useState(null);
   const queryClient = useQueryClient();
   const searchParams = useSearchParams();
@@ -24,34 +23,19 @@ export default function Listing() {
     if (type === "delete") {
       setIsDeleteOpen(true);
     }
-    if (type === "updatePrice") {
-      setIsPriceUpdateOpen(true);
-    }
   }
 
   const { data, isLoading, isFetching, isError, error } = useQuery({
-    queryFn: () => fetchShares(searchParamStr),
-    queryKey: ["shares", searchParamStr],
+    queryFn: () => fetchPromoters(searchParamStr),
+    queryKey: ["promoters", searchParamStr],
     enabled: !!searchParamStr,
   });
 
-  const priceUpdateMutation = useMutation({
-    mutationFn: (data) => updatePrice(id, data),
-    onSuccess: () => {
-      toast.success("Price updated.");
-      queryClient.invalidateQueries(["shares", searchParamStr]);
-      setIsPriceUpdateOpen(false);
-    },
-    onError: (error) => {
-      toast.error(error.response?.data?.message ?? error?.message ?? "error");
-    },
-  });
-
   const deleteMutation = useMutation({
-    mutationFn: ({ id }) => deleteShare(id),
+    mutationFn: ({ id }) => deletePromoter(id),
     onSuccess: () => {
-      toast.success("Sector deleted.");
-      queryClient.invalidateQueries(["shares", searchParamStr]);
+      toast.success("Event deleted.");
+      queryClient.invalidateQueries(["promoters", searchParamStr]);
       setIsDeleteOpen(false);
     },
     onError: (error) => {
@@ -80,7 +64,7 @@ export default function Listing() {
     <div className="rounded-lg border-input">
       <DataTable
         columns={columns(openModal, setId)}
-        data={data.shares}
+        data={data.promoters}
         totalItems={data.total}
       />
 
@@ -89,15 +73,6 @@ export default function Listing() {
           isOpen: isDeleteOpen,
           setIsOpen: setIsDeleteOpen,
           handleDelete: () => handleDelete(id),
-          id,
-        }}
-      />
-
-      <PriceUpdateDialog
-        {...{
-          isOpen: isPriceUpdateOpen,
-          setIsOpen: setIsPriceUpdateOpen,
-          createMutation: priceUpdateMutation,
           id,
         }}
       />

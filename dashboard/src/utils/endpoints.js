@@ -17,6 +17,12 @@ export const endpoints = {
     getAll: "/sectors",
     getOne: "/sectors/getById",
   },
+  events: {
+    getAll: "/events",
+  },
+  promoters: {
+    getAll: "/promoters",
+  },
   shares: {
     getAll: "/shares",
     getOne: "/shares/getById",

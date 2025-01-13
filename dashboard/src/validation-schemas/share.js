@@ -19,6 +19,9 @@ export const shareSchema = z.object({
   name: z
     .string({ required_error: "Share name is required." })
     .min(1, { message: "Share name is required." }),
+  price: z
+    .number({ required_error: "Share price is required." })
+    .min(1, { message: "Share price is required." }),
   is_featured: z.boolean().optional(),
   image: z
     .string({ required_error: "Share image is required." })

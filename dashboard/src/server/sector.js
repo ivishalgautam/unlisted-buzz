@@ -22,6 +22,8 @@ export async function fetchSectors(params) {
 }
 
 export async function fetchSector(id) {
-  const { data } = await http().get(`${endpoints.sectors.getOne}/${id}`);
+  const { data } = await http().get(
+    `${endpoints.sectors.getAll}/getById/${id}`,
+  );
   return data;
 }

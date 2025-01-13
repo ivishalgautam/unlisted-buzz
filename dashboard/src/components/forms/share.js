@@ -62,7 +62,7 @@ export default function ShareForm({
 
   const onSubmit = async (data) => {
     console.log({ data });
-    const payload = { ...data };
+    const payload = { ...data, about: text };
     if (type === "edit") {
       updateMutation.mutate(payload);
     }
@@ -92,9 +92,8 @@ export default function ShareForm({
   if (type === "edit" && isLoading) return <Spinner />;
   if (type === "edit" && isError) return error?.message ?? "error";
   const isButtonLoading =
-    createMutation?.isLoading || (type === "edit" && updateMutation?.isLoading);
-
-  console.log(watch("financials"));
+    (type === "create" && createMutation.isLoading) ||
+    (type === "edit" && updateMutation.isLoading);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="w-full">
@@ -196,86 +195,101 @@ function BasicDetails({
 }) {
   return (
     <SubSection className="space-y-4 ">
-      {/* image */}
-      <div className="space-y-4">
-        <div className="flex flex-col items-center justify-center">
-          <Input
-            type="file"
-            placeholder="Select Image"
-            onChange={(e) =>
-              handleFileChange(
-                e,
-                "image",
-                setValue,
-                type === "edit" ? updateMutation.mutate : null,
-                type,
-              )
-            }
-            multiple={false}
-            accept="image/png, image/jpeg, image/jpg, image/webp"
-            className={`max-w-56`}
-          />
-          {errors.image && (
-            <InputErrorMessage>{errors.image.message}</InputErrorMessage>
-          )}
-        </div>
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(400px,1fr))] gap-4">
+        {/* image */}
+        <div className="col-span-full space-y-4">
+          <div className="flex flex-col items-center justify-center">
+            <Input
+              type="file"
+              placeholder="Select Image"
+              onChange={(e) =>
+                handleFileChange(
+                  e,
+                  "image",
+                  setValue,
+                  type === "edit" ? updateMutation.mutate : null,
+                  type,
+                )
+              }
+              multiple={false}
+              accept="image/png, image/jpeg, image/jpg, image/webp"
+              className={`max-w-56`}
+            />
+            {errors.image && (
+              <InputErrorMessage>{errors.image.message}</InputErrorMessage>
+            )}
+          </div>
 
-        <div className="flex items-center justify-center gap-4 rounded-lg border border-dashed border-gray-300 p-8">
-          {image ? (
-            <figure className="relative size-32">
-              <Image
-                src={`${process.env.NEXT_PUBLIC_IMAGE_DOMAIN}/${image}`}
-                width={500}
-                height={500}
-                alt="image"
-                className="h-full w-full"
-                priority={true}
-              />
-              <Button
-                type="button"
-                variant="destructive"
-                onClick={() => deleteFile(image)}
-                className="absolute -right-2 -top-2"
-                size="icon"
-              >
-                <Trash size={20} />
-              </Button>
-            </figure>
-          ) : (
-            <div>No file selected</div>
-          )}
-        </div>
-      </div>
-
-      {/* Name */}
-      <div>
-        <Label>Name</Label>
-        <Input {...register("name")} placeholder="Enter name" />
-        {errors.name && (
-          <InputErrorMessage>{errors.name.message}</InputErrorMessage>
-        )}
-      </div>
-
-      {/* Is Featured */}
-      <div className="flex items-center space-x-2">
-        <Controller
-          control={control}
-          name="is_featured"
-          render={({ field }) => (
-            <div className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-3">
-              <div>
-                <Checkbox
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
+          <div className="flex items-center justify-center gap-4 rounded-lg border border-dashed border-gray-300 p-8">
+            {image ? (
+              <figure className="relative size-32">
+                <Image
+                  src={`${process.env.NEXT_PUBLIC_IMAGE_DOMAIN}/${image}`}
+                  width={500}
+                  height={500}
+                  alt="image"
+                  className="h-full w-full"
+                  priority={true}
                 />
-              </div>
-              <div className="space-y-1 leading-none">
-                <Label>Featured</Label>
-                <Muted>Mark this procedure as featured.</Muted>
-              </div>
-            </div>
+                <Button
+                  type="button"
+                  variant="destructive"
+                  onClick={() => deleteFile(image)}
+                  className="absolute -right-2 -top-2"
+                  size="icon"
+                >
+                  <Trash size={20} />
+                </Button>
+              </figure>
+            ) : (
+              <div>No file selected</div>
+            )}
+          </div>
+        </div>
+
+        {/* Name */}
+        <div>
+          <Label>Name</Label>
+          <Input {...register("name")} placeholder="Enter name" />
+          {errors.name && (
+            <InputErrorMessage>{errors.name.message}</InputErrorMessage>
           )}
-        />
+        </div>
+
+        {/* price */}
+        <div>
+          <Label>Price</Label>
+          <Input
+            type="number"
+            {...register("price", { valueAsNumber: true })}
+            placeholder="Enter price"
+          />
+          {errors.price && (
+            <InputErrorMessage>{errors.price.message}</InputErrorMessage>
+          )}
+        </div>
+
+        {/* Is Featured */}
+        <div className="col-span-full flex items-center space-x-2">
+          <Controller
+            control={control}
+            name="is_featured"
+            render={({ field }) => (
+              <div className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-3">
+                <div>
+                  <Checkbox
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </div>
+                <div className="space-y-1 leading-none">
+                  <Label>Featured</Label>
+                  <Muted>Mark this procedure as featured.</Muted>
+                </div>
+              </div>
+            )}
+          />
+        </div>
       </div>
     </SubSection>
   );
@@ -576,6 +590,7 @@ function ShareholdingPatterns({ control, register }) {
           <div>
             <Label>Year</Label>
             <Input
+              type="number"
               {...register(`shareholding_patterns.${patternInd}.year`, {
                 required: "required*",
               })}
@@ -590,19 +605,21 @@ function ShareholdingPatterns({ control, register }) {
                 className="mb-2 flex items-center justify-start gap-2"
               >
                 <div>
-                  <Label>Title</Label>
+                  <Label>Heading</Label>
                   <Input
                     {...register(
-                      `shareholding_patterns.${patternInd}.data.${dataInd}.title`,
+                      `shareholding_patterns.${patternInd}.data.${dataInd}.heading`,
                     )}
-                    placeholder="Enter title"
+                    placeholder="Enter heading"
                   />
                 </div>
                 <div>
                   <Label>Progress</Label>
                   <Input
+                    type="number"
                     {...register(
                       `shareholding_patterns.${patternInd}.data.${dataInd}.progress`,
+                      { valueAsNumber: true },
                     )}
                     placeholder="Enter progress"
                   />
@@ -630,8 +647,6 @@ function PeerRatio({ control, register, watch, setValue }) {
   const [headers, setHeaders] = useState([]);
   const [rows, setRows] = useState([]);
 
-  console.log(watch("peer_ratio"));
-  // Add a new header
   const addHeader = () => {
     const newHeaders = [...headers, ""];
     const newRows = rows.map((row) => [...row, ""]);
@@ -643,7 +658,6 @@ function PeerRatio({ control, register, watch, setValue }) {
     setValue("peer_ratio.rows", newRows);
   };
 
-  // Remove a header and update corresponding rows
   const removeHeader = (index) => {
     const updatedHeaders = headers.filter((_, idx) => idx !== index);
     const updatedRows = rows.map((row) =>
@@ -657,10 +671,16 @@ function PeerRatio({ control, register, watch, setValue }) {
     setValue("peer_ratio.rows", updatedRows);
   };
 
-  // Add a new row
   const addRow = () => {
     const newRow = new Array(headers.length).fill("");
     const updatedRows = [...rows, newRow];
+
+    setRows(updatedRows);
+    setValue("peer_ratio.rows", updatedRows);
+  };
+
+  const removeRow = (rowIndex) => {
+    const updatedRows = rows.filter((_, idx) => idx !== rowIndex);
 
     setRows(updatedRows);
     setValue("peer_ratio.rows", updatedRows);
@@ -705,38 +725,58 @@ function PeerRatio({ control, register, watch, setValue }) {
       </div>
 
       {/* Rows Section */}
-      <div className="mb-4">
-        <h3 className="text-lg font-semibold">Rows</h3>
-        {Array.isArray(rows) &&
-          rows.map((row, rowIndex) => (
-            <div
-              key={rowIndex}
-              className="mb-4 grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4"
-            >
-              {row.map((cell, cellIndex) => (
-                <Input
-                  key={cellIndex}
-                  type="text"
-                  {...register(`peer_ratio.rows.${rowIndex}.${cellIndex}`, {
-                    required: "Cell is required",
-                  })}
-                  value={cell}
-                  onChange={(e) => {
-                    const updatedRows = [...rows];
-                    updatedRows[rowIndex][cellIndex] = e.target.value;
-                    setRows(updatedRows);
-                    setValue("peer_ratio.rows", updatedRows);
-                  }}
-                  className="border p-2"
-                  placeholder={`Row ${rowIndex + 1}, Cell ${cellIndex + 1}`}
-                />
+      {Array.isArray(headers) && headers.length > 0 && (
+        <div className="mb-4">
+          <h3 className="text-lg font-semibold">Rows</h3>
+          <div className="space-y-2">
+            {Array.isArray(rows) &&
+              rows.map((row, rowIndex) => (
+                <div
+                  key={rowIndex}
+                  className="flex items-center justify-center gap-2"
+                >
+                  <div
+                    key={rowIndex}
+                    className="grid flex-grow grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4 rounded-lg border p-2"
+                  >
+                    {row.map((cell, cellIndex) => (
+                      <Input
+                        key={cellIndex}
+                        type="text"
+                        {...register(
+                          `peer_ratio.rows.${rowIndex}.${cellIndex}`,
+                          {
+                            required: "Cell is required",
+                          },
+                        )}
+                        value={cell}
+                        onChange={(e) => {
+                          const updatedRows = [...rows];
+                          updatedRows[rowIndex][cellIndex] = e.target.value;
+                          setRows(updatedRows);
+                          setValue("peer_ratio.rows", updatedRows);
+                        }}
+                        className="border p-2"
+                        placeholder={`Row ${rowIndex + 1}, Cell ${cellIndex + 1}`}
+                      />
+                    ))}
+                  </div>
+                  <Button
+                    type="button"
+                    variant="destructive"
+                    size="icon"
+                    onClick={() => removeRow(rowIndex)}
+                  >
+                    <Trash />
+                  </Button>
+                </div>
               ))}
-            </div>
-          ))}
-        <Button type="button" onClick={addRow} className="h-6">
-          Add Row
-        </Button>
-      </div>
+          </div>
+          <Button type="button" onClick={addRow} className="mt-4 h-6">
+            <Plus /> Add Row
+          </Button>
+        </div>
+      )}
     </SubSection>
   );
 }

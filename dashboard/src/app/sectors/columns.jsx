@@ -83,7 +83,7 @@ export const columns = (openModal, setId) => [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem>
-              <Link href={`/procedures/edit/${id}`}>Edit</Link>
+              <Link href={`/sectors/edit/${id}`}>Edit</Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem

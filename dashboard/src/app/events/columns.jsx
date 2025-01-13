@@ -13,17 +13,10 @@ import {
 import moment from "moment";
 import TableImage from "@/components/ui/table-image";
 import Link from "next/link";
-import { rupee } from "@/lib/Intl";
+import { RiAttachment2 } from "@remixicon/react";
+import config from "@/config";
 
 export const columns = (openModal, setId) => [
-  {
-    accessorKey: "image",
-    header: "IMAGE",
-    cell: (row) => {
-      const image = row.getValue("image");
-      return <TableImage src={image} />;
-    },
-  },
   {
     accessorKey: "name",
     header: ({ column }) => {
@@ -43,25 +36,33 @@ export const columns = (openModal, setId) => [
     },
   },
   {
-    accessorKey: "price",
+    accessorKey: "description",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          CURRENT PRICE
+          DESCRIPTION
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
-    cell: ({ row }) => {
-      const price = row.getValue("price");
-      return rupee.format(price);
+  },
+  {
+    accessorKey: "details",
+    header: "DETAILS",
+    cell: (row) => {
+      const file = row.getValue("details");
+      return (
+        <a href={`${config.file_base}/${file}`} target="_blank">
+          <RiAttachment2 />
+        </a>
+      );
     },
   },
   {
-    accessorKey: "created_at",
+    accessorKey: "date",
     header: ({ column }) => {
       return <Button variant="ghost">DATE</Button>;
     },
@@ -88,16 +89,7 @@ export const columns = (openModal, setId) => [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem>
-              <Link href={`/procedures/edit/${id}`}>Edit</Link>
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem
-              onClick={() => {
-                setId(id);
-                openModal("updatePrice");
-              }}
-            >
-              Update price
+              <Link href={`/events/edit/${id}`}>Edit</Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem

@@ -6,6 +6,14 @@ export async function createShare(data) {
   return resp.data;
 }
 
+export async function updatePrice(shareId, data) {
+  const resp = await http().post(
+    `${endpoints.shares.getAll}/${shareId}/update-price`,
+    data,
+  );
+  return resp.data;
+}
+
 export async function updateShare(id, data) {
   const resp = await http().put(`${endpoints.shares.getAll}/${id}`, data);
   return resp.data;

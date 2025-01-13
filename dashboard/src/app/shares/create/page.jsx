@@ -1,10 +1,9 @@
 "use client";
 
-import SectorForm from "@/components/forms/sector";
 import ShareForm from "@/components/forms/share";
 import PageContainer from "@/components/layout/page-container";
 import { Heading } from "@/components/ui/heading";
-import { createSector } from "@/server/sector";
+import { createShare } from "@/server/share";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -13,9 +12,12 @@ export default function ProcedureCreatePage() {
   const router = useRouter();
 
   const createMutation = useMutation({
-    mutationFn: createSector,
-    onSuccess: () => router.replace("/sectors"),
-    onError: (error) => toast.error(error?.message || "Error creating."),
+    mutationFn: createShare,
+    onSuccess: () => router.replace("/shares"),
+    onError: (error) =>
+      toast.error(
+        error?.response?.data?.message ?? error?.message ?? "Error creating.",
+      ),
   });
 
   return (
