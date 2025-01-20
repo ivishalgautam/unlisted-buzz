@@ -3,7 +3,7 @@ import Balancer from "react-wrap-balancer";
 import { Muted } from "./typography";
 import { PlaceholdersAndVanishInput } from "./ui/placeholders-and-vanish-input";
 import PageSection from "./page-section";
-import { TopStocks } from "./top-stocks";
+import { TopStocks } from "./popular-unlisted-shares";
 import Container from "./container";
 
 export default function Hero() {

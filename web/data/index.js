@@ -1,4 +1,3 @@
-import { rupee } from "@/hooks/Intl";
 import {
   ChartCandlestick,
   ChartNoAxesCombined,
@@ -9,6 +8,14 @@ import {
   SirenIcon,
   UserRoundCheck,
 } from "lucide-react";
+
+const ROLES = {
+  ADMIN: "admin",
+  USER: "user",
+};
+
+export const popularUnlistedShareTimeRange = "15d";
+export const newArrivalsTimeRange = "6m";
 
 export const whyChooseUs = [
   {
@@ -357,3 +364,54 @@ export const blogPosts = [
     date: "2023-09-15",
   },
 ];
+
+export const ALLROUTES = [
+  {
+    link: "/",
+    roles: [],
+  },
+  {
+    link: "/search/[subCatSlug]",
+    roles: [],
+  },
+  {
+    link: "/dashboard",
+    roles: [ROLES.USER],
+  },
+  {
+    link: "/dashboard",
+    roles: [ROLES.USER],
+  },
+  { link: "/profile", roles: [ROLES.USER] },
+  { link: "/portfolio", roles: [ROLES.USER] },
+  { link: "/transactions", roles: [ROLES.USER] },
+  {
+    link: "/external-transactions",
+    roles: [ROLES.USER],
+  },
+];
+
+export const timeRanges = [
+  {
+    label: "1M",
+    value: "1m",
+  },
+  {
+    label: "6M",
+    value: "6m",
+  },
+  {
+    label: "1Y",
+    value: "1y",
+  },
+  {
+    label: "3Y",
+    value: "3y",
+  },
+  {
+    label: "5Y",
+    value: "5y",
+  },
+];
+
+export const publicRoutes = ["/", "login", "signin"];

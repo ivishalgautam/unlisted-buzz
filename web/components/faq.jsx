@@ -6,7 +6,7 @@ import { faqs } from "@/data";
 import PageSection from "./page-section";
 import { Muted } from "./typography";
 
-function FAQs() {
+function FAQs({ data }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [activeItem, setActiveItem] = useState(faqs[0]);
 

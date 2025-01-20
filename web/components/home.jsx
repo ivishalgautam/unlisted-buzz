@@ -10,14 +10,14 @@ import FAQs from "./faq";
 import NewArrivalsStocks from "./new-arrivals";
 import { TopSectors } from "./top-sectors";
 import EnquirySection from "./enquiry-section";
-import { TopStocks } from "./top-stocks";
+import { PopularUnlistedShares } from "./popular-unlisted-shares";
 import { BlogCarousel } from "./blogs-carousel";
 
 export default function Home() {
   return (
     <div>
       <Hero />
-      <TopStocks />
+      <PopularUnlistedShares />
       <NewArrivalsStocks />
       <TopSectors />
       <WhyChooseUs />

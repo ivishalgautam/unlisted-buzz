@@ -2,6 +2,9 @@ import { Poppins, Urbanist } from "next/font/google";
 import "./globals.css";
 import Layout from "@/components/layout";
 import { Toaster } from "@/components/ui/toaster";
+import QueryProvider from "@/components/providers/query-client-provider";
+import Context from "@/store/context";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 const urbanist = Urbanist({
   subsets: ["latin"],
@@ -27,10 +30,17 @@ export default function RootLayout({ children }) {
         className={`${urbanist.className} ${poppins.className} antialiased`}
         suppressHydrationWarning={true}
       >
-        <Layout>
-          {children}
-          <Toaster />
-        </Layout>
+        <NuqsAdapter>
+          <Context>
+            <Toaster richColors />
+            <QueryProvider>
+              <Layout>
+                {children}
+                <Toaster />
+              </Layout>
+            </QueryProvider>
+          </Context>
+        </NuqsAdapter>
       </body>
     </html>
   );

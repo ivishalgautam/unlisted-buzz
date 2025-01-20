@@ -29,7 +29,9 @@ export function BuySell({ ticker, currentPrice }) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Buy / Sell {ticker}</CardTitle>
+        <CardTitle>
+          Buy / Sell <span className="capitalize">{ticker}</span>
+        </CardTitle>
         <CardDescription>
           Current price: {rupee.format(currentPrice)}
         </CardDescription>

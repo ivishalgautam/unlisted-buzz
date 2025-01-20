@@ -10,8 +10,15 @@ import {
   usePrevNextButtons,
 } from "./embla/arrow-buttons";
 import BlogCard from "./cards/blog";
+import { useQuery } from "@tanstack/react-query";
+import { fetchBlogs } from "@/service/blog";
 
 export function BlogCarousel() {
+  const { data, isLoading, isError, error } = useQuery({
+    queryFn: () => fetchBlogs("featured=true"),
+    queryKey: ["featured-blogs"],
+  });
+
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: false,
     align: "start",
@@ -37,14 +44,18 @@ export function BlogCarousel() {
       <div className="relative">
         <div className="overflow-hidden" ref={emblaRef}>
           <div className="flex">
-            {blogPosts.map((post) => (
-              <div
-                key={post.id}
-                className="flex-[0_0_calc(100%/1)] md:flex-[0_0_calc(100%/2)] lg:flex-[0_0_calc(100%/3)] min-w-0 px-4"
-              >
-                <BlogCard post={post} />
-              </div>
-            ))}
+            {isLoading
+              ? "Loading..."
+              : isError
+                ? (error?.message ?? "error")
+                : data?.blogs?.map((post) => (
+                    <div
+                      key={post.id}
+                      className="flex-[0_0_calc(100%/1)] md:flex-[0_0_calc(100%/2)] lg:flex-[0_0_calc(100%/3)] min-w-0 px-4"
+                    >
+                      <BlogCard post={post} />
+                    </div>
+                  ))}
           </div>
         </div>
         <PrevButton

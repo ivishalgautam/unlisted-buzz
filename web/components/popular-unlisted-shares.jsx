@@ -9,11 +9,20 @@ import {
   usePrevNextButtons,
 } from "./embla/arrow-buttons";
 import Heading from "./heading";
-import { popularUnlistedShares } from "@/data";
+import { popularUnlistedShares, popularUnlistedShareTimeRange } from "@/data";
 import PageSection from "./page-section";
 import Container from "./container";
+import { fetchShares } from "@/service/share";
+import { useQuery } from "@tanstack/react-query";
+import { Skeleton } from "./ui/skeleton";
 
-export const TopStocks = (props) => {
+export const PopularUnlistedShares = (props) => {
+  const { data, isLoading, isError, error } = useQuery({
+    queryFn: () =>
+      fetchShares(`time_range=${popularUnlistedShareTimeRange}&is_ipo=false`),
+    queryKey: ["shares"],
+    // enabled: !!searchParamStr,
+  });
   const slides = popularUnlistedShares.slice(0, 5);
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
@@ -56,14 +65,23 @@ export const TopStocks = (props) => {
         <div className="embla">
           <div className="embla__viewport" ref={emblaRef}>
             <div className="embla__container space-x-4">
-              {slides.map((slide, index) => (
-                <div
-                  className="md:flex-[0_0_calc(100%/2)] lg:flex-[0_0_calc(100%/3)] flex-[0_0_calc(100%/1)]"
-                  key={index}
-                >
-                  <StockCard stock={slide} />
-                </div>
-              ))}
+              {isLoading
+                ? Array.from({ length: 5 }).map((_, ind) => (
+                    <Skeleton
+                      key={ind}
+                      className="w-[100px] h-[20px] rounded-full"
+                    />
+                  ))
+                : isError
+                  ? (error?.message ?? "error")
+                  : data.shares.map((slide, index) => (
+                      <div
+                        className="md:flex-[0_0_calc(100%/2)] lg:flex-[0_0_calc(100%/3)] flex-[0_0_calc(100%/1)]"
+                        key={index}
+                      >
+                        <StockCard share={slide} />
+                      </div>
+                    ))}
             </div>
           </div>
         </div>

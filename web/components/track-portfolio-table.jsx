@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import PageSection from "./page-section";
 import Image from "next/image";
@@ -19,10 +20,16 @@ import { rupee } from "@/hooks/Intl";
 import { popularUnlistedShares, stocks } from "@/data";
 import Container from "./container";
 import Link from "next/link";
+import { useQuery } from "@tanstack/react-query";
+import { fetchShares } from "@/service/share";
+import config from "@/config";
 
 export default function TrackPortfolioTable() {
-  const isUp = Math.random() > 0.5;
-
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["ipos"],
+    queryFn: () => fetchShares("is_ipo=true"),
+  });
+  console.log(data);
   return (
     <PageSection>
       <Container>
@@ -47,38 +54,40 @@ export default function TrackPortfolioTable() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {popularUnlistedShares.map((item, ind) => {
-                    const id = item.title.split(" ").join("-");
-
+                  {data?.shares?.map((item, ind) => {
                     return (
-                      <TableRow key={ind}>
+                      <TableRow key={item.id}>
                         <TableCell className="font-medium">
-                          <Link href={`/shares/${id}`}>
+                          <Link href={`/shares/${item.slug}`}>
                             <Image
-                              src={item.icon}
+                              src={`${config.file_base}/${item.image}`}
                               width={100}
                               height={100}
                               className="aspect-video object-contain object-center"
+                              alt=""
                             />
                           </Link>
                         </TableCell>
                         <TableCell className="font-medium">
                           <Link
-                            href={`/shares/${id}`}
+                            href={`/shares/${item.slug}`}
                             className="hover:text-primary transition-colors"
                           >
-                            {item.title}
+                            {item.name}
                           </Link>
                         </TableCell>
-                        <TableCell className="font-medium">{`${rupee.format(Math.floor(Math.random() * 500))} - ${rupee.format(Math.floor(Math.random() * 1000))}`}</TableCell>
-                        <TableCell className="font-medium">{`${rupee.format(Math.floor(Math.random() * 500))}`}</TableCell>
-                        <TableCell className="font-medium">{`${rupee.format(Math.floor(Math.random() * 500))}`}</TableCell>
+                        <TableCell className="font-medium">{`${rupee.format(item.price)} - ${rupee.format(item.first_price)}`}</TableCell>
+                        <TableCell className="font-medium">{`${rupee.format(item.ipo_price ?? 0)}`}</TableCell>
+                        <TableCell className="font-medium">{`${rupee.format(item.current_market_price)}`}</TableCell>
                         <TableCell className="text-right">
                           <div className={cn("flex flex-col items-end gap-1")}>
                             <span
                               className={cn(
                                 "text-sm font-semibold bg-red-100 text-red-500 px-2 py-0.5 rounded-full",
-                                { "bg-green-100 text-green-500": item.isUp }
+                                {
+                                  "bg-green-100 text-green-500":
+                                    item.gain_or_loss === "gain",
+                                }
                               )}
                             >
                               {rupee.format(item.price)}
@@ -87,18 +96,19 @@ export default function TrackPortfolioTable() {
                               className={cn(
                                 "flex items-center gap-1 text-xs text-red-500",
                                 {
-                                  "text-green-500": item.isUp,
+                                  "text-green-500":
+                                    item.gain_or_loss === "gain",
                                 }
                               )}
                             >
                               <span>
-                                {item.isUp ? (
+                                {item.gain_or_loss === "gain" ? (
                                   <TrendingUp size={20} />
                                 ) : (
                                   <TrendingDown size={20} />
                                 )}
                               </span>
-                              <span>{item.status()}</span>
+                              <span>{`(${item.price_difference}) (${item.percentage_change}%)`}</span>
                             </div>
                           </div>
                         </TableCell>

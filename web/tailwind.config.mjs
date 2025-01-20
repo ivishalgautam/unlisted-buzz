@@ -69,6 +69,7 @@ const config = {
       animation: {
         marquee: "marquee 25s linear infinite",
         marquee2: "marquee2 25s linear infinite",
+        "caret-blink": "caret-blink 1.25s ease-out infinite",
       },
       keyframes: {
         marquee: {
@@ -78,6 +79,10 @@ const config = {
         marquee2: {
           "0%": { transform: "translateX(100%)" },
           "100%": { transform: "translateX(0%)" },
+        },
+        "caret-blink": {
+          "0%,70%,100%": { opacity: "1" },
+          "20%,50%": { opacity: "0" },
         },
       },
     },

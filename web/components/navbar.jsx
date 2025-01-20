@@ -14,17 +14,40 @@ import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import Logo from "./logo";
-import { Button } from "./ui/button";
+import { buttonVariants } from "./ui/button";
+import { useContext } from "react";
+import { MainContext } from "@/store/context";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import config from "@/config";
+import { nameShorter } from "@/lib/name-shorter";
 
 export const tabs = [
   { label: "Home", link: "/" },
+  { label: "DRHP-Filed", link: "/drhp-filed" },
   { label: "About", link: "#" },
   { label: "Contact Us", link: "#" },
 ];
 
+export const logout = () => {
+  if (typeof window !== "undefined") {
+    window.location.href = "/login";
+    localStorage.clear();
+  }
+  redirect("/login");
+};
+
 export default function Navbar() {
+  const { user, isUserLoading } = useContext(MainContext);
   return (
-    <header className="bg-primary-300 py-6">
+    <header className="bg-primary-300 py-6 bg-white shadow-sm border-b">
       <div className="container">
         <div className="flex items-center justify-between gap-4 md:gap-12">
           <Logo />
@@ -32,7 +55,7 @@ export default function Navbar() {
             <NavigationTabs tabs={tabs} />
           </nav>
           <div className="hidden sm:block">
-            <CTA />
+            <CTA {...{ user, isUserLoading }} />
           </div>
           <div className="block lg:hidden">
             <MobileNav />
@@ -98,11 +121,35 @@ function MobileNav() {
   );
 }
 
-export function CTA() {
-  return (
+export function CTA({ user, isUserLoading }) {
+  if (isUserLoading) return;
+  return user ? (
+    <DropdownMenu>
+      <DropdownMenuTrigger>
+        <Avatar>
+          <AvatarImage src={`${config.file_base}/${user.avatar}`} />
+          <AvatarFallback className="uppercase">
+            {nameShorter(user?.fullname)}
+          </AvatarFallback>
+        </Avatar>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>
+          <Link href={"/profile"}>Profile</Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem>Logout</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  ) : (
     <div className="flex flex-wrap justify-start gap-2">
-      <Button variant="outline">Log in</Button>
-      <Button>Sign up</Button>
+      <Link href={"/login"} className={buttonVariants({ variant: "outline" })}>
+        Log in
+      </Link>
+      <Link href={"signup"} className={buttonVariants({})}>
+        Sign up
+      </Link>
     </div>
   );
 }

@@ -14,6 +14,9 @@ import { Button } from "./ui/button";
 import Container from "./container";
 import SectorCard from "./cards/sector";
 import Heading from "./heading";
+import { useQuery } from "@tanstack/react-query";
+import { fetchSectors } from "@/service/sector";
+import { Skeleton } from "./ui/skeleton";
 
 // Mock data for sectors
 const sectorData = [
@@ -60,13 +63,16 @@ export function TopSectors() {
     [Autoplay({ playOnInit: true, delay: 3000 })]
   );
 
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["featured-sectors"],
+    queryFn: () => fetchSectors("featured=true"),
+  });
   const {
     prevBtnDisabled,
     nextBtnDisabled,
     onPrevButtonClick,
     onNextButtonClick,
   } = usePrevNextButtons(emblaApi);
-
   return (
     <PageSection className="py-12 bg-secondary dark:bg-gray-900 rounded-2xl">
       <Container>
@@ -82,18 +88,29 @@ export function TopSectors() {
           <div className="col-span-12 md:col-span-8">
             <div className="embla overflow-hidden" ref={emblaRef}>
               <div className="embla__container space-x-4 p-8">
-                {sectorData.map((sector, index) => (
-                  <div
-                    key={sector.name}
-                    className={`flex-[0_0_calc(100%/1)] sm:flex-[0_0_calc(100%/2)] lg:flex-[0_0_calc(100%/3)] transition-all duration-300 ease-in-out transform bg-white p-6 rounded-2xl flex items-center justify-center ${
-                      hoveredIndex === index ? "scale-105 shadow-lg" : ""
-                    }`}
-                    onMouseEnter={() => setHoveredIndex(index)}
-                    onMouseLeave={() => setHoveredIndex(null)}
-                  >
-                    <SectorCard sector={sector} />
-                  </div>
-                ))}
+                {isLoading
+                  ? Array.from({ length: 10 }).map((_, ind) => (
+                      <Skeleton
+                        className={
+                          "flex-[0_0_calc(100%/1)] sm:flex-[0_0_calc(100%/2)] lg:flex-[0_0_calc(100%/3)] ease-in-out transform bg-black/20 rounded-2xl flex items-center justify-center h-48"
+                        }
+                        key={ind}
+                      />
+                    ))
+                  : isError
+                    ? error?.message
+                    : data?.sectors?.map((sector, index) => (
+                        <div
+                          key={sector.id}
+                          className={`flex-[0_0_calc(100%/1)] sm:flex-[0_0_calc(100%/2)] lg:flex-[0_0_calc(100%/3)] transition-all duration-300 ease-in-out transform bg-white p-6 rounded-2xl flex items-center justify-center ${
+                            hoveredIndex === index ? "scale-105 shadow-lg" : ""
+                          }`}
+                          onMouseEnter={() => setHoveredIndex(index)}
+                          onMouseLeave={() => setHoveredIndex(null)}
+                        >
+                          <SectorCard sector={sector} />
+                        </div>
+                      ))}
               </div>
             </div>
             <div className="flex items-center justify-end">

@@ -1,23 +1,41 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
-import { ApexOptions } from "apexcharts";
 import { rupee } from "@/hooks/Intl";
+import { useQuery } from "@tanstack/react-query";
+import { parseAsString, useQueryState } from "nuqs";
+import { fetchShareChartData } from "@/service/share";
+import Spinner from "@/components/spinner";
+import { useSearchParams } from "next/navigation";
+import { timeRanges } from "@/data";
+import { Button } from "@/components/ui/button";
 
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
-export function ApexShareChart({ data }) {
+export function ApexShareChart({ shareId }) {
   const [chartData, setChartData] = useState([]);
+  const [timeRange, setTimeRange] = useQueryState(
+    "tr",
+    parseAsString.withDefault("")
+  );
+
+  const searchParams = useSearchParams();
+  const searchParamsStr = searchParams.toString();
+
+  const { data, isLoading, isError, error } = useQuery({
+    queryFn: () => fetchShareChartData(shareId, searchParamsStr),
+    queryKey: [`share-chart-${shareId}`, timeRange],
+    enabled: !!shareId,
+  });
 
   useEffect(() => {
     setChartData(
-      data.map((item) => ({
+      data?.map((item) => ({
         x: new Date(item.date),
         y: item.price,
       }))
     );
-  }, [data]);
+  }, [data, shareId]);
 
   const options = {
     chart: {
@@ -81,8 +99,11 @@ export function ApexShareChart({ data }) {
     },
   };
 
+  if (isLoading) return <Spinner />;
+  if (isError) return error?.message ?? "error";
+
   return (
-    <div className="w-full h-[350px]">
+    <div className="w-full h-[400px]">
       {typeof window !== "undefined" && (
         <Chart
           options={options}
@@ -91,6 +112,20 @@ export function ApexShareChart({ data }) {
           height={350}
         />
       )}
+
+      <div className="space-x-2">
+        {timeRanges.map((rng) => (
+          <Button
+            type="button"
+            variant={rng.value === timeRange ? "default" : "outline"}
+            size="icon"
+            onClick={() => setTimeRange(rng.value)}
+            key={rng.value}
+          >
+            {rng.label}
+          </Button>
+        ))}
+      </div>
     </div>
   );
 }

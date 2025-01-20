@@ -1,11 +1,22 @@
+"use client";
 import PageSection from "./page-section";
 import Heading from "./heading";
 import StockCardCompact from "./cards/stock-card-compact";
 import { Button } from "./ui/button";
-import { newArrivalsShares } from "@/data";
+import { newArrivalsShares, newArrivalsTimeRange } from "@/data";
 import Container from "./container";
+import { fetchSharesNewArrivals } from "@/service/share";
+import { useQuery } from "@tanstack/react-query";
+import { Skeleton } from "./ui/skeleton";
 
 export default function NewArrivalsStocks() {
+  const { data, isLoading, isError, error } = useQuery({
+    queryFn: () =>
+      fetchSharesNewArrivals(`time_range=${newArrivalsTimeRange}&is_ipo=false`),
+    queryKey: ["shares-new-arrivals"],
+    // enabled: !!searchParamStr,
+  });
+
   return (
     <PageSection className={"py-10"}>
       <Container>
@@ -16,9 +27,18 @@ export default function NewArrivalsStocks() {
 
         <div className="space-y-10">
           <div className="grid gap-4 mt-8 grid-cols-[repeat(auto-fill,minmax(300px,1fr))] lg:grid-cols-[repeat(auto-fill,minmax(400px,1fr))]">
-            {newArrivalsShares.map((stock, i) => (
-              <StockCardCompact key={i} stock={stock} />
-            ))}
+            {isLoading
+              ? Array.from({ length: 5 }).map((_, ind) => (
+                  <Skeleton
+                    key={ind}
+                    className="w-[100px] h-[20px] rounded-full"
+                  />
+                ))
+              : isError
+                ? (error?.message ?? "error")
+                : data?.shares?.map((share, i) => (
+                    <StockCardCompact key={i} share={share} />
+                  ))}
           </div>
           <div className="text-center">
             <Button>View more</Button>
