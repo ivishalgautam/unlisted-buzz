@@ -22,7 +22,14 @@ export const shareSchema = z.object({
   price: z
     .number({ required_error: "Share price is required." })
     .min(1, { message: "Share price is required." }),
+  ipo_price: z.any().optional(),
+  current_market_price: z
+    .number({ required_error: "Share current market price is required." })
+    .min(1, { message: "Share current market price is required." }),
+  sector_id: z.string({ required_error: "Sector is required." }).uuid(),
+  is_ipo: z.boolean().optional(),
   is_featured: z.boolean().optional(),
+  is_drhp_filed: z.boolean().optional(),
   image: z
     .string({ required_error: "Share image is required." })
     .min(1, { message: "Share image is required." }),
@@ -36,6 +43,18 @@ export const shareSchema = z.object({
         value: z
           .string({ required_error: "Value is required!" })
           .min(1, { message: "Value is required*" }),
+      }),
+    )
+    .optional(),
+  faqs: z
+    .array(
+      z.object({
+        question: z
+          .string({ required_error: "Question is required!" })
+          .min(1, { message: "Question is required*" }),
+        answer: z
+          .string({ required_error: "Answer is required!" })
+          .min(1, { message: "Answer is required*" }),
       }),
     )
     .optional(),
@@ -61,6 +80,19 @@ export const shareSchema = z.object({
     rows: z.array(z.array(z.string())),
   }),
   financials: z.array(TabSchema).optional(),
+  promoters_or_management: z
+    .array(
+      z.object({
+        name: z.string().min(1, "Name is required*"),
+        designation: z.string().min(1, "Designation is required*"),
+        experience: z.string().min(1, "Experience is required*"),
+        linkedin: z
+          .string()
+          .min(1, "LinkedIn profile is required*")
+          .url("Enter a valid LinkedIn URL*"),
+      }),
+    )
+    .optional(),
   meta_title: z.string().optional(),
   meta_description: z.string().optional(),
   meta_keywords: z.string().optional(),

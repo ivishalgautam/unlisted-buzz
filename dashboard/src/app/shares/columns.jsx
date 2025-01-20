@@ -14,6 +14,8 @@ import moment from "moment";
 import TableImage from "@/components/ui/table-image";
 import Link from "next/link";
 import { rupee } from "@/lib/Intl";
+import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 
 export const columns = (openModal, setId) => [
   {
@@ -42,6 +44,32 @@ export const columns = (openModal, setId) => [
       return <div className="capitalize">{name}</div>;
     },
   },
+  // {
+  //   accessorKey: "type",
+  //   header: ({ column }) => {
+  //     return (
+  //       <Button
+  //         variant="ghost"
+  //         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+  //       >
+  //         TYPE
+  //         <ArrowUpDown className="ml-2 h-4 w-4" />
+  //       </Button>
+  //     );
+  //   },
+  //   cell: ({ row }) => {
+  //     const type = row.getValue("type");
+  //     return (
+  //       <Badge
+  //         className={cn("uppercase", {
+  //           "bg-emerald-500 hover:bg-emerald-500/80": type === "share",
+  //         })}
+  //       >
+  //         {type}
+  //       </Badge>
+  //     );
+  //   },
+  // },
   {
     accessorKey: "price",
     header: ({ column }) => {
@@ -88,7 +116,7 @@ export const columns = (openModal, setId) => [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem>
-              <Link href={`/procedures/edit/${id}`}>Edit</Link>
+              <Link href={`/shares/edit/${id}`}>Edit</Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem

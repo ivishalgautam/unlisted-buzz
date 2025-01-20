@@ -3,12 +3,11 @@ import { columns } from "../columns";
 import { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { DataTable } from "@/components/ui/table/data-table";
 import { useRouter, useSearchParams } from "next/navigation";
 import { DataTableSkeleton } from "@/components/ui/table/data-table-skeleton";
 import { DeleteDialog } from "./delete-dialog";
-import { deleteEvent, fetchEvents } from "@/server/event";
-import { deletePromoter, fetchPromoters } from "@/server/promoter";
+import { deleteBlog, fetchBlogs } from "@/server/blog";
+import { DataTable } from "@/components/ui/table/data-table";
 
 export default function Listing() {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
@@ -26,16 +25,16 @@ export default function Listing() {
   }
 
   const { data, isLoading, isFetching, isError, error } = useQuery({
-    queryFn: () => fetchPromoters(searchParamStr),
-    queryKey: ["promoters", searchParamStr],
+    queryFn: () => fetchBlogs(searchParamStr),
+    queryKey: ["blogs", searchParamStr],
     enabled: !!searchParamStr,
   });
 
   const deleteMutation = useMutation({
-    mutationFn: ({ id }) => deletePromoter(id),
+    mutationFn: ({ id }) => deleteBlog(id),
     onSuccess: () => {
       toast.success("Event deleted.");
-      queryClient.invalidateQueries(["promoters", searchParamStr]);
+      queryClient.invalidateQueries(["blogs", searchParamStr]);
       setIsDeleteOpen(false);
     },
     onError: (error) => {
@@ -64,7 +63,7 @@ export default function Listing() {
     <div className="rounded-lg border-input">
       <DataTable
         columns={columns(openModal, setId)}
-        data={data.promoters}
+        data={data.blogs}
         totalItems={data.total}
       />
 

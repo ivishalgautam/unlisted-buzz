@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "../../components/ui/button";
-import { ArrowUpDown, Link2 } from "lucide-react";
+import { ArrowUpDown } from "lucide-react";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import {
   DropdownMenu,
@@ -11,21 +11,20 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import moment from "moment";
-import TableImage from "@/components/ui/table-image";
 import Link from "next/link";
 import { RiAttachment2 } from "@remixicon/react";
 import config from "@/config";
 
 export const columns = (openModal, setId) => [
   {
-    accessorKey: "name", // Key for the promoter's name
+    accessorKey: "title",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          NAME
+          TITLE
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -36,45 +35,32 @@ export const columns = (openModal, setId) => [
     },
   },
   {
-    accessorKey: "designation", // Key for the promoter's designation
+    accessorKey: "short_description",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          DESIGNATION
+          SHORT DESCRIPTION
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
-    cell: (row) => {
-      const designation = row.getValue("designation");
-      return <div>{designation}</div>;
-    },
   },
   {
-    accessorKey: "experience", // Key for the promoter's experience
-    header: "EXPERIENCE",
-    cell: (row) => {
-      const experience = row.getValue("experirence");
-      return <div>{experience} years</div>;
+    accessorKey: "date",
+    header: ({ column }) => {
+      return <Button variant="ghost">DATE</Button>;
     },
-  },
-  {
-    accessorKey: "linkedin", // Key for the promoter's LinkedIn profile
-    header: "LINKEDIN",
-    cell: (row) => {
-      const linkedin = row.getValue("linkedin");
+    cell: ({ row }) => {
       return (
-        <a href={linkedin} target="_blank" rel="noopener noreferrer">
-          <Link2 />
-        </a>
+        <div>{moment(row.getValue("created_at")).format("DD/MM/YYYY")}</div>
       );
     },
   },
   {
-    id: "actions", // Custom column for actions
+    id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
       const id = row.original.id;
@@ -90,7 +76,7 @@ export const columns = (openModal, setId) => [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem>
-              <Link href={`/promoters/edit/${id}`}>Edit</Link>
+              <Link href={`/blogs/edit/${id}`}>Edit</Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem

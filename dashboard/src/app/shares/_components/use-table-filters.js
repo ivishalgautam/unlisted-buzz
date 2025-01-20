@@ -9,6 +9,12 @@ export function useTableFilters() {
       .withOptions({ shallow: false, throttleMs: 1000 })
       .withDefault(""),
   );
+  const [type, setType] = useQueryState(
+    "type",
+    searchParams.q
+      .withOptions({ shallow: false, throttleMs: 1000 })
+      .withDefault(""),
+  );
 
   const [page, setPage] = useQueryState(
     "page",
@@ -17,13 +23,13 @@ export function useTableFilters() {
 
   const resetFilters = useCallback(() => {
     setSearchQuery(null);
-
     setPage(1);
-  }, [setSearchQuery, setPage]);
+    setType(null);
+  }, [setSearchQuery, setPage, setType]);
 
   const isAnyFilterActive = useMemo(() => {
-    return !!searchQuery;
-  }, [searchQuery]);
+    return !!searchQuery || !!type;
+  }, [searchQuery, type]);
 
   return {
     searchQuery,
@@ -31,6 +37,8 @@ export function useTableFilters() {
     page,
     setPage,
     resetFilters,
+    type,
+    setType,
     isAnyFilterActive,
   };
 }

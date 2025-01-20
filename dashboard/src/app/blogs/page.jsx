@@ -7,7 +7,7 @@ import ReviewTableActions from "./_components/table-actions";
 import Listing from "./_components/listing";
 
 export const metadata = {
-  title: "Promoters or Events",
+  title: "Blogs",
 };
 
 export default async function Reviews({ searchParams }) {
@@ -18,8 +18,8 @@ export default async function Reviews({ searchParams }) {
     <PageContainer>
       <div className="flex items-center justify-between">
         <Heading
-          title={"Promoters or Events"}
-          description={"Manage Promoters or Events (View, Delete)."}
+          title={"Blogs"}
+          description={"Manage Blogs (View, Update, Delete)."}
         />
       </div>
       <ReviewTableActions />

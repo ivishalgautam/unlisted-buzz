@@ -20,6 +20,16 @@ import SubSection from "../layout/sub-section";
 import { Editor } from "primereact/editor";
 import { debounce } from "lodash";
 import InputErrorMessage from "../ui/input-error-message";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+import useFetchSectors from "@/hooks/use-fetch-sectors";
+import { Skeleton } from "../ui/skeleton";
+import { Switch } from "../ui/switch";
 
 export default function ShareForm({
   type = "create",
@@ -37,6 +47,9 @@ export default function ShareForm({
   } = useForm({
     resolver: zodResolver(shareSchema),
     defaultValues: {
+      is_ipo: false,
+      fundamentals: [],
+      faqs: [],
       financials: [],
       shareholding_patterns: [],
       peer_ratio: {
@@ -45,18 +58,15 @@ export default function ShareForm({
       },
     },
   });
-  const { fields, append, remove } = useFieldArray({
-    control,
-    name: "fundamentals",
-  });
 
+  const [, reRender] = useState(false);
   const [text, setText] = useState("");
   const editorRef = useRef(null);
   const debouncedSetText = debounce(setText, 1000);
 
   const { data, isLoading, isError, error } = useQuery({
     queryFn: () => fetchShare(id),
-    queryKey: [`procedure-${id}`],
+    queryKey: [`share-${id}`],
     enabled: !!id && !!(type === "edit"),
   });
 
@@ -70,31 +80,43 @@ export default function ShareForm({
       createMutation.mutate(payload);
     }
   };
-
   const { handleFileChange, deleteFile, image, setImage } = useFileHandler();
-  console.log({ errors });
   useEffect(() => {
     if (data) {
+      console.log({ data });
       setValue("name", data.name);
       setValue("image", data.image);
+      setValue("price", data.price);
+      setValue("current_market_price", data.current_market_price);
+      setValue("sector_id", data.sector_id);
       setValue("is_featured", data.is_featured);
+      setValue("is_drhp_filed", data.is_drhp_filed);
       if (!editorRef.current) {
-        data && setText(data?.description);
+        data && setText(data?.about);
         editorRef.current = true;
       }
+      setValue("is_ipo", data.is_ipo);
+      setValue("ipo_price", data.ipo_price);
+      setValue("fundamentals", data.fundamentals);
+      setValue("financials", data.financials);
+      setValue("shareholding_patterns", data.shareholding_patterns);
+      setValue("peer_ratio", data.peer_ratio);
+      setValue("promoters_or_management", data.promoters_or_management);
+      setValue("faqs", data.faqs);
       setValue("meta_title", data.meta_title);
       setValue("meta_description", data.meta_description);
       setValue("meta_keywords", data.meta_keywords);
       setImage(data.image);
     }
+    reRender(true);
   }, [data, setValue, setImage]);
-
   if (type === "edit" && isLoading) return <Spinner />;
   if (type === "edit" && isError) return error?.message ?? "error";
   const isButtonLoading =
     (type === "create" && createMutation.isLoading) ||
     (type === "edit" && updateMutation.isLoading);
 
+  console.log(errors);
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="w-full">
       <div className="mx-auto flex items-center justify-start">
@@ -113,6 +135,7 @@ export default function ShareForm({
                 deleteFile,
                 register,
                 control,
+                watch,
               }}
             />
           </div>
@@ -141,25 +164,39 @@ export default function ShareForm({
           {/* Fundamentals */}
           <div className="space-y-2">
             <Large>Fundamentals</Large>
-            <Fundamentals {...{ fields, register, errors, remove, append }} />
+            <Fundamentals {...{ register, errors, control }} />
           </div>
 
           {/* financials */}
           <div className="space-y-2">
             <Large>Financials</Large>
-            <DynamicTabsTables {...{ control, register }} />
+            <DynamicTabsTables {...{ control, register, errors }} />
           </div>
 
           {/* shareholding patterns */}
           <div className="space-y-2">
             <Large>Shareholding patterns</Large>
-            <ShareholdingPatterns {...{ control, register }} />
+            <ShareholdingPatterns {...{ control, register, errors }} />
           </div>
 
           {/* peer ratio */}
           <div className="space-y-2">
             <Large>Peer Ratio</Large>
-            <PeerRatio {...{ control, register, watch, setValue }} />
+            <PeerRatio {...{ control, register, watch, setValue, errors }} />
+          </div>
+
+          {/* promoters or management */}
+          <div className="space-y-2">
+            <Large>Promoters or Management</Large>
+            <PromoterOrManagement
+              {...{ control, register, watch, setValue, errors }}
+            />
+          </div>
+
+          {/* faq */}
+          <div className="space-y-2">
+            <Large>FAQs</Large>
+            <FAQs register={register} control={control} />
           </div>
 
           {/* seo */}
@@ -192,7 +229,10 @@ function BasicDetails({
   deleteFile,
   register,
   control,
+  watch,
 }) {
+  const { data: sectors, isLoading, isError, error } = useFetchSectors();
+  const isIpo = watch("is_ipo");
   return (
     <SubSection className="space-y-4 ">
       <div className="grid grid-cols-[repeat(auto-fill,minmax(400px,1fr))] gap-4">
@@ -269,33 +309,146 @@ function BasicDetails({
           )}
         </div>
 
-        {/* Is Featured */}
-        <div className="col-span-full flex items-center space-x-2">
-          <Controller
-            control={control}
-            name="is_featured"
-            render={({ field }) => (
-              <div className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-3">
-                <div>
-                  <Checkbox
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
-                </div>
-                <div className="space-y-1 leading-none">
-                  <Label>Featured</Label>
-                  <Muted>Mark this procedure as featured.</Muted>
-                </div>
-              </div>
-            )}
+        {/* current market price */}
+        <div>
+          <Label>Current Market Price</Label>
+          <Input
+            type="number"
+            {...register("current_market_price", { valueAsNumber: true })}
+            placeholder="Enter Current market price"
           />
+          {errors.current_market_price && (
+            <InputErrorMessage>
+              {errors.current_market_price.message}
+            </InputErrorMessage>
+          )}
+        </div>
+
+        {/* sector */}
+        <div>
+          <Label>Sector</Label>
+          {isLoading ? (
+            <Skeleton className="h-10 w-full rounded-md" />
+          ) : isError ? (
+            <div>{error.message}</div>
+          ) : (
+            <Controller
+              control={control}
+              name="sector_id"
+              render={({ field }) => (
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select Sector" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {sectors.map((sector) => (
+                      <SelectItem value={sector.value} key={sector.value}>
+                        {sector.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
+            />
+          )}
+          {errors.sector_id && (
+            <InputErrorMessage>{errors.sector_id.message}</InputErrorMessage>
+          )}
+        </div>
+
+        {/* ipo */}
+        <div>
+          <Label>IPO</Label>
+          <div>
+            <Controller
+              control={control}
+              name="is_ipo"
+              render={({ field }) => (
+                <Switch
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              )}
+            />
+          </div>
+        </div>
+
+        {/* ipo price */}
+        {isIpo && (
+          <div>
+            <Label>IPO Price</Label>
+            <Input
+              type="number"
+              {...register("ipo_price", {
+                required: "required*",
+                valueAsNumber: true,
+              })}
+              placeholder="Enter IPO Price"
+            />
+            {errors.ipo_price && (
+              <InputErrorMessage>{errors.ipo_price.message}</InputErrorMessage>
+            )}
+          </div>
+        )}
+        <div className="col-span-full grid grid-cols-3 gap-2">
+          {/* Is Featured */}
+          <div>
+            <Controller
+              control={control}
+              name="is_featured"
+              render={({ field }) => (
+                <div className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-3">
+                  <div>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </div>
+                  <div className="space-y-1 leading-none">
+                    <Label>Featured</Label>
+                    <Muted>Mark this share as featured.</Muted>
+                  </div>
+                </div>
+              )}
+            />
+          </div>
+
+          {/* is_drhp_filed */}
+          <div>
+            <Controller
+              control={control}
+              name="is_drhp_filed"
+              render={({ field }) => (
+                <div className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-3">
+                  <div>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </div>
+                  <div className="space-y-1 leading-none">
+                    <Label>DRHP Filed</Label>
+                    <Muted>Mark this share as DRHP Filed.</Muted>
+                  </div>
+                </div>
+              )}
+            />
+          </div>
         </div>
       </div>
     </SubSection>
   );
 }
 
-function Fundamentals({ fields, register, errors, remove, append }) {
+function Fundamentals({ register, errors, control }) {
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "fundamentals",
+  });
+
   return (
     <SubSection className={"space-y-4"}>
       <div className="space-y-2">
@@ -352,36 +505,6 @@ function Fundamentals({ fields, register, errors, remove, append }) {
       >
         <Plus /> Add Field
       </Button>
-    </SubSection>
-  );
-}
-
-function SEO({ register }) {
-  return (
-    <SubSection>
-      {/* Meta Title */}
-      <div>
-        <Label>Meta Title</Label>
-        <Input {...register("meta_title")} placeholder="Enter meta title" />
-      </div>
-
-      {/* Meta Description */}
-      <div>
-        <Label>Meta Description</Label>
-        <Input
-          {...register("meta_description")}
-          placeholder="Enter meta description"
-        />
-      </div>
-
-      {/* Meta Keywords */}
-      <div className="col-span-2">
-        <Label>Meta Keywords</Label>
-        <Textarea
-          {...register("meta_keywords")}
-          placeholder="Enter meta keywords"
-        />
-      </div>
     </SubSection>
   );
 }
@@ -533,9 +656,6 @@ function DynamicTabsTables({ control, register }) {
                             `financials.${tabIndex}.tables.${tableIndex}.table.rows.${rowIndex}.${cellIndex}`,
                             {
                               required: "required*",
-                              validate: (value) => {
-                                console.log({ value });
-                              },
                             },
                           )}
                           placeholder={`Cell ${cellIndex + 1}`}
@@ -643,9 +763,10 @@ function ShareholdingPatterns({ control, register }) {
   );
 }
 
-function PeerRatio({ control, register, watch, setValue }) {
-  const [headers, setHeaders] = useState([]);
-  const [rows, setRows] = useState([]);
+function PeerRatio({ register, watch, setValue }) {
+  const data = watch("peer_ratio");
+  const [headers, setHeaders] = useState(data?.headers ?? []);
+  const [rows, setRows] = useState(data?.rows ?? []);
 
   const addHeader = () => {
     const newHeaders = [...headers, ""];
@@ -685,6 +806,11 @@ function PeerRatio({ control, register, watch, setValue }) {
     setRows(updatedRows);
     setValue("peer_ratio.rows", updatedRows);
   };
+
+  useEffect(() => {
+    setHeaders(data?.headers ?? []);
+    setRows(data?.rows ?? []);
+  }, [data]);
 
   return (
     <SubSection>
@@ -777,6 +903,167 @@ function PeerRatio({ control, register, watch, setValue }) {
           </Button>
         </div>
       )}
+    </SubSection>
+  );
+}
+
+function PromoterOrManagement({ register, errors, control }) {
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "promoters_or_management",
+  });
+
+  return (
+    <SubSection className={"space-y-4"}>
+      <div className="space-y-4">
+        {fields.map((field, index) => (
+          <div
+            className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4 rounded-md border p-4"
+            key={index}
+          >
+            {/* Name */}
+            <div>
+              <Label htmlFor={`promoters_or_management.${index}.name`}>
+                Name
+              </Label>
+              <Input
+                id={`promoters_or_management.${index}.name`}
+                {...register(`promoters_or_management.${index}.name`)}
+                placeholder="Enter name"
+              />
+              {errors?.promoters_or_management?.[index]?.name && (
+                <InputErrorMessage>
+                  {errors.promoters_or_management?.[index]?.name.message}
+                </InputErrorMessage>
+              )}
+            </div>
+
+            {/* Designation */}
+            <div>
+              <Label htmlFor="designation">Designation</Label>
+              <Input
+                id={`promoters_or_management.${index}.designation`}
+                {...register(`promoters_or_management.${index}.designation`)}
+                placeholder="Enter designation"
+              />
+              {errors?.promoters_or_management?.[index]?.designation && (
+                <InputErrorMessage>
+                  {errors.promoters_or_management?.[index]?.designation.message}
+                </InputErrorMessage>
+              )}
+            </div>
+
+            {/* Experience */}
+            <div>
+              <Label htmlFor="experience">Experience</Label>
+              <Input
+                id={`promoters_or_management.${index}.experience`}
+                {...register(`promoters_or_management.${index}.experience`)}
+                placeholder="Enter experience"
+              />
+              {errors?.promoters_or_management?.[index]?.experience && (
+                <InputErrorMessage>
+                  {errors.promoters_or_management?.[index]?.experience.message}
+                </InputErrorMessage>
+              )}
+            </div>
+
+            {/* LinkedIn */}
+            <div>
+              <Label htmlFor="linkedin">LinkedIn Profile</Label>
+              <Input
+                id={`promoters_or_management.${index}.linkedin`}
+                {...register(`promoters_or_management.${index}.linkedin`)}
+                placeholder="Enter LinkedIn profile URL"
+              />
+              {errors?.promoters_or_management?.[index]?.linkedin && (
+                <InputErrorMessage>
+                  {errors.promoters_or_management?.[index]?.linkedin.message}
+                </InputErrorMessage>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+      {/* Add Button */}
+      <Button
+        type="button"
+        onClick={() => append({ key: "", value: "" })}
+        variant="outline"
+        className="h-7"
+      >
+        <Plus /> Add Field
+      </Button>
+    </SubSection>
+  );
+}
+function FAQs({ register, control }) {
+  const { fields, append, remove } = useFieldArray({ control, name: "faqs" });
+  return (
+    <SubSection className={"space-y-2"}>
+      <div className="space-y-2">
+        {fields.map((_, ind) => (
+          <div key={ind} className="flex items-end gap-2">
+            <div className="w-1/3">
+              <Label>Question</Label>
+              <Input
+                {...register(`faqs.${ind}.question`)}
+                placeholder="Enter question"
+              />
+            </div>
+            <div className="w-full">
+              <Label>Answer</Label>
+              <Input
+                {...register(`faqs.${ind}.answer`)}
+                placeholder="Enter answer"
+              />
+            </div>
+            <Button
+              onClick={() => remove(ind)}
+              type="button"
+              variant="destructive"
+              size="icon"
+              className="flex-shrink-0"
+            >
+              <Trash />
+            </Button>
+          </div>
+        ))}
+      </div>
+
+      <Button className="h-6" type="button" onClick={append}>
+        <Plus /> Add
+      </Button>
+    </SubSection>
+  );
+}
+
+function SEO({ register }) {
+  return (
+    <SubSection>
+      {/* Meta Title */}
+      <div>
+        <Label>Meta Title</Label>
+        <Input {...register("meta_title")} placeholder="Enter meta title" />
+      </div>
+
+      {/* Meta Description */}
+      <div>
+        <Label>Meta Description</Label>
+        <Input
+          {...register("meta_description")}
+          placeholder="Enter meta description"
+        />
+      </div>
+
+      {/* Meta Keywords */}
+      <div className="col-span-2">
+        <Label>Meta Keywords</Label>
+        <Textarea
+          {...register("meta_keywords")}
+          placeholder="Enter meta keywords"
+        />
+      </div>
     </SubSection>
   );
 }

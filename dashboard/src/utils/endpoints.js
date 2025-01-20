@@ -23,6 +23,9 @@ export const endpoints = {
   promoters: {
     getAll: "/promoters",
   },
+  blogs: {
+    getAll: "/blogs",
+  },
   shares: {
     getAll: "/shares",
     getOne: "/shares/getById",

@@ -98,27 +98,27 @@ export const sidebarData = [
     ],
   },
   {
-    title: "Promoters / Management",
+    title: "Blogs",
     url: "#",
     icon: FileText,
     roles: [ROLES.ADMIN],
     isVisible: true,
     items: [
       {
-        title: "All",
-        url: "/promoters",
+        title: "All blogs",
+        url: "/blogs",
         roles: [ROLES.ADMIN],
         isVisible: true,
       },
       {
         title: "Create",
-        url: "/promoters/create",
+        url: "/blogs/create",
         roles: [ROLES.ADMIN],
         isVisible: true,
       },
       {
         title: "Edit",
-        url: "/promoters/edit/[id]",
+        url: "/blogs/edit/[id]",
         roles: [ROLES.ADMIN],
         isVisible: false,
       },
