@@ -67,6 +67,7 @@ export function TopSectors() {
     queryKey: ["featured-sectors"],
     queryFn: () => fetchSectors("featured=true"),
   });
+
   const {
     prevBtnDisabled,
     nextBtnDisabled,

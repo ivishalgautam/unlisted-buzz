@@ -86,7 +86,7 @@ export function LoginForm() {
   const handleEmailSubmit = async (e) => {
     e.preventDefault();
     const email = methods.getValues("email");
-    if (methods.trigger("email")) {
+    if (await methods.trigger("email")) {
       otpSendMutation.mutate({ email });
     }
   };
