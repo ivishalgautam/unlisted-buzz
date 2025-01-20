@@ -3,10 +3,8 @@ import Heading from "@/components/heading";
 import PageSection from "@/components/page-section";
 import { fetchShares } from "@/service/share";
 
-export default async function DRHPFiledPage({ params }) {
-  const { id } = await params;
+export default async function DRHPFiledPage() {
   const data = await fetchShares(`drhp=true`);
-  console.log(data);
 
   return (
     <PageSection>
