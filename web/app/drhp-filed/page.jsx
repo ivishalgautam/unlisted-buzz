@@ -5,7 +5,6 @@ import { fetchShares } from "@/service/share";
 
 export default async function DrhpPage() {
   let data;
-
   try {
     data = await fetchShares(`drhp=true`);
   } catch (error) {

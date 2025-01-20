@@ -33,7 +33,7 @@ export const tabs = [
   { label: "Home", link: "/" },
   { label: "DRHP-Filed", link: "/drhp-filed" },
   { label: "About", link: "#" },
-  { label: "Contact Us", link: "#" },
+  { label: "Contact Us", link: "/contact-us" },
 ];
 
 export const logout = () => {

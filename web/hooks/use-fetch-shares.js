@@ -13,5 +13,5 @@ const fetchShares = async () => {
 };
 
 export default function useFetchShares() {
-  return useQuery({ queryKey: ["shares"], queryFn: fetchShares });
+  return useQuery({ queryKey: ["formatted-shares"], queryFn: fetchShares });
 }

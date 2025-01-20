@@ -21,7 +21,6 @@ export const PopularUnlistedShares = (props) => {
     queryFn: () =>
       fetchShares(`time_range=${popularUnlistedShareTimeRange}&is_ipo=false`),
     queryKey: ["shares"],
-    // enabled: !!searchParamStr,
   });
   const slides = popularUnlistedShares.slice(0, 5);
   const [emblaRef, emblaApi] = useEmblaCarousel(

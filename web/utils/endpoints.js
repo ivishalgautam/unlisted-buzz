@@ -28,4 +28,7 @@ export const endpoints = {
   blogs: {
     getAll: "/blogs",
   },
+  queries: {
+    getAll: "/queries",
+  },
 };

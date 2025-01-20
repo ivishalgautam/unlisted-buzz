@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Input } from "../ui/input";
@@ -19,6 +19,8 @@ import { popularUnlistedShares } from "@/data";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
+import useFetchShares from "@/hooks/use-fetch-shares";
+import { Skeleton } from "../ui/skeleton";
 
 const formSchema = z.object({
   transactionType: z.enum(["buy", "sell"], {
@@ -45,7 +47,7 @@ const formSchema = z.object({
 
 export default function EnquiryForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
-
+  const { data, isLoading, isError, error } = useFetchShares();
   const {
     register,
     handleSubmit,
@@ -72,7 +74,7 @@ export default function EnquiryForm() {
       reset();
     }, 2000);
   };
-
+  console.log({ data });
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 mx-auto">
       <div>
@@ -127,21 +129,27 @@ export default function EnquiryForm() {
         >
           Select Share
         </Label>
-        <Select>
-          <SelectTrigger className="">
-            <SelectValue placeholder="Select a share" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>Select a share</SelectLabel>
-              {popularUnlistedShares.map((item) => (
-                <SelectItem value={item.title} key={item.title}>
-                  {item.title}
-                </SelectItem>
-              ))}
-            </SelectGroup>
-          </SelectContent>
-        </Select>
+        {isLoading ? (
+          <Skeleton className={"w-full h-9"} />
+        ) : isError ? (
+          (error?.message ?? error)
+        ) : (
+          <Select>
+            <SelectTrigger className="">
+              <SelectValue placeholder="Select a share" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Select a share</SelectLabel>
+                {data?.map((item) => (
+                  <SelectItem value={item.value} key={item.value}>
+                    {item.label}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        )}
         {errors.share && (
           <p className="mt-1 text-sm text-red-600">{errors.share.message}</p>
         )}

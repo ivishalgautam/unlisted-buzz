@@ -7,6 +7,7 @@ import { useParams, usePathname, useRouter } from "next/navigation";
 import { MainContext } from "@/store/context";
 import { useEffect } from "react";
 import { ALLROUTES } from "@/data";
+import { Skeleton } from "../ui/skeleton";
 
 export default function Layout({ children }) {
   const pathname = usePathname();
@@ -44,10 +45,10 @@ export default function Layout({ children }) {
 
     return (
       <>
-        <Suspense fallback={<div>loading...</div>}>
+        <Suspense fallback={<Skeleton className={"w-full h-[95.8px]"} />}>
           <Navbar />
         </Suspense>
-        {/* <SharesMarquee /> */}
+        <SharesMarquee />
         <div className="min-h-[calc(100vh-135px)]">{children}</div>
         <Suspense fallback={<div>loading...</div>}>
           <Footer />

@@ -23,13 +23,17 @@ import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { fetchShares } from "@/service/share";
 import config from "@/config";
+import Spinner from "./spinner";
 
 export default function TrackPortfolioTable() {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["ipos"],
     queryFn: () => fetchShares("is_ipo=true"),
   });
-  console.log(data);
+
+  if (isLoading) return <Spinner />;
+  if (isError) return error?.mesage ?? "error";
+
   return (
     <PageSection>
       <Container>
@@ -41,7 +45,7 @@ export default function TrackPortfolioTable() {
               para="Set alerts for portfolio changes and stay ahead with timely investment updates."
             />
 
-            <div className="bg-gray-100 rounded-xl p-4 mx-auto">
+            <div className="bg-gray-50 border rounded-xl p-4 mx-auto">
               <Table className="">
                 <TableHeader>
                   <TableRow>

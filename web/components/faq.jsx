@@ -2,11 +2,11 @@
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Plus } from "lucide-react";
-import { faqs } from "@/data";
+import { faqs as faqsStatic } from "@/data";
 import PageSection from "./page-section";
 import { Muted } from "./typography";
 
-function FAQs({ data }) {
+function FAQs({ faqs = [] }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [activeItem, setActiveItem] = useState(faqs[0]);
 
@@ -27,7 +27,7 @@ function FAQs({ data }) {
         </Muted>
       </div>
       <div className="h-fit border  rounded-lg p-2 dark:bg-[#111111] bg-[#F2F2F2]">
-        {faqs.map((tab, index) => (
+        {(faqs?.length ? faqs : faqsStatic).map((tab, index) => (
           <motion.div
             key={index}
             className={`overflow-hidden ${
