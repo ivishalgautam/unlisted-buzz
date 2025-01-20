@@ -5,6 +5,7 @@ import { fetchShares } from "@/service/share";
 
 export default async function DRHPFiledPage() {
   const data = await fetchShares(`drhp=true`);
+  if (!data) return;
 
   return (
     <PageSection>
