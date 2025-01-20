@@ -5,7 +5,6 @@ import axios from "axios";
 
 export async function fetchShares(params) {
   const { data } = await http().get(`${endpoints.shares.getAll}?${params}`);
-
   return data;
 }
 

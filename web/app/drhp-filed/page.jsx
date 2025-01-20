@@ -1,6 +1,7 @@
 import StockCard from "@/components/cards/stock";
 import Heading from "@/components/heading";
 import PageSection from "@/components/page-section";
+import { fetchShares } from "@/service/share";
 import React from "react";
 
 export default async function DrhpPage() {
