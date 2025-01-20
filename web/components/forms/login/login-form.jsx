@@ -65,13 +65,15 @@ export function LoginForm() {
         data
       );
     },
-    onSuccess: () => {
+    onSuccess: ({ data: resp }) => {
       toast({
         title: "Success",
         description: "You have successfully logged in",
       });
-
-      router.push("/dashboard");
+      localStorage.setItem("user", JSON.stringify(resp.user_data));
+      localStorage.setItem("token", resp.token);
+      localStorage.setItem("refreshToken", resp.refresh_token);
+      router.push("/");
     },
     onError: (error) => {
       toast({

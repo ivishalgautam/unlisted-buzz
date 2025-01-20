@@ -11,7 +11,7 @@ import {
 } from "./ui/sheet";
 import NavigationTabs from "./navigation-tabs";
 import { motion } from "framer-motion";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import Logo from "./logo";
 import { buttonVariants } from "./ui/button";
@@ -45,7 +45,7 @@ export const logout = () => {
 };
 
 export default function Navbar() {
-  const { user, isUserLoading } = useContext(MainContext);
+  const { user, isUserLoading, setUser } = useContext(MainContext);
   return (
     <header className="bg-primary-300 py-6 bg-white shadow-sm border-b">
       <div className="container">
@@ -55,7 +55,7 @@ export default function Navbar() {
             <NavigationTabs tabs={tabs} />
           </nav>
           <div className="hidden sm:block">
-            <CTA {...{ user, isUserLoading }} />
+            <CTA {...{ user, isUserLoading, setUser }} />
           </div>
           <div className="block lg:hidden">
             <MobileNav />
@@ -121,7 +121,8 @@ function MobileNav() {
   );
 }
 
-export function CTA({ user, isUserLoading }) {
+export function CTA({ user, setUser, isUserLoading }) {
+  const router = useRouter();
   if (isUserLoading) return;
   return user ? (
     <DropdownMenu>
@@ -139,7 +140,16 @@ export function CTA({ user, isUserLoading }) {
         <DropdownMenuItem>
           <Link href={"/profile"}>Profile</Link>
         </DropdownMenuItem>
-        <DropdownMenuItem>Logout</DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => {
+            localStorage.clear();
+            router.replace("/");
+            setUser(null);
+          }}
+          className="cursor-pointer"
+        >
+          Logout
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   ) : (

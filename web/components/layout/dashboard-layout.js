@@ -26,6 +26,7 @@ export default function DashboardLayout({ children }) {
   const { user, isUserLoading } = useContext(MainContext);
   const [isImgError, setIsImgError] = useState(false);
   const pathname = usePathname();
+  if (!user) return;
   if (isUserLoading) return "Loading...";
 
   return (

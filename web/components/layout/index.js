@@ -5,66 +5,40 @@ const Footer = lazy(() => import("../footer"));
 import SharesMarquee from "../shares-marquee";
 import { useParams, usePathname, useRouter } from "next/navigation";
 import { MainContext } from "@/store/context";
-import { QueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { ALLROUTES } from "@/data";
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: 2,
-      refetchOnWindowFocus: true,
-    },
-  },
-});
 
 export default function Layout({ children }) {
   const pathname = usePathname();
   const router = useRouter();
   const { slug } = useParams();
-  const { user, isUserLoading } = useContext(MainContext);
+  const { user, setUser, isUserLoading } = useContext(MainContext);
 
   useEffect(() => {
-    if (
-      pathname === "/login" ||
-      pathname === "/signup" ||
-      pathname === "/signup/tutor" ||
-      pathname === "/signup/student" ||
-      pathname === "/verify" ||
-      pathname === "/complete-profile/tutor" ||
-      pathname === "/complete-profile/student"
-    ) {
+    if (pathname === "/login" || pathname === "/signup") {
       return;
     }
-    if (isUserLoading) return;
 
+    const storedUser = localStorage.getItem("user");
+    const currentUser = JSON.parse(storedUser);
     // Find the current route in the AllRoutes array
     const currentRoute = ALLROUTES?.find(
       (route) => route.link.replace("[slug]", slug) === pathname
     );
-
     // If the current route is not found in the array or the user's role is not allowed for this route
     if (
-      currentRoute &&
       currentRoute?.roles?.length &&
-      !currentRoute?.roles?.includes(user?.role)
+      !currentRoute?.roles?.includes(currentUser?.role)
     ) {
       localStorage.clear();
-      router.replace("/login");
+      router.replace("/");
+      setUser(null);
     }
-  }, [pathname, user, isUserLoading, slug, router]);
+  }, [pathname, user, setUser, isUserLoading, slug, router]);
 
   const getContent = () => {
     // Array of all the paths that don't need the layout
-    if (
-      [
-        "/login",
-        "/signup",
-        "/signup/tutor",
-        "/signup/student",
-        "/unauthorized",
-      ].includes(pathname)
-    ) {
+    if (["/login", "/signup", "/unauthorized"].includes(pathname)) {
       return children;
     }
 

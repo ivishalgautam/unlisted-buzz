@@ -3,6 +3,7 @@ import { useEffect, createContext, useState } from "react";
 import http from "@/utils/http";
 import { endpoints } from "@/utils/endpoints";
 import { usePathname } from "next/navigation";
+import Spinner from "@/components/spinner";
 // import Spinner from "@/components/spinner";
 
 export const MainContext = createContext(null);
@@ -25,7 +26,6 @@ export default function Context({ children }) {
 
     fetchData();
   }, [pathname]);
-
   return (
     <MainContext.Provider
       value={{
@@ -34,8 +34,7 @@ export default function Context({ children }) {
         isUserLoading,
       }}
     >
-      {children}
-      {/* {!user || isUserLoading ? <Spinner /> : children} */}
+      {isUserLoading ? <Spinner /> : children}
     </MainContext.Provider>
   );
 }
