@@ -11,7 +11,7 @@ export default function ContactUsPage() {
         title="Contact Us"
         para="Got questions about unlisted shares? Reach out to us anytime for quick assistance with buying, selling, or inquiries. We're here to help!"
       />
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid md:grid-cols-2 gap-4">
         <div className="flex items-center justify-center p-8">
           <figure>
             <Image
