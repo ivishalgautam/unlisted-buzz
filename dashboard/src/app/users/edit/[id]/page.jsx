@@ -9,7 +9,7 @@ import { useMutation } from "@tanstack/react-query";
 import React from "react";
 import { toast } from "sonner";
 
-export default function Page({ params: { id, role } }) {
+export default function Page({ params: { id } }) {
   const updateMutation = useMutation({
     mutationFn: (data) => updateUser(data, id),
     onSuccess: () => {},
