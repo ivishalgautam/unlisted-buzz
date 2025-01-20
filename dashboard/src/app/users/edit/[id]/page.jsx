@@ -1,6 +1,7 @@
 "use client";
 import DoctorCreateForm from "@/components/forms/doctor";
 import PatientCreateForm from "@/components/forms/patient";
+import UserForm from "@/components/forms/user";
 import PageContainer from "@/components/layout/page-container";
 import { Heading } from "@/components/ui/heading";
 import { updateUser } from "@/server/users";
@@ -17,20 +18,8 @@ export default function Page({ params: { id, role } }) {
 
   return (
     <PageContainer>
-      <Heading
-        title={`Edit ${role === "doctor" ? "Doctor" : role === "patient" ? "Patient" : ""}`}
-      />
-      {role === "doctor" ? (
-        <DoctorCreateForm id={id} type="edit" updateMutation={updateMutation} />
-      ) : role === "patient" ? (
-        <PatientCreateForm
-          id={id}
-          type="edit"
-          updateMutation={updateMutation}
-        />
-      ) : (
-        ""
-      )}
+      <Heading title={`Edit`} />
+      <UserForm id={id} type="edit" updateMutation={updateMutation} />
     </PageContainer>
   );
 }

@@ -7,18 +7,6 @@ import { Button } from "../ui/button";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
-
-import PhoneInputWithCountrySelect, {
-  parsePhoneNumber,
-} from "react-phone-number-input";
-import "react-phone-number-input/style.css";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createUser } from "@/server/user";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
@@ -65,13 +53,13 @@ export default function UserForm({
   });
   const { handleFileChange, deleteFile, image, setImage } = useFileHandler();
   const onSubmit = (data) => {
-    const { countryCallingCode, nationalNumber } = parsePhoneNumber(
-      data.mobile_number,
-    );
+    // const { countryCallingCode, nationalNumber } = parsePhoneNumber(
+    //   data.mobile_number,
+    // );
     const payload = {
       ...data,
-      country_code: countryCallingCode,
-      mobile_number: nationalNumber,
+      // country_code: countryCallingCode,
+      // mobile_number: nationalNumber,
     };
     // return;
     if (type === "create") {
@@ -87,10 +75,8 @@ export default function UserForm({
       setValue("avatar", data.avatar);
       setImage(data.avatar);
       setValue("fullname", data.fullname);
-      setValue("gender", data.gender);
       setValue("dob", data.dob);
-      setValue("username", data.username);
-      setValue("mobile_number", `+${data.country_code}${data.mobile_number}`);
+      // setValue("mobile_number", `+${data.country_code}${data.mobile_number}`);
       setValue("email", data.email);
     }
   }, [data, setValue, setImage]);
@@ -178,33 +164,6 @@ export default function UserForm({
             )}
           </div>
 
-          {/* Gender */}
-          <div>
-            <Label>Gender</Label>
-            <Controller
-              control={control}
-              name="gender"
-              render={({ field }) => (
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <SelectTrigger className="">
-                    <SelectValue placeholder="Gender" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="male">Male</SelectItem>
-                    <SelectItem value="female">Female</SelectItem>
-                    <SelectItem value="other">Other</SelectItem>
-                  </SelectContent>
-                </Select>
-              )}
-            />
-            {errors.gender && (
-              <span className="text-red-500">{errors.gender.message}</span>
-            )}
-          </div>
-
           {/* Date of Birth */}
           <div>
             <Label>Date of Birth</Label>
@@ -251,57 +210,8 @@ export default function UserForm({
             )}
           </div>
 
-          {/* Username */}
-          <div>
-            <Label>Username</Label>
-            <Input
-              {...register("username")}
-              placeholder="Enter Username"
-              className=""
-            />
-            {errors.username && (
-              <span className="text-red-500">{errors.username.message}</span>
-            )}
-          </div>
-
-          {/* Password */}
-          {type === "create" && (
-            <div>
-              <Label>Password</Label>
-              <Input
-                {...register("password")}
-                type="password"
-                placeholder="Enter Password"
-                className=""
-                autoComplete="off"
-              />
-              {errors.password && (
-                <span className="text-red-500">{errors.password.message}</span>
-              )}
-            </div>
-          )}
-
-          {/* confirm Password */}
-          {type === "create" && (
-            <div>
-              <Label>Password</Label>
-              <Input
-                {...register("confirm_password")}
-                type="password"
-                placeholder="Enter Confirm Password"
-                className=""
-                autoComplete="off"
-              />
-              {errors.confirm_password && (
-                <span className="text-red-500">
-                  {errors.confirm_password.message}
-                </span>
-              )}
-            </div>
-          )}
-
           {/* Mobile Number */}
-          <div>
+          {/* <div>
             <Label>Mobile Number</Label>
             <Controller
               control={control}
@@ -320,7 +230,7 @@ export default function UserForm({
                 {errors.mobile_number.message}
               </span>
             )}
-          </div>
+          </div> */}
 
           {/* email */}
           <div>
