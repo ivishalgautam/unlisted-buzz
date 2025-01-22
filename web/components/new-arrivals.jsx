@@ -40,9 +40,9 @@ export default function NewArrivalsStocks() {
                     <StockCardCompact key={i} share={share} />
                   ))}
           </div>
-          <div className="text-center">
+          {/* <div className="text-center">
             <Button>View more</Button>
-          </div>
+          </div> */}
         </div>
       </Container>
     </PageSection>

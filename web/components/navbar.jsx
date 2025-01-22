@@ -31,6 +31,7 @@ import { nameShorter } from "@/lib/name-shorter";
 
 export const tabs = [
   { label: "Home", link: "/" },
+  { label: "All Unlisted Shares", link: "/all-unlisted-shares" },
   { label: "DRHP-Filed", link: "/drhp-filed" },
   { label: "About", link: "#" },
   { label: "Contact Us", link: "/contact-us" },

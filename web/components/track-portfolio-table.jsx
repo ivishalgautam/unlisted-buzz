@@ -4,7 +4,7 @@ import PageSection from "./page-section";
 import Image from "next/image";
 import Heading from "./heading";
 import { Muted, Small } from "./typography";
-import { Button } from "./ui/button";
+import { Button, buttonVariants } from "./ui/button";
 import {
   Table,
   TableBody,
@@ -123,7 +123,15 @@ export default function TrackPortfolioTable() {
               </Table>
             </div>
             <div className="text-center">
-              <Button className="px-10 py-6">Sign up</Button>
+              <Link
+                href={"signup"}
+                className={cn(
+                  "px-10 py-6",
+                  buttonVariants({ variant: "default" })
+                )}
+              >
+                Sign up
+              </Link>
             </div>
           </div>
         </div>
