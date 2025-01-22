@@ -7,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CirclePlus } from "lucide-react";
 
 export default function ShareHoldingPatterns({ data }) {
-  const [activeYear, setActiveYear] = useState(data[0].year);
+  const [activeYear, setActiveYear] = useState(data?.[0]?.year);
 
   return (
     <div className="container py-10">

@@ -14,9 +14,10 @@ export function ShareAbout({ companyName, about }) {
         <CardDescription>Company overview and key information</CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="space-y-4">
-          <div dangerouslySetInnerHTML={{ __html: about }}></div>
-        </div>
+        <div
+          dangerouslySetInnerHTML={{ __html: about }}
+          className="prose !min-w-full"
+        ></div>
       </CardContent>
     </Card>
   );

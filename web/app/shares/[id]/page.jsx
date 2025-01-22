@@ -68,10 +68,11 @@ export default async function UnlistedSharePage({ params: { id } }) {
         </Card>
 
         <BuySell ticker={name} currentPrice={share?.price ?? 0} />
+      </div>
 
-        <ShareAbout companyName={name} about={share?.about ?? ""} />
-
-        <Card className="md:col-span-2">
+      <ShareAbout companyName={name} about={share?.about ?? ""} />
+      {share?.fundamentals?.length > 0 && (
+        <Card className="">
           <CardHeader>
             <CardTitle>Fundamentals</CardTitle>
             <CardDescription>
@@ -84,33 +85,43 @@ export default async function UnlistedSharePage({ params: { id } }) {
             />
           </CardContent>
         </Card>
-      </div>
+      )}
 
-      <div>
-        <H3 className={"text-center"}>Financials</H3>
-        <FinancialDataDisplay data={share?.financials ?? []} />
-      </div>
+      {share?.financials?.length > 0 && (
+        <div>
+          <H3 className={"text-center"}>Financials</H3>
+          <FinancialDataDisplay data={share?.financials ?? []} />
+        </div>
+      )}
 
-      <div>
-        <H3 className={"text-center"}>Shareholding Patterns</H3>
-        <ShareHoldingPatterns data={share?.shareholding_patterns ?? []} />
-      </div>
+      {share?.shareholding_patterns?.length > 0 && (
+        <div>
+          <H3 className={"text-center"}>Shareholding Patterns</H3>
+          <ShareHoldingPatterns data={share?.shareholding_patterns ?? []} />
+        </div>
+      )}
 
-      <div>
-        <H3 className={"text-center"}>Peer ratio</H3>
-        <PeerRatioTable data={share?.peer_ratio ?? {}} />
-      </div>
+      {share?.peer_ratio?.length > 0 && (
+        <div>
+          <H3 className={"text-center"}>Peer ratio</H3>
+          <PeerRatioTable data={share?.peer_ratio ?? {}} />
+        </div>
+      )}
 
-      <div>
-        <H3 className={"text-center"}>Promoters or Management</H3>
-        <PromoterOrManagementTable
-          data={share?.promoters_or_management ?? {}}
-        />
-      </div>
+      {share?.promoters_or_management?.length > 0 && (
+        <div>
+          <H3 className={"text-center"}>Promoters or Management</H3>
+          <PromoterOrManagementTable
+            data={share?.promoters_or_management ?? {}}
+          />
+        </div>
+      )}
 
-      <div>
-        <FAQs data={share?.faqs ?? []} />
-      </div>
+      {share?.faqs?.length > 0 && (
+        <div>
+          <FAQs data={share?.faqs ?? []} />
+        </div>
+      )}
     </div>
   );
 }
