@@ -13,13 +13,8 @@ const nextConfig = {
         port: "",
       },
       {
-        protocol: "http",
-        hostname: "46.28.44.24",
-        port: "",
-      },
-      {
         protocol: "https",
-        hostname: "api.drdiptismilesuite.com",
+        hostname: "api.unlistedbuzz.com",
         port: "",
       },
     ],
