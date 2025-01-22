@@ -60,7 +60,7 @@ export default function BlogForm({
       image: data.image,
       categories: data?.categories?.map(({ value }) => value),
       title: data.title,
-      slug: data.slug,
+      slug: data.slug ?? data.title,
       short_description: data.short_description,
       content: text,
       is_active: data.is_active,
@@ -86,12 +86,13 @@ export default function BlogForm({
 
         data && setValue("title", data?.title);
         data && setValue("short_description", data?.short_description);
+        data && setValue("image", data?.image);
         data && setText(data?.content);
-        data && setImage([data?.image]);
+        data && setImage(data?.image);
         data && setValue("meta_title", data.meta_title);
         data && setValue("meta_description", data.meta_description);
         data && setValue("meta_keywords", data.meta_keywords);
-        data && setValue("slug", data.slug);
+        // data && setValue("slug", data.slug);
         data && setValue("is_active", data.is_active);
         data && data?.faq && setValue("faq", data.faq);
         // data?.faq?.map(({ question, answer }) => {
