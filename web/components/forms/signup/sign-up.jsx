@@ -71,7 +71,7 @@ export default function SignupForm() {
     getValues,
     formState: { errors },
   } = methods;
-
+  console.log({ errors });
   const onSubmit = (data) => {
     createMutation.mutate(data);
     // Here you would typically send the data to your backend

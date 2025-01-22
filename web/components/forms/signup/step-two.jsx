@@ -52,7 +52,19 @@ export default function StepTwo({
   const email = useWatch({ name: "email" });
   const email_otp = useWatch({ name: "email_otp" });
 
-  const handleSendOtp = async () => {};
+  const handleSendOtp = async () => {
+    if (await trigger(["email"])) {
+      try {
+        const { data } = await axios.post(
+          `${config.api_base}${endpoints.auth.otp}`,
+          { email, otp: email_otp }
+        );
+        setIsOTPSent((prev) => ({ ...prev, email: true }));
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
 
   return (
     <div className="space-y-4">
