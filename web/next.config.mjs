@@ -12,6 +12,11 @@ const nextConfig = {
         hostname: "localhost",
         port: "3001",
       },
+      {
+        protocol: "https",
+        hostname: "api.unlistedbuzz.com",
+        port: "",
+      },
     ],
   },
 };

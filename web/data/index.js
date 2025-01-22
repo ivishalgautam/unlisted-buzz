@@ -374,6 +374,7 @@ export const ALLROUTES = [
     link: "/search/[subCatSlug]",
     roles: [],
   },
+  { link: "/contact-us", roles: [] },
   { link: "/profile", roles: [ROLES.USER] },
   { link: "/portfolio", roles: [ROLES.USER] },
   { link: "/transactions", roles: [ROLES.USER] },
