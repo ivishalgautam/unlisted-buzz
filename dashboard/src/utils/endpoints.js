@@ -17,6 +17,10 @@ export const endpoints = {
     getAll: "/sectors",
     getOne: "/sectors/getById",
   },
+  comments: {
+    getAll: "/comments",
+    getOne: "/comments/getById",
+  },
   events: {
     getAll: "/events",
   },

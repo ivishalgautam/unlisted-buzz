@@ -3,6 +3,7 @@ import {
   HandCoins,
   LayoutDashboard,
   ListChecks,
+  MessageSquareText,
   User,
   Users,
 } from "lucide-react";
@@ -148,6 +149,21 @@ export const sidebarData = [
         url: "/shares/edit/[id]",
         roles: [ROLES.ADMIN],
         isVisible: false,
+      },
+    ],
+  },
+  {
+    title: "Comments",
+    url: "#",
+    icon: MessageSquareText,
+    roles: [ROLES.ADMIN],
+    isVisible: true,
+    items: [
+      {
+        title: "All comments",
+        url: "/comments",
+        roles: [ROLES.ADMIN],
+        isVisible: true,
       },
     ],
   },

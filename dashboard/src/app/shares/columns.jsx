@@ -89,6 +89,24 @@ export const columns = (openModal, setId) => [
     },
   },
   {
+    accessorKey: "sector_name",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          SECTOR NAME
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const name = row.getValue("sector_name");
+      return <span className="capitalize">{name}</span>;
+    },
+  },
+  {
     accessorKey: "created_at",
     header: ({ column }) => {
       return <Button variant="ghost">DATE</Button>;

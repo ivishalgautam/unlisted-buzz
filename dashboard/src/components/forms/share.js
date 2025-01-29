@@ -4,7 +4,13 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Checkbox } from "../ui/checkbox";
 
-import { Controller, useFieldArray, useForm } from "react-hook-form";
+import {
+  Controller,
+  FormProvider,
+  useFieldArray,
+  useForm,
+  useFormContext,
+} from "react-hook-form";
 import { useQuery } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Spinner from "../Spinner";
@@ -30,6 +36,7 @@ import {
 import useFetchSectors from "@/hooks/use-fetch-sectors";
 import { Skeleton } from "../ui/skeleton";
 import { Switch } from "../ui/switch";
+import { financials } from "@/data";
 
 export default function ShareForm({
   type = "create",
@@ -37,20 +44,13 @@ export default function ShareForm({
   updateMutation,
   createMutation,
 }) {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setValue,
-    control,
-    watch,
-  } = useForm({
+  const form = useForm({
     resolver: zodResolver(shareSchema),
     defaultValues: {
       is_ipo: false,
       fundamentals: [],
-      faqs: [],
       financials: [],
+      faqs: [],
       shareholding_patterns: [],
       peer_ratio: {
         headers: [],
@@ -58,6 +58,15 @@ export default function ShareForm({
       },
     },
   });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+    control,
+    watch,
+  } = form;
 
   const [, reRender] = useState(false);
   const [text, setText] = useState("");
@@ -110,6 +119,7 @@ export default function ShareForm({
     }
     reRender(true);
   }, [data, setValue, setImage]);
+
   if (type === "edit" && isLoading) return <Spinner />;
   if (type === "edit" && isError) return error?.message ?? "error";
   const isButtonLoading =
@@ -118,104 +128,106 @@ export default function ShareForm({
 
   console.log(errors);
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="w-full">
-      <div className="mx-auto flex items-center justify-start">
-        <div className="w-full space-y-8">
-          {/* basic details */}
-          <div className="space-y-2">
-            <Large>Basic</Large>
-            <BasicDetails
-              {...{
-                handleFileChange,
-                setValue,
-                type,
-                updateMutation,
-                errors,
-                image,
-                deleteFile,
-                register,
-                control,
-                watch,
-              }}
-            />
-          </div>
-
-          {/* about */}
-          <div className="space-y-2">
-            <Large>About</Large>
-            <SubSection>
-              <Controller
-                control={control}
-                name="about"
-                render={({ field }) => (
-                  <Editor
-                    focus={editorRef.current}
-                    readOnly={type === "view"}
-                    name="blog"
-                    value={text}
-                    onTextChange={(e) => debouncedSetText(e.htmlValue)}
-                    style={{ height: "320px" }}
-                  />
-                )}
+    <FormProvider {...form}>
+      <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+        <div className="mx-auto flex items-center justify-start">
+          <div className="w-full space-y-8">
+            {/* basic details */}
+            <div className="space-y-2">
+              <Large>Basic</Large>
+              <BasicDetails
+                {...{
+                  handleFileChange,
+                  setValue,
+                  type,
+                  updateMutation,
+                  errors,
+                  image,
+                  deleteFile,
+                  register,
+                  control,
+                  watch,
+                }}
               />
-            </SubSection>
-          </div>
+            </div>
 
-          {/* Fundamentals */}
-          <div className="space-y-2">
-            <Large>Fundamentals</Large>
-            <Fundamentals {...{ register, errors, control }} />
-          </div>
+            {/* about */}
+            <div className="space-y-2">
+              <Large>About</Large>
+              <SubSection>
+                <Controller
+                  control={control}
+                  name="about"
+                  render={({ field }) => (
+                    <Editor
+                      focus={editorRef.current}
+                      readOnly={type === "view"}
+                      name="blog"
+                      value={text}
+                      onTextChange={(e) => debouncedSetText(e.htmlValue)}
+                      style={{ height: "320px" }}
+                    />
+                  )}
+                />
+              </SubSection>
+            </div>
 
-          {/* financials */}
-          <div className="space-y-2">
-            <Large>Financials</Large>
-            <DynamicTabsTables {...{ control, register, errors }} />
-          </div>
+            {/* Fundamentals */}
+            <div className="space-y-2">
+              <Large>Fundamentals</Large>
+              <Fundamentals {...{ register, errors, control }} />
+            </div>
 
-          {/* shareholding patterns */}
-          <div className="space-y-2">
-            <Large>Shareholding patterns</Large>
-            <ShareholdingPatterns {...{ control, register, errors }} />
-          </div>
+            {/* financials */}
+            <div className="space-y-2">
+              <Large>Financials</Large>
+              <DynamicTabsTables {...{ control, register, errors }} />
+            </div>
 
-          {/* peer ratio */}
-          <div className="space-y-2">
-            <Large>Peer Ratio</Large>
-            <PeerRatio {...{ control, register, watch, setValue, errors }} />
-          </div>
+            {/* shareholding patterns */}
+            <div className="space-y-2">
+              <Large>Shareholding patterns</Large>
+              <ShareholdingPatterns {...{ control, register, errors }} />
+            </div>
 
-          {/* promoters or management */}
-          <div className="space-y-2">
-            <Large>Promoters or Management</Large>
-            <PromoterOrManagement
-              {...{ control, register, watch, setValue, errors }}
-            />
-          </div>
+            {/* peer ratio */}
+            <div className="space-y-2">
+              <Large>Peer Ratio</Large>
+              <PeerRatio {...{ control, register, watch, setValue, errors }} />
+            </div>
 
-          {/* faq */}
-          <div className="space-y-2">
-            <Large>FAQs</Large>
-            <FAQs register={register} control={control} />
-          </div>
+            {/* promoters or management */}
+            <div className="space-y-2">
+              <Large>Promoters or Management</Large>
+              <PromoterOrManagement
+                {...{ control, register, watch, setValue, errors }}
+              />
+            </div>
 
-          {/* seo */}
-          <div className="space-y-2">
-            <Large>Seo</Large>
-            <SEO register={register} />
-          </div>
+            {/* faq */}
+            <div className="space-y-2">
+              <Large>FAQs</Large>
+              <FAQs register={register} control={control} />
+            </div>
 
-          <div className="!mt-6 text-end">
-            <Button className="" disabled={isButtonLoading}>
-              Submit
-              {isButtonLoading && (
-                <span className="size-4 animate-spin rounded-full border-2 border-white/30 border-t-white"></span>
-              )}
-            </Button>
+            {/* seo */}
+            <div className="space-y-2">
+              <Large>Seo</Large>
+              <SEO register={register} />
+            </div>
+
+            <div className="!mt-6 text-end">
+              <Button className="" disabled={isButtonLoading}>
+                Submit
+                {isButtonLoading && (
+                  <span className="size-4 animate-spin rounded-full border-2 border-white/30 border-t-white"></span>
+                )}
+              </Button>
+            </div>
           </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </FormProvider>
   );
 }
 
@@ -443,12 +455,18 @@ function BasicDetails({
   );
 }
 
-function Fundamentals({ register, errors, control }) {
+function Fundamentals({}) {
+  const {
+    register,
+    formState: { errors },
+    control,
+    watch,
+  } = useFormContext();
   const { fields, append, remove } = useFieldArray({
     control,
     name: "fundamentals",
   });
-
+  console.log({ fields });
   return (
     <SubSection className={"space-y-4"}>
       <div className="space-y-2">
