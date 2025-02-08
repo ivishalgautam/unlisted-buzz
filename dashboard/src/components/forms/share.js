@@ -37,6 +37,8 @@ import useFetchSectors from "@/hooks/use-fetch-sectors";
 import { Skeleton } from "../ui/skeleton";
 import { Switch } from "../ui/switch";
 import { financials } from "@/data";
+import http from "@/utils/http";
+import { endpoints } from "@/utils/endpoints";
 
 export default function ShareForm({
   type = "create",
@@ -80,7 +82,6 @@ export default function ShareForm({
   });
 
   const onSubmit = async (data) => {
-    console.log({ data });
     const payload = { ...data, about: text };
     if (type === "edit") {
       updateMutation.mutate(payload);
@@ -90,9 +91,9 @@ export default function ShareForm({
     }
   };
   const { handleFileChange, deleteFile, image, setImage } = useFileHandler();
+
   useEffect(() => {
     if (data) {
-      console.log({ data });
       setValue("name", data.name);
       setValue("image", data.image);
       setValue("price", data.price);
@@ -120,13 +121,30 @@ export default function ShareForm({
     reRender(true);
   }, [data, setValue, setImage]);
 
+  const handleCsvFileChange = async (event) => {
+    const formData = new FormData();
+    formData.append("file", event.target.files[0]);
+    try {
+      const { data } = await http().post(
+        endpoints.shares.getFormattedShareDetails,
+        formData,
+        true,
+      );
+
+      for (const [key, value] of Object.entries(data)) {
+        setValue(key, value);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   if (type === "edit" && isLoading) return <Spinner />;
   if (type === "edit" && isError) return error?.message ?? "error";
   const isButtonLoading =
     (type === "create" && createMutation.isLoading) ||
     (type === "edit" && updateMutation.isLoading);
 
-  console.log(errors);
   return (
     <FormProvider {...form}>
       <form onSubmit={handleSubmit(onSubmit)} className="w-full">
@@ -138,15 +156,10 @@ export default function ShareForm({
               <BasicDetails
                 {...{
                   handleFileChange,
-                  setValue,
-                  type,
-                  updateMutation,
-                  errors,
-                  image,
                   deleteFile,
-                  register,
-                  control,
-                  watch,
+                  updateMutation,
+                  type,
+                  image,
                 }}
               />
             </div>
@@ -172,42 +185,46 @@ export default function ShareForm({
               </SubSection>
             </div>
 
+            {/* add csv */}
+            <div className="space-y-2">
+              <Large>Add CSV File</Large>
+              <Input type="file" onChange={handleCsvFileChange} />
+            </div>
+
             {/* Fundamentals */}
             <div className="space-y-2">
               <Large>Fundamentals</Large>
-              <Fundamentals {...{ register, errors, control }} />
+              <Fundamentals />
             </div>
 
             {/* financials */}
             <div className="space-y-2">
               <Large>Financials</Large>
-              <DynamicTabsTables {...{ control, register, errors }} />
+              <DynamicTabsTables />
             </div>
 
             {/* shareholding patterns */}
             <div className="space-y-2">
               <Large>Shareholding patterns</Large>
-              <ShareholdingPatterns {...{ control, register, errors }} />
+              <ShareholdingPatterns />
             </div>
 
             {/* peer ratio */}
             <div className="space-y-2">
               <Large>Peer Ratio</Large>
-              <PeerRatio {...{ control, register, watch, setValue, errors }} />
+              <PeerRatio />
             </div>
 
             {/* promoters or management */}
             <div className="space-y-2">
               <Large>Promoters or Management</Large>
-              <PromoterOrManagement
-                {...{ control, register, watch, setValue, errors }}
-              />
+              <PromoterOrManagement />
             </div>
 
             {/* faq */}
             <div className="space-y-2">
               <Large>FAQs</Large>
-              <FAQs register={register} control={control} />
+              <FAQs />
             </div>
 
             {/* seo */}
@@ -233,18 +250,22 @@ export default function ShareForm({
 
 function BasicDetails({
   handleFileChange,
-  setValue,
-  type,
-  updateMutation,
-  errors,
-  image,
   deleteFile,
-  register,
-  control,
-  watch,
+  updateMutation,
+  type,
+  image,
 }) {
+  const {
+    setValue,
+    formState: { errors },
+    register,
+    control,
+    watch,
+  } = useFormContext();
   const { data: sectors, isLoading, isError, error } = useFetchSectors();
   const isIpo = watch("is_ipo");
+  console.log(watch("sector_id"));
+
   return (
     <SubSection className="space-y-4 ">
       <div className="grid grid-cols-[repeat(auto-fill,minmax(400px,1fr))] gap-4">
@@ -455,7 +476,7 @@ function BasicDetails({
   );
 }
 
-function Fundamentals({}) {
+function Fundamentals() {
   const {
     register,
     formState: { errors },
@@ -466,7 +487,6 @@ function Fundamentals({}) {
     control,
     name: "fundamentals",
   });
-  console.log({ fields });
   return (
     <SubSection className={"space-y-4"}>
       <div className="space-y-2">
@@ -527,8 +547,13 @@ function Fundamentals({}) {
   );
 }
 
-function DynamicTabsTables({ control, register }) {
+function DynamicTabsTables() {
   const [reRender, setReRender] = useState(false);
+  const {
+    register,
+    formState: { errors },
+    control,
+  } = useFormContext();
 
   const { fields: tabs, append: appendTab } = useFieldArray({
     control,
@@ -695,15 +720,20 @@ function DynamicTabsTables({ control, register }) {
           ))}
         </div>
       ))}
-      <Button type="button" onClick={addTab} className="h-6 bg-blue-500">
+      <Button type="button" variant="outline" onClick={addTab} className="h-6">
         <Plus /> Add Tab
       </Button>
     </SubSection>
   );
 }
 
-function ShareholdingPatterns({ control, register }) {
+function ShareholdingPatterns() {
   const [reRender, setReRender] = useState(false);
+  const {
+    control,
+    register,
+    formState: { errors },
+  } = useFormContext();
   const { fields: patterns, append } = useFieldArray({
     control,
     name: "shareholding_patterns",
@@ -774,14 +804,26 @@ function ShareholdingPatterns({ control, register }) {
           </div>
         </div>
       ))}
-      <Button type="button" onClick={appendYear} className="h-7">
+      <Button
+        type="button"
+        onClick={appendYear}
+        className="h-6"
+        variant="outline"
+      >
         <Plus /> Add year
       </Button>
     </SubSection>
   );
 }
 
-function PeerRatio({ register, watch, setValue }) {
+function PeerRatio() {
+  const {
+    control,
+    register,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useFormContext();
   const data = watch("peer_ratio");
   const [headers, setHeaders] = useState(data?.headers ?? []);
   const [rows, setRows] = useState(data?.rows ?? []);
@@ -863,7 +905,12 @@ function PeerRatio({ register, watch, setValue }) {
               </div>
             ))}
         </div>
-        <Button type="button" onClick={addHeader} className="mt-4 h-6">
+        <Button
+          type="button"
+          onClick={addHeader}
+          className="mt-4 h-6"
+          variant="outline"
+        >
           <Plus /> Add Header
         </Button>
       </div>
@@ -916,7 +963,12 @@ function PeerRatio({ register, watch, setValue }) {
                 </div>
               ))}
           </div>
-          <Button type="button" onClick={addRow} className="mt-4 h-6">
+          <Button
+            type="button"
+            onClick={addRow}
+            className="mt-4 h-6"
+            variant="outline"
+          >
             <Plus /> Add Row
           </Button>
         </div>
@@ -925,7 +977,14 @@ function PeerRatio({ register, watch, setValue }) {
   );
 }
 
-function PromoterOrManagement({ register, errors, control }) {
+function PromoterOrManagement() {
+  const {
+    control,
+    register,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useFormContext();
   const { fields, append, remove } = useFieldArray({
     control,
     name: "promoters_or_management",
@@ -1015,7 +1074,8 @@ function PromoterOrManagement({ register, errors, control }) {
     </SubSection>
   );
 }
-function FAQs({ register, control }) {
+function FAQs() {
+  const { register, control } = useFormContext();
   const { fields, append, remove } = useFieldArray({ control, name: "faqs" });
   return (
     <SubSection className={"space-y-2"}>
@@ -1049,14 +1109,16 @@ function FAQs({ register, control }) {
         ))}
       </div>
 
-      <Button className="h-6" type="button" onClick={append}>
+      <Button variant="outline" className="h-6" type="button" onClick={append}>
         <Plus /> Add
       </Button>
     </SubSection>
   );
 }
 
-function SEO({ register }) {
+function SEO() {
+  const { register } = useFormContext();
+
   return (
     <SubSection>
       {/* Meta Title */}

@@ -1,44 +1,40 @@
 import axios from "axios";
 import { getHeader } from "./header";
 import { endpoints } from "./endpoints";
+import config from "@/config";
 
-const API_ROOT = process.env.NEXT_PUBLIC_API_URL; // Root API URL from environment variables
-const TIMEOUT = 20000; // 20 seconds timeout for requests
+// Default API will be your root
+const API_ROOT = config.api_base;
+const TIMEOUT = 20000;
 
 const http = (headerType = "json", baseURL = API_ROOT) => {
-  const headers = getHeader(headerType); // Get dynamic headers based on type
+  const headers = getHeader(headerType);
 
   const client = axios.create({
     baseURL,
     headers,
-    timeout: TIMEOUT,
   });
-
-  // Intercept response object to handle success and error globally
+  // Intercept response object and handleSuccess and Error Object
   client.interceptors.response.use(handleSuccess, handleError);
 
   function handleSuccess(response) {
     return response;
   }
 
+  /** Intercept any unauthorized request.
+   * status 401 means either accessToken is expired or invalid
+   * dispatch logout action accordingly **/
   function handleError(error) {
-    const originalRequest = error.config;
-
-    // Handle unauthorized error (401)
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    if (error.response?.status === 401) {
+      // Access token is expired or invalid, refresh the token
       const refreshToken =
         typeof window !== "undefined" && localStorage.getItem("refreshToken");
 
       if (!refreshToken) {
-        // If refresh token is missing, log out the user
-        localStorage.clear();
+        // Refresh token is missing, logout the user
         window.location.href = "/";
-        return Promise.reject(error.response?.data);
+        return Promise.reject(error.response.data);
       }
-
-      // Prevent infinite retries
-      originalRequest._retry = true;
-
       // Refresh access token
       return axios
         .post(`${API_ROOT}${endpoints.auth.refresh}`, {
@@ -47,64 +43,77 @@ const http = (headerType = "json", baseURL = API_ROOT) => {
         .then((response) => {
           const { token } = response.data;
 
-          // Update the new token in localStorage and client headers
-          localStorage.setItem("token", token);
+          // Update the access token in the headers
           client.defaults.headers["Authorization"] = `Bearer ${token}`;
+          localStorage.setItem("token", token);
+          // setCookie("accessToken", token, 1);
 
-          // Retry the original request with the new token
-          originalRequest.headers["Authorization"] = `Bearer ${token}`;
-          return client(originalRequest);
+          // Retry the original request with the new access token
+          error.config.headers["Authorization"] = `Bearer ${token}`;
+
+          return client(error.config);
         })
         .catch((refreshError) => {
-          console.error("Error refreshing token:", refreshError);
-
-          // Log out if refresh fails
           if (refreshError.response?.status === 401) {
+            // Refresh token is expired or invalid, logout the user
             localStorage.clear();
             window.location.href = "/";
+          } else {
+            // Unable to refresh the token
+            console.log("Error refreshing token:", refreshError);
           }
           return Promise.reject(refreshError);
         });
     }
 
-    // Handle forbidden access (403)
     if (error.response?.status === 403) {
-      console.warn("Forbidden access:", error.response?.data?.message);
-      window.location.href = "/403"; // Redirect to a forbidden page if needed
+      // Handle forbidden access cases
+      // console.log("Forbidden access:", error.response.data?.message);
+      // typeof logout === "function" && logout();
     }
 
-    // Handle other errors
-    if (error.response?.status && error.response?.status !== 500) {
+    if (error.response?.status !== 500) {
       return Promise.reject(error.response?.data);
+    } else {
+      return Promise.reject(error);
     }
-
-    // Handle server errors (500)
-    return Promise.reject(error);
   }
 
-  // Define reusable HTTP methods
   function get(path) {
     return client.get(path).then((response) => response.data);
   }
 
   function post(path, payload, isFormData = false) {
-    const config = isFormData
-      ? { headers: { "Content-Type": "multipart/form-data" } }
-      : {};
-    return client.post(path, payload, config).then((response) => response.data);
+    let config = {};
+    if (isFormData) {
+      config.headers = { "Content-Type": "multipart/form-data" };
+    }
+    return client.post(path, payload, config).then((response) => {
+      return response.data;
+    });
   }
 
-  function put(path, payload) {
+  function put(path, payload, isFormData = false) {
+    let config = {};
+    if (isFormData) {
+      config.headers = { "Content-Type": "multipart/form-data" };
+    }
     return client.put(path, payload).then((response) => response.data);
   }
 
   function patch(path, payload) {
-    return client.patch(path, payload).then((response) => response.data);
+    return client
+      .patch(path, payload, config)
+      .then((response) => response.data);
   }
 
   function _delete(path, data) {
-    const config = data ? { data } : {};
-    return client.delete(path, config).then((response) => response?.data);
+    if (data) {
+      return client
+        .delete(path, { data: data })
+        .then((response) => response?.data);
+    }
+    return client.delete(path).then((response) => response.data);
   }
 
   return {

@@ -33,5 +33,6 @@ export const endpoints = {
   shares: {
     getAll: "/shares",
     getOne: "/shares/getById",
+    getFormattedShareDetails: "/shares/get-formatted-share-details",
   },
 };
