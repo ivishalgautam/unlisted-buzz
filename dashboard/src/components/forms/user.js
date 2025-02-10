@@ -25,7 +25,7 @@ export default function UserForm({
   id,
   type = "create",
   updateMutation,
-  role = "doctor",
+  role = "user",
 }) {
   const {
     control,
@@ -37,6 +37,8 @@ export default function UserForm({
     resolver: zodResolver(type === "create" ? userSchema : userUpdateSchema),
     defaultValues: { role },
   });
+
+  console.log({ errors });
   const { data, isLoading, isError, error } = useQuery({
     queryFn: () => fetchUser(id),
     queryKey: [id],
@@ -58,6 +60,7 @@ export default function UserForm({
     // );
     const payload = {
       ...data,
+      role,
       // country_code: countryCallingCode,
       // mobile_number: nationalNumber,
     };

@@ -23,7 +23,14 @@ export default function Page() {
 
   return (
     <PageContainer>
-      {<UserForm id={user.id} type={"edit"} updateMutation={updateMutation} />}
+      {
+        <UserForm
+          id={user.id}
+          type={"edit"}
+          updateMutation={updateMutation}
+          role="admin"
+        />
+      }
     </PageContainer>
   );
 }
