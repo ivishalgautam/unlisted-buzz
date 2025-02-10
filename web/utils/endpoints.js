@@ -31,4 +31,7 @@ export const endpoints = {
   queries: {
     getAll: "/queries",
   },
+  enquiries: {
+    getAll: "/enquiries",
+  },
 };

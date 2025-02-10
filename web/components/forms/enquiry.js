@@ -21,6 +21,10 @@ import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 import useFetchShares from "@/hooks/use-fetch-shares";
 import { Skeleton } from "../ui/skeleton";
+import { useMutation } from "@tanstack/react-query";
+import http from "@/utils/http";
+import { endpoints } from "@/utils/endpoints";
+import { toast } from "@/hooks/use-toast";
 
 const formSchema = z.object({
   transaction_type: z.enum(["buy", "sell"], {
@@ -66,16 +70,29 @@ export default function EnquiryForm() {
     },
   });
   const transaction_type = watch("transaction_type");
-  const onSubmit = (data) => {
-    setIsSubmitting(true);
-    // Simulate API call
-    setTimeout(() => {
-      console.log(data);
-      setIsSubmitting(false);
+
+  const createMutation = useMutation({
+    mutationFn: async (data) => {
+      return await http().post(endpoints.enquiries.getAll, data);
+    },
+    onSuccess: () => {
+      toast({ title: "Sucess", description: "Enquiry sent successfully." });
       reset();
-    }, 2000);
+    },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description:
+          error?.response?.data?.message ?? error?.message ?? "Error",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const onSubmit = (data) => {
+    createMutation.mutate(data);
   };
-  console.log({ data });
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 mx-auto">
       <div>
@@ -190,11 +207,13 @@ export default function EnquiryForm() {
         <Input
           type="number"
           id="price"
-          {...register("price", { valueAsNumber: true })}
+          {...register("price_per_share", { valueAsNumber: true })}
           placeholder="Enter price"
         />
-        {errors.price && (
-          <p className="mt-1 text-sm text-red-600">{errors.price.message}</p>
+        {errors.price_per_share && (
+          <p className="mt-1 text-sm text-red-600">
+            {errors.price_per_share.message}
+          </p>
         )}
       </div>
 
