@@ -32,6 +32,8 @@ const http = (headerType = "json", baseURL = API_ROOT) => {
 
       if (!refreshToken) {
         // Refresh token is missing, logout the user
+        localStorage.clear();
+        // window.location.href = "/";
         return Promise.reject(error.response.data);
       }
       // Refresh access token
@@ -45,7 +47,6 @@ const http = (headerType = "json", baseURL = API_ROOT) => {
           // Update the access token in the headers
           client.defaults.headers["Authorization"] = `Bearer ${token}`;
           localStorage.setItem("token", token);
-          // setCookie("accessToken", token, 1);
 
           // Retry the original request with the new access token
           error.config.headers["Authorization"] = `Bearer ${token}`;
@@ -56,10 +57,10 @@ const http = (headerType = "json", baseURL = API_ROOT) => {
           if (refreshError.response?.status === 401) {
             // Refresh token is expired or invalid, logout the user
             localStorage.clear();
-            window.location.href = "/login";
+            window.location.href = "/";
           } else {
             // Unable to refresh the token
-            // console.log("Error refreshing token:", refreshError);
+            console.log("Error refreshing token:", refreshError);
           }
           return Promise.reject(refreshError);
         });
@@ -69,10 +70,9 @@ const http = (headerType = "json", baseURL = API_ROOT) => {
       // Handle forbidden access cases
       // console.log("Forbidden access:", error.response.data?.message);
       // typeof logout === "function" && logout();
-      localStorage.clear();
-      window.location.href = "/login";
     }
-    if (error.status !== 500) {
+
+    if (error.response?.status !== 500) {
       return Promise.reject(error.response?.data);
     } else {
       return Promise.reject(error);
@@ -83,8 +83,12 @@ const http = (headerType = "json", baseURL = API_ROOT) => {
     return client.get(path).then((response) => response.data);
   }
 
-  function post(path, payload) {
-    return client.post(path, payload).then((response) => {
+  function post(path, payload, isFormData = false) {
+    let config = {};
+    if (isFormData) {
+      config.headers = { "Content-Type": "multipart/form-data" };
+    }
+    return client.post(path, payload, config).then((response) => {
       return response.data;
     });
   }
