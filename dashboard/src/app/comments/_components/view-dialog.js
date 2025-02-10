@@ -14,10 +14,12 @@ import { useQuery } from "@tanstack/react-query";
 
 export function ViewDialog({ isOpen, setIsOpen, id }) {
   const { data, isLoading, isError, error } = useQuery({
-    queryFn: fetchComment(id),
+    queryFn: () => fetchComment(id),
     queryKey: [`comment-${id}`],
     enabled: !!id && !!isOpen,
   });
+
+  console.log({ data });
 
   if (isError) return error?.message ?? "Error fetching comment!";
   return (

@@ -30,7 +30,7 @@ export default function Listing() {
   }
 
   const { data, isLoading, isFetching, isError, error } = useQuery({
-    queryFn: () => fetchComments(searchParamStr),
+    queryFn: () => fetchComments(searchParamStr ?? ""),
     queryKey: ["comments", searchParamStr],
     enabled: !!searchParamStr,
   });

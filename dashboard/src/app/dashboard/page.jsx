@@ -45,6 +45,8 @@ export default function Home() {
     enabled: !!(user?.role === "admin"),
   });
 
+  return;
+
   return (
     <PageContainer className={"space-y-4 bg-white"}>
       <Heading title={"Dashboard"} description={"Dashboard reports"} />

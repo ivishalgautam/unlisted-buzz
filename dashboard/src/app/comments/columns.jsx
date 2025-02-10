@@ -18,10 +18,6 @@ export const columns = (openModal, setId) => [
   {
     accessorKey: "comment",
     header: "COMMENT",
-    cell: (row) => {
-      const image = row.getValue("image");
-      return <TableImage src={image} />;
-    },
   },
   {
     accessorKey: "share_name",
@@ -57,7 +53,6 @@ export const columns = (openModal, setId) => [
     enableHiding: false,
     cell: ({ row }) => {
       const id = row.original.id;
-
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -68,7 +63,12 @@ export const columns = (openModal, setId) => [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem onClick={() => openModal("view")}>
+            <DropdownMenuItem
+              onClick={() => {
+                setId(id);
+                openModal("view");
+              }}
+            >
               View
             </DropdownMenuItem>
             <DropdownMenuSeparator />

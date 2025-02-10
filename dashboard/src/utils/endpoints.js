@@ -19,7 +19,7 @@ export const endpoints = {
   },
   comments: {
     getAll: "/comments",
-    getOne: "/comments/getById",
+    getOne: "/comments",
   },
   events: {
     getAll: "/events",
