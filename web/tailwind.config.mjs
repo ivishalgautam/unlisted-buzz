@@ -67,8 +67,8 @@ const config = {
         urbanist: "var(--font-urbanist)",
       },
       animation: {
-        marquee: "marquee 80s linear infinite",
-        marquee2: "marquee2 80s linear infinite",
+        marquee: "marquee 300s linear infinite",
+        marquee2: "marquee2 300s linear infinite",
         "caret-blink": "caret-blink 1.25s ease-out infinite",
       },
       keyframes: {
