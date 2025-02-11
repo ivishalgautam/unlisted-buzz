@@ -158,7 +158,7 @@ export function CTA({ user, setUser, isUserLoading }) {
       <Link href={"/login"} className={buttonVariants({ variant: "outline" })}>
         Log in
       </Link>
-      <Link href={"signup"} className={buttonVariants({})}>
+      <Link href={"/signup"} className={buttonVariants({})}>
         Sign up
       </Link>
     </div>
