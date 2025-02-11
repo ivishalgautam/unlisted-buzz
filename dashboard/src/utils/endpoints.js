@@ -30,6 +30,12 @@ export const endpoints = {
   blogs: {
     getAll: "/blogs",
   },
+  enquiries: {
+    getAll: "/enquiries",
+  },
+  queries: {
+    getAll: "/queries",
+  },
   shares: {
     getAll: "/shares",
     getOne: "/shares/getById",

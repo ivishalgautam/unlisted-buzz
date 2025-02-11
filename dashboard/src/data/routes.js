@@ -168,6 +168,36 @@ export const sidebarData = [
     ],
   },
   {
+    title: "Enquiries",
+    url: "#",
+    icon: MessageSquareText,
+    roles: [ROLES.ADMIN],
+    isVisible: true,
+    items: [
+      {
+        title: "All Enquiries",
+        url: "/enquiries",
+        roles: [ROLES.ADMIN],
+        isVisible: true,
+      },
+    ],
+  },
+  {
+    title: "Queries",
+    url: "#",
+    icon: MessageSquareText,
+    roles: [ROLES.ADMIN],
+    isVisible: true,
+    items: [
+      {
+        title: "All Queries",
+        url: "/queries",
+        roles: [ROLES.ADMIN],
+        isVisible: true,
+      },
+    ],
+  },
+  {
     title: "Profile Overview",
     url: "/profile",
     icon: User,

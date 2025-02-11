@@ -18,37 +18,6 @@ export async function fetchPatients(params) {
   return data;
 }
 
-export async function fetchClinicPatients(clinicId, params) {
-  const { data } = await http().get(
-    `${endpoints.clinics.patientsByClinicId}/${clinicId}?${params}`,
-  );
-  return data;
-}
-
-export async function fetchStaff(params) {
-  const { data } = await http().get(`${endpoints.users.staff}?${params}`);
-  return data;
-}
-
-export async function fetchClinicStaff(clinicId, params) {
-  const { data } = await http().get(
-    `${endpoints.users.clinicStaff}/getByClinicId/${clinicId}?${params}`,
-  );
-  return data;
-}
-
-export async function searchPatients(params) {
-  const { data } = await http().get(`${endpoints.patients.getAll}?q=${params}`);
-  return data?.patients?.map((item) => ({
-    value: item.patient_id,
-    label: `${item.fullname} (@${item.username})`,
-  }));
-}
-
-export async function deleteTreatment(id) {
-  return await http().delete(`${endpoints.treatments.getAll}/${id}`);
-}
-
 export async function deleteUser(id) {
   return http().delete(`${endpoints.users.getAll}/${id}`);
 }
@@ -61,9 +30,4 @@ export async function updateUserStatus(customerId, status) {
   return await http().put(`${endpoints.users.getAll}/status/${customerId}`, {
     is_active: status,
   });
-}
-
-export async function fetchTutor(tutorId) {
-  const { record } = await http().get(`${endpoints.users.getAll}/${tutorId}`);
-  return record;
 }

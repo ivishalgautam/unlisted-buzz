@@ -43,10 +43,10 @@ export const columns = (handleUserStatus, setUserId, openModal) => [
       );
     },
   },
-  {
-    accessorKey: "mobile_number",
-    header: "PHONE",
-  },
+  // {
+  //   accessorKey: "mobile_number",
+  //   header: "PHONE",
+  // },
   {
     accessorKey: "email",
     header: "EMAIL",

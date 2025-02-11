@@ -5,7 +5,6 @@ import { publicRoutes, sidebarData } from "@/data/routes";
 import { MainContext } from "@/store/context";
 import { SidebarProvider, SidebarTrigger } from "../ui/sidebar";
 import { AppSidebar } from "../app-sidebar";
-import ClinicContextProvider from "@/store/clinic-context";
 import { ScrollArea } from "../ui/scroll-area";
 
 const parentRoutes = sidebarData.map((item) => ({
@@ -58,17 +57,15 @@ export default function Layout({ children }) {
     }
 
     return (
-      <ClinicContextProvider>
-        <SidebarProvider>
-          <AppSidebar />
-          <main className="w-full bg-gray-100">
-            <SidebarTrigger />
-            <ScrollArea className="h-[calc(100vh-30px)]">
-              <div className="px-6 pb-2">{children}</div>
-            </ScrollArea>
-          </main>
-        </SidebarProvider>
-      </ClinicContextProvider>
+      <SidebarProvider>
+        <AppSidebar />
+        <main className="w-full bg-gray-100">
+          <SidebarTrigger />
+          <ScrollArea className="h-[calc(100vh-30px)]">
+            <div className="px-6 pb-2">{children}</div>
+          </ScrollArea>
+        </main>
+      </SidebarProvider>
     );
   };
 

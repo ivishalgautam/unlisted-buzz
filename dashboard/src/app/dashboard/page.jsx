@@ -5,107 +5,49 @@ import { endpoints } from "@/utils/endpoints";
 import http from "@/utils/http";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
-import { CalendarDays, IndianRupee, User } from "lucide-react";
-import { useContext } from "react";
-import { MainContext } from "@/store/context";
-import { ClinicContext } from "@/store/clinic-context";
-import { rupee } from "@/lib/Intl";
+import Spinner from "@/components/Spinner";
+import { ChartBar } from "phosphor-react";
 
-const getReports = async (clinicId) => {
-  const { data } = await http().get(`${endpoints.reports.getAll}/${clinicId}`);
-  return data ?? {};
-};
-
-const getAdminReports = async () => {
+const getReports = async () => {
   const { data } = await http().get(`${endpoints.reports.getAll}`);
   return data ?? {};
 };
 
 export default function Home() {
-  const { clinic } = useContext(ClinicContext);
-  const { user } = useContext(MainContext);
-  const {
-    data: doctorReport = {},
-    isLoading: isDoctorReportLoading,
-    isError: isDoctorReportError,
-    error: doctorReportError,
-  } = useQuery({
-    queryKey: ["reports", clinic?.id],
-    queryFn: () => getReports(clinic.id),
-    enabled: !!clinic.id,
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["reports"],
+    queryFn: getReports,
   });
-  const {
-    data: adminReport = {},
-    isLoading: isAdminReportLoading,
-    isError: isAdminReportError,
-    error: adminReportError,
-  } = useQuery({
-    queryKey: ["admin-reports"],
-    queryFn: getAdminReports,
-    enabled: !!(user?.role === "admin"),
-  });
+  console.log({ data });
 
-  return;
+  if (isLoading) return <Spinner />;
 
   return (
     <PageContainer className={"space-y-4 bg-white"}>
       <Heading title={"Dashboard"} description={"Dashboard reports"} />
-      {user?.role === "doctor" && (
-        <Reports
-          {...{
-            data: doctorReport,
-            isError: isDoctorReportError,
-            isLoading: isDoctorReportLoading,
-            error: doctorReportError,
-          }}
-        />
-      )}
-      {user?.role === "admin" && (
-        <Reports
-          {...{
-            data: adminReport,
-            isError: isAdminReportError,
-            isLoading: isAdminReportLoading,
-            error: adminReportError,
-          }}
-        />
-      )}
+      <Reports
+        {...{
+          data,
+          isError,
+          isLoading,
+          error,
+        }}
+      />
     </PageContainer>
   );
 }
 
 function Reports({ data, isError, isLoading, error }) {
-  const { user, isUserLoading } = useContext(MainContext);
-
-  if (isLoading || isUserLoading) return <Skelotons />;
   if (isError) return error?.message ?? "Error fetching reports";
 
   return (
     <GridContainer>
+      <Card count={data?.total_shares} title={"Total Shares"} icon={ChartBar} />
+      <Card count={data?.total_ipos} title={"Total IPOs"} icon={ChartBar} />
       <Card
-        count={data?.today_appointments}
-        title={"Today Appointments"}
-        icon={CalendarDays}
-      />
-      <Card
-        count={data?.today_patients}
-        title={"New Patients Today"}
-        icon={User}
-      />
-      <Card
-        count={data?.today_visited_patients}
-        title={"Patients Visited Today"}
-        icon={User}
-      />
-      <Card
-        count={rupee.format(data?.today_collection)}
-        title={"Today's Collection"}
-        icon={IndianRupee}
-      />
-      <Card
-        count={rupee.format(data?.total_collection)}
-        title={"Total Collection"}
-        icon={IndianRupee}
+        count={data?.total_sectors}
+        title={"Total Sectors"}
+        icon={ChartBar}
       />
     </GridContainer>
   );

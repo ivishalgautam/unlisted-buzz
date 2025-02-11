@@ -33,11 +33,7 @@ export default function LoginForm() {
       localStorage.setItem("user", JSON.stringify(response.user_data));
       localStorage.setItem("token", response.token);
       localStorage.setItem("refreshToken", response.refresh_token);
-      if (response.user_data.role === "staff") {
-        router.push("/clinic-patients");
-      } else {
-        router.push("/dashboard");
-      }
+      router.push("/dashboard");
       toast.success("Logged in.");
       return response.data;
     } catch (error) {

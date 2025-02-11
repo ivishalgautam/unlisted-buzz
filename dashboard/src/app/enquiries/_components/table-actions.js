@@ -1,19 +1,19 @@
 "use client";
 import { DataTableSearch } from "@/components/ui/table/data-table-search";
-import { useUserTableFilters } from "./use-user-table-filters";
+import { useTableFilters } from "./use-table-filters";
 import { DataTableResetFilter } from "@/components/ui/table/data-table-reset-filter";
 import { DataTableFilterBox } from "@/components/ui/table/data-table-filter-box";
 
-export default function UserTableActions() {
+export default function TableActions() {
   const {
+    isAnyFilterActive,
     resetFilters,
     searchQuery,
     setPage,
-    roleFilter,
-    setRoleFilter,
     setSearchQuery,
-    isAnyFilterActive,
-  } = useUserTableFilters();
+    type,
+    setType,
+  } = useTableFilters();
 
   return (
     <div className="my-3 flex flex-wrap items-center gap-4">
@@ -23,6 +23,16 @@ export default function UserTableActions() {
         setSearchQuery={setSearchQuery}
         setPage={setPage}
       />
+      {/* <DataTableFilterBox
+        title={"Type"}
+        filterKey={"type"}
+        options={[
+          { label: "IPO", value: "ipo" },
+          { label: "Share", value: "share" },
+        ]}
+        setFilterValue={setType}
+        filterValue={type}
+      /> */}
       <DataTableResetFilter
         isFilterActive={isAnyFilterActive}
         onReset={resetFilters}
