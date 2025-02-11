@@ -9,10 +9,10 @@ export const metadata = {
   description: "All Unlisted Shares",
 };
 
-export default async function AllUnlistedSharesPage() {
+export default async function AllUnlistedSharesPage({ searchParams: { q } }) {
   let data;
   try {
-    data = await fetchShares("");
+    data = await fetchShares(q ? `q=${encodeURIComponent(q)}` : "");
   } catch (error) {
     console.error("Error fetching shares:", error);
     data = null;

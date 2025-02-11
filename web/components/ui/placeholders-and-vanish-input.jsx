@@ -3,13 +3,16 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 export function PlaceholdersAndVanishInput({
   placeholders,
   onChange,
   onSubmit,
 }) {
+  const [value, setValue] = useState("");
   const [currentPlaceholder, setCurrentPlaceholder] = useState(0);
+  const router = useRouter();
 
   const intervalRef = useRef(null);
   const startAnimation = () => {
@@ -41,7 +44,6 @@ export function PlaceholdersAndVanishInput({
   const canvasRef = useRef(null);
   const newDataRef = useRef([]);
   const inputRef = useRef(null);
-  const [value, setValue] = useState("");
   const [animating, setAnimating] = useState(false);
 
   const draw = useCallback(() => {
@@ -163,6 +165,8 @@ export function PlaceholdersAndVanishInput({
       );
       animate(maxX);
     }
+
+    router.push(`all-unlisted-shares?q=${value}`);
   };
 
   const handleSubmit = (e) => {

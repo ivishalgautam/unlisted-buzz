@@ -73,7 +73,12 @@ export default function Listing() {
       setIsDeleteOpen(false);
     },
     onError: (error) => {
-      toast.error(error.response?.data?.message ?? error?.message ?? "error");
+      toast({
+        title: "Error",
+        description:
+          error?.response?.data?.message ?? error?.message ?? "error",
+        variant: "destructive",
+      });
     },
   });
 

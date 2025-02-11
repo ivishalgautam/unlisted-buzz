@@ -1,4 +1,4 @@
-import React from "react";
+"use client";
 import Balancer from "react-wrap-balancer";
 import { Muted } from "./typography";
 import { PlaceholdersAndVanishInput } from "./ui/placeholders-and-vanish-input";

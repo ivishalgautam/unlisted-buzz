@@ -18,8 +18,10 @@ import ShareHoldingPatterns from "./_component/shareholding-patterns";
 import PeerRatioTable from "./_component/peer-ratio";
 import PromoterOrManagementTable from "./_component/promoter-or-management";
 import FAQs from "./_component/faq";
+import CommentSection from "./_component/comments";
 
-export async function generateMetadata({ params: { id } }) {
+export async function generateMetadata({ params }) {
+  const { id } = await params;
   const share = await fetchShare(id);
   return {
     title:
@@ -40,10 +42,10 @@ export async function generateMetadata({ params: { id } }) {
   };
 }
 
-export default async function UnlistedSharePage({ params: { id } }) {
+export default async function UnlistedSharePage({ params }) {
+  const { id } = await params;
   const name = id.split("-").join(" ");
   const share = await fetchShare(id);
-  console.log(share);
   return (
     <div className="container mx-auto p-4 py-10 space-y-10">
       <div className="flex flex-col md:flex-row gap-2 items-center">
@@ -122,6 +124,8 @@ export default async function UnlistedSharePage({ params: { id } }) {
           <FAQs data={share?.faqs ?? []} />
         </div>
       )}
+
+      <CommentSection data={share?.faqs ?? []} shareId={share.id} />
     </div>
   );
 }

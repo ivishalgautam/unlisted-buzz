@@ -14,7 +14,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowRight, CirclePlus } from "lucide-react";
 
 export default function FinancialDataDisplay({ data }) {
-  console.log({ data });
   const [activeTab, setActiveTab] = useState(data?.[0]?.tab);
 
   return (

@@ -34,4 +34,7 @@ export const endpoints = {
   enquiries: {
     getAll: "/enquiries",
   },
+  comments: {
+    getAll: "/comments",
+  },
 };
