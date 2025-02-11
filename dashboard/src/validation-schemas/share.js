@@ -19,13 +19,11 @@ export const shareSchema = z.object({
   name: z
     .string({ required_error: "Share name is required." })
     .min(1, { message: "Share name is required." }),
-  price: z
-    .number({ required_error: "Share price is required." })
-    .min(1, { message: "Share price is required." }),
+  price: z.number({ required_error: "Share price is required." }).optional(),
   ipo_price: z.any().optional(),
   current_market_price: z
     .number({ required_error: "Share current market price is required." })
-    .min(1, { message: "Share current market price is required." }),
+    .optional(),
   sector_id: z.string({ required_error: "Sector is required." }).uuid(),
   is_ipo: z.boolean().optional(),
   is_featured: z.boolean().optional(),

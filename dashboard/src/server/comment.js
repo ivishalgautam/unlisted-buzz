@@ -1,11 +1,6 @@
 import { endpoints } from "@/utils/endpoints";
 import http from "@/utils/http";
 
-export async function createComment(data) {
-  const resp = await http().post(`${endpoints.comments.getAll}`, data);
-  return resp.data;
-}
-
 export async function updateComment(id, data) {
   const resp = await http().put(`${endpoints.comments.getAll}/${id}`, data);
   return resp.data;

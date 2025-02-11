@@ -1,5 +1,5 @@
 import { searchParams } from "@/lib/searchparams";
-import { useQueryState } from "nuqs";
+import { parseAsString, useQueryState } from "nuqs";
 import { useCallback, useMemo } from "react";
 
 export function useTableFilters() {
@@ -17,7 +17,7 @@ export function useTableFilters() {
 
   const [isReviewed, setIsReviewed] = useQueryState(
     "is_reviewed",
-    searchParams.page.withDefault(""),
+    parseAsString.withDefault(""),
   );
 
   const resetFilters = useCallback(() => {

@@ -28,7 +28,7 @@ export default function TableActions() {
         options={[
           { value: "1", label: "Reviewed" },
           { value: "0", label: "Not Reviewed" },
-          { value: "0", label: "All" },
+          { value: "all", label: "All" },
         ]}
         title={"Reviewed"}
         setFilterValue={setIsReviewed}
