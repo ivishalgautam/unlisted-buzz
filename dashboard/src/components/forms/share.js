@@ -54,11 +54,11 @@ export default function ShareForm({
     resolver: zodResolver(shareSchema),
     defaultValues: {
       is_ipo: false,
-      peer_ratio: peer_ratio,
-      fundamentals: fundamentals,
-      financials: financials,
-      shareholding_patterns: shareholding_patterns,
-      promoters_or_management: promoters_or_management,
+      // peer_ratio: peer_ratio,
+      // fundamentals: fundamentals,
+      // financials: financials,
+      // shareholding_patterns: shareholding_patterns,
+      // promoters_or_management: promoters_or_management,
       faqs: [],
     },
   });
