@@ -54,10 +54,6 @@ export default function ShareForm({
     resolver: zodResolver(shareSchema),
     defaultValues: {
       is_ipo: false,
-      fundamentals: [],
-      financials: [],
-      shareholding_patterns: [],
-      promoters_or_management: [],
       faqs: [],
     },
   });
@@ -92,7 +88,7 @@ export default function ShareForm({
     }
   };
   const { handleFileChange, deleteFile, image, setImage } = useFileHandler();
-
+  console.log({ errors });
   useEffect(() => {
     if (data) {
       setValue("name", data.name);

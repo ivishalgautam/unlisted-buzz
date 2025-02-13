@@ -3,20 +3,16 @@ export const shareholding_patterns = [
     year: "2021",
     data: [
       {
-        heading: "Vivek Verma",
-        progress: 56.7,
+        heading: "Mr. Milind S. Thakker",
+        progress: 41.69,
       },
       {
-        heading: "Prateek Verma",
-        progress: 26.52,
+        heading: "Sonmil Industries Pvt. Ltd.",
+        progress: 34.43,
       },
       {
-        heading: "Klondike Investments Ltd.",
-        progress: 12.5,
-      },
-      {
-        heading: "Others",
-        progress: 4.28,
+        heading: "Importex International Pvt. Ltd.",
+        progress: 9.33,
       },
     ],
   },
@@ -24,20 +20,20 @@ export const shareholding_patterns = [
     year: "2022",
     data: [
       {
-        heading: "Vivek Verma",
-        progress: 56.7,
+        heading: "Mr. Milind S. Thakker",
+        progress: 41.69,
       },
       {
-        heading: "Prateek Verma",
-        progress: 26.52,
+        heading: "Sonmil Engineering Pvt. Ltd.",
+        progress: 34.43,
       },
       {
-        heading: "Klondike Investment Ltd.",
-        progress: 12.5,
+        heading: "Importex International Pvt. Ltd.",
+        progress: 9.33,
       },
       {
         heading: "Others",
-        progress: 4.28,
+        progress: 14.55,
       },
     ],
   },
@@ -45,24 +41,20 @@ export const shareholding_patterns = [
     year: "2023",
     data: [
       {
-        heading: "Vivek Verma",
-        progress: 51.2,
+        heading: "Mr. Milind S. Thakker",
+        progress: 41.69,
       },
       {
-        heading: "Prateek Verma",
-        progress: 23.6,
+        heading: "Sonmil Engineering Pvt Ltd.",
+        progress: 34.43,
       },
       {
-        heading: "Klondike Investment Ltd.",
-        progress: 11.2,
-      },
-      {
-        heading: "Mukul Mahavir Agarwal",
-        progress: 3.2,
+        heading: "Importax International Pvt. Ltd.",
+        progress: 9.33,
       },
       {
         heading: "Others",
-        progress: 10.0,
+        progress: 14.55,
       },
     ],
   },
@@ -70,20 +62,24 @@ export const shareholding_patterns = [
     year: "2024",
     data: [
       {
-        heading: "Mr. Vivek Verma",
-        progress: 53.99,
+        heading: "Mr. Milind S. Thakker",
+        progress: 45.02,
       },
       {
-        heading: "Mr. Prateek Verma",
-        progress: 26.31,
+        heading: "Anjana M Thakker",
+        progress: 6.71,
       },
       {
-        heading: "Klondike Investments Ltd",
-        progress: 12.5,
+        heading: "Sonmil Engineering Private Limited",
+        progress: 34.43,
+      },
+      {
+        heading: "Importex International Private Limited",
+        progress: 9.33,
       },
       {
         heading: "Others",
-        progress: 7.2,
+        progress: 4.51,
       },
     ],
   },

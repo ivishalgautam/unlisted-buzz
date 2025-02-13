@@ -1,20 +1,14 @@
 export const promoters_or_management = [
   {
-    name: "Vivek Verma",
-    designation: "MD",
+    name: "Milind S Thakkar",
+    designation: "Chairman",
     experience: "30+",
-    linkedin: "https://www.linkedin.com/in/vivek-verma-794943a",
+    linkedin: "",
   },
   {
-    name: "Prateek Verma",
-    designation: "Director",
-    experience: "20+",
-    linkedin: "https://www.linkedin.com/in/prateek-verma-1a9b79182",
-  },
-  {
-    name: "Manoj Gupta",
-    designation: "CFO",
-    experience: "15+",
-    linkedin: "https://www.linkedin.com/in/manoj-kumar-26885164/",
+    name: "Ramanathan Narayanan",
+    designation: "MD & CEO",
+    experience: "40+",
+    linkedin: "",
   },
 ];
