@@ -54,11 +54,11 @@ export default function ShareForm({
     resolver: zodResolver(shareSchema),
     defaultValues: {
       is_ipo: false,
-      // peer_ratio: peer_ratio,
-      // fundamentals: fundamentals,
-      // financials: financials,
-      // shareholding_patterns: shareholding_patterns,
-      // promoters_or_management: promoters_or_management,
+      peer_ratio: peer_ratio,
+      fundamentals: fundamentals,
+      financials: financials,
+      shareholding_patterns: shareholding_patterns,
+      promoters_or_management: promoters_or_management,
       faqs: [],
     },
   });
@@ -109,11 +109,11 @@ export default function ShareForm({
       }
       setValue("is_ipo", data.is_ipo);
       setValue("ipo_price", data.ipo_price);
-      setValue("fundamentals", data.fundamentals);
-      setValue("financials", data.financials);
-      setValue("shareholding_patterns", data.shareholding_patterns);
-      setValue("peer_ratio", data.peer_ratio);
-      setValue("promoters_or_management", data.promoters_or_management);
+      // setValue("fundamentals", data.fundamentals);
+      // setValue("financials", data.financials);
+      // setValue("shareholding_patterns", data.shareholding_patterns);
+      // setValue("peer_ratio", data.peer_ratio);
+      // setValue("promoters_or_management", data.promoters_or_management);
       setValue("faqs", data.faqs);
       setValue("meta_title", data.meta_title);
       setValue("meta_description", data.meta_description);
@@ -995,9 +995,18 @@ function PromoterOrManagement() {
       <div className="space-y-4">
         {fields.map((field, index) => (
           <div
-            className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4 rounded-md border p-4"
+            className="relative grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4 rounded-md border p-4"
             key={index}
           >
+            <Button
+              type="button"
+              variant="destructive"
+              className="absolute -right-2 -top-2"
+              size="icon"
+              onClick={() => remove(index)}
+            >
+              <Trash />
+            </Button>
             {/* Name */}
             <div>
               <Label htmlFor={`promoters_or_management.${index}.name`}>

@@ -1,63 +1,63 @@
-export const fundamentals = [
+export const hicksThermometersFinancials = [
   {
     key: "Price Per Equity Share",
-    value: "₹ 575",
+    value: "₹ 1800",
   },
   {
     key: "Lot Size",
-    value: "50 Shares",
+    value: "25 Shares",
   },
   {
     key: "52 Week High",
-    value: "₹ 575",
+    value: "₹ 1800",
   },
   {
     key: "52 Week Low",
-    value: "₹ 475",
+    value: "₹ 1800",
   },
   {
     key: "Depository",
-    value: "NSDL & CDSL",
+    value: "CDSL ONLY",
   },
   {
     key: "PAN Number",
-    value: "AAACP1916F",
+    value: "AAACH9203R",
   },
   {
     key: "ISIN Number",
-    value: "INE185A01011",
+    value: "INE923s01017",
   },
   {
     key: "CIN",
-    value: "U15419TN1954PLC001987",
+    value: "U33112UP1961PLC002846",
   },
   {
     key: "RTA",
-    value: "Cameo Corporate Services",
+    value: "Skyline Financial Services",
   },
   {
     key: "Market Cap (in cr.)",
-    value: "₹ 802",
+    value: "₹ 57.6",
   },
   {
     key: "P/E Ratio",
-    value: "36.46",
+    value: "25.04",
   },
   {
     key: "P/B Ratio",
-    value: "1.19",
+    value: "1.36",
   },
   {
     key: "Debt to Equity",
-    value: "0.09",
+    value: "0.14",
   },
   {
     key: "ROE (%)",
-    value: "3.32",
+    value: "7.12",
   },
   {
     key: "Book Value",
-    value: "481.89",
+    value: "1322.5",
   },
   {
     key: "Face Value",
@@ -65,6 +65,6 @@ export const fundamentals = [
   },
   {
     key: "Total Shares",
-    value: "13947035",
+    value: "320000",
   },
 ];
