@@ -54,6 +54,11 @@ export default function ShareForm({
     resolver: zodResolver(shareSchema),
     defaultValues: {
       is_ipo: false,
+      peer_ratio: peer_ratio,
+      fundamentals: fundamentals,
+      financials: financials,
+      shareholding_patterns: shareholding_patterns,
+      promoters_or_management: promoters_or_management,
       faqs: [],
     },
   });
@@ -261,7 +266,6 @@ function BasicDetails({
   } = useFormContext();
   const { data: sectors, isLoading, isError, error } = useFetchSectors();
   const isIpo = watch("is_ipo");
-  console.log(watch("sector_id"));
 
   return (
     <SubSection className="space-y-4 ">
@@ -783,6 +787,7 @@ function ShareholdingPatterns() {
                   <Input
                     {...register(
                       `shareholding_patterns.${patternInd}.data.${dataInd}.progress`,
+                      { valueAsNumber: true },
                     )}
                     placeholder="Enter progress"
                   />
