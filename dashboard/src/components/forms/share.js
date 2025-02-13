@@ -36,9 +36,13 @@ import {
 import useFetchSectors from "@/hooks/use-fetch-sectors";
 import { Skeleton } from "../ui/skeleton";
 import { Switch } from "../ui/switch";
-import { financials } from "@/data";
 import http from "@/utils/http";
 import { endpoints } from "@/utils/endpoints";
+import { fundamentals } from "@/data/share/fundamental";
+import { peer_ratio } from "@/data/share/peer_ratio";
+import { shareholding_patterns } from "@/data/share/shareholding_patterns";
+import { promoters_or_management } from "@/data/share/promoters_or_management";
+import { financials } from "@/data/share/financials";
 
 export default function ShareForm({
   type = "create",
@@ -52,12 +56,9 @@ export default function ShareForm({
       is_ipo: false,
       fundamentals: [],
       financials: [],
-      faqs: [],
       shareholding_patterns: [],
-      peer_ratio: {
-        headers: [],
-        rows: [],
-      },
+      promoters_or_management: [],
+      faqs: [],
     },
   });
 
@@ -186,10 +187,10 @@ export default function ShareForm({
             </div>
 
             {/* add csv */}
-            <div className="space-y-2">
+            {/* <div className="space-y-2">
               <Large>Add CSV File</Large>
               <Input type="file" onChange={handleCsvFileChange} />
-            </div>
+            </div> */}
 
             {/* Fundamentals */}
             <div className="space-y-2">
@@ -784,10 +785,8 @@ function ShareholdingPatterns() {
                 <div>
                   <Label>Progress</Label>
                   <Input
-                    type="number"
                     {...register(
                       `shareholding_patterns.${patternInd}.data.${dataInd}.progress`,
-                      { valueAsNumber: true },
                     )}
                     placeholder="Enter progress"
                   />

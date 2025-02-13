@@ -67,7 +67,7 @@ export const shareSchema = z.object({
               .min(1, { message: "heading is required*" }),
             progress: z
               .number({ required_error: "progress is required!" })
-              .min(1, { message: "progress is required*" }),
+              .min(0, { message: "progress is required*" }),
           }),
         ),
       }),
@@ -84,10 +84,7 @@ export const shareSchema = z.object({
         name: z.string().min(1, "Name is required*"),
         designation: z.string().min(1, "Designation is required*"),
         experience: z.string().min(1, "Experience is required*"),
-        linkedin: z
-          .string()
-          .min(1, "LinkedIn profile is required*")
-          .url("Enter a valid LinkedIn URL*"),
+        linkedin: z.string().optional(),
       }),
     )
     .optional(),
