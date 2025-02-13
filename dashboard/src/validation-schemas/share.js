@@ -73,10 +73,12 @@ export const shareSchema = z.object({
       }),
     )
     .optional(),
-  peer_ratio: z.object({
-    headers: z.array(z.string()),
-    rows: z.array(z.array(z.string())),
-  }),
+  peer_ratio: z
+    .object({
+      headers: z.array(z.string()),
+      rows: z.array(z.array(z.string())),
+    })
+    .optional(),
   financials: z.array(TabSchema).optional(),
   promoters_or_management: z
     .array(

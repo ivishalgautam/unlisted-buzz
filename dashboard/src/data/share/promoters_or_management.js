@@ -9,7 +9,7 @@ export const promoters_or_management = [
     name: "Mr. Milan Wahi",
     designation: "MD",
     experience: "27 yrs",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/milan-wahi-7ba087a",
   },
   {
     name: "Mr. Jeongkwan Heo",
