@@ -103,7 +103,7 @@ export default async function UnlistedSharePage({ params }) {
         </div>
       )}
 
-      {share?.peer_ratio?.length > 0 && (
+      {share?.peer_ratio && (
         <div>
           <H3 className={"text-center"}>Peer ratio</H3>
           <PeerRatioTable data={share?.peer_ratio ?? {}} />
