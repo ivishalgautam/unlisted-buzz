@@ -1,7 +1,7 @@
 export const fundamentals = [
   {
     key: "Price Per Equity Share",
-    value: "₹ 850",
+    value: "₹ 575",
   },
   {
     key: "Lot Size",
@@ -9,11 +9,11 @@ export const fundamentals = [
   },
   {
     key: "52 Week High",
-    value: "₹ 850",
+    value: "₹ 575",
   },
   {
     key: "52 Week Low",
-    value: "₹ 714",
+    value: "₹ 475",
   },
   {
     key: "Depository",
@@ -21,43 +21,43 @@ export const fundamentals = [
   },
   {
     key: "PAN Number",
-    value: "AAECS5331H",
+    value: "AAACP1916F",
   },
   {
     key: "ISIN Number",
-    value: "INE031H01012",
+    value: "INE185A01011",
   },
   {
     key: "CIN",
-    value: "U74210KA1973PLC002424",
+    value: "U15419TN1954PLC001987",
   },
   {
     key: "RTA",
-    value: "Canbank Computer Services",
+    value: "Cameo Corporate Services",
   },
   {
     key: "Market Cap (in cr.)",
-    value: "₹ 378",
+    value: "₹ 802",
   },
   {
     key: "P/E Ratio",
-    value: "13.51",
+    value: "36.46",
   },
   {
     key: "P/B Ratio",
-    value: "1.47",
+    value: "1.19",
   },
   {
     key: "Debt to Equity",
-    value: "0",
+    value: "0.09",
   },
   {
     key: "ROE (%)",
-    value: "11.36",
+    value: "3.32",
   },
   {
     key: "Book Value",
-    value: "576.29",
+    value: "481.89",
   },
   {
     key: "Face Value",
@@ -65,6 +65,6 @@ export const fundamentals = [
   },
   {
     key: "Total Shares",
-    value: "4450000",
+    value: "13947035",
   },
 ];

@@ -1,14 +1,20 @@
 export const promoters_or_management = [
   {
-    name: "Milind S Thakkar",
-    designation: "Chairman",
-    experience: "30+",
-    linkedin: "https://www.linkedin.com/in/milind-s-thakker-4344739/",
+    name: "Mr. Kyungwoon Cho",
+    designation: "Chairman & Executive Director",
+    experience: "20+",
+    linkedin: "",
   },
   {
-    name: "Ramanathan Narayanan",
-    designation: "MD & CEO",
-    experience: "40+",
-    linkedin: "https://www.linkedin.com/in/ramanathan-narayanan-a069b07/",
+    name: "Mr. Milan Wahi",
+    designation: "MD",
+    experience: "27 yrs",
+    linkedin: "",
+  },
+  {
+    name: "Mr. Jeongkwan Heo",
+    designation: "Whole-time Director, CFO",
+    experience: "15+",
+    linkedin: "",
   },
 ];
