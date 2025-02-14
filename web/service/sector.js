@@ -5,7 +5,6 @@ import axios from "axios";
 
 export async function fetchSectors(params) {
   const { data } = await http().get(`${endpoints.sectors.getAll}?${params}`);
-
   return data;
 }
 

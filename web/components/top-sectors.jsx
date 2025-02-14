@@ -10,13 +10,14 @@ import {
   PrevButton,
   usePrevNextButtons,
 } from "./embla/arrow-buttons";
-import { Button } from "./ui/button";
+import { Button, buttonVariants } from "./ui/button";
 import Container from "./container";
 import SectorCard from "./cards/sector";
 import Heading from "./heading";
 import { useQuery } from "@tanstack/react-query";
 import { fetchSectors } from "@/service/sector";
 import { Skeleton } from "./ui/skeleton";
+import Link from "next/link";
 
 // Mock data for sectors
 const sectorData = [
@@ -83,7 +84,12 @@ export function TopSectors() {
               title="Top Sectors in Unlisted Shares"
               className={"font-semibold text-start text-white"}
             />
-            <Button>View more</Button>
+            <Link
+              href={"/sectors"}
+              className={buttonVariants({ variant: "default" })}
+            >
+              View more
+            </Link>
           </div>
 
           <div className="col-span-12 md:col-span-8">
