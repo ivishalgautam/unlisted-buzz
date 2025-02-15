@@ -2,34 +2,32 @@ export const shareholding_patterns = [
   {
     year: "2021",
     data: [
-      { heading: "Hari Prakash Gupta", progress: 26.51 },
-      { heading: "Sidharth Gupta", progress: 24.64 },
-      { heading: "Hari Prakash Gupta (HUF)", progress: 7.99 },
-      { heading: "Seema Mittal", progress: 5.81 },
-      { heading: "Kusum Gupta", progress: 8.54 },
-      { heading: "Others", progress: 26.5 },
+      { heading: "Promoters", progress: 53.91 },
+      { heading: "Indian Resident", progress: 44.16 },
+      { heading: "Other", progress: 1.93 },
     ],
   },
   {
     year: "2022",
     data: [
-      { heading: "Hari Prakash Gupta", progress: 26.51 },
-      { heading: "Siddharth Gupta", progress: 28.23 },
-      { heading: "Hari Prakash Gupta (HUF)", progress: 7.99 },
-      { heading: "Kusum Gupta", progress: 9.34 },
-      { heading: "Nitika Gupta", progress: 6.35 },
-      { heading: "Others", progress: 21.58 },
+      { heading: "Promoters", progress: 46.25 },
+      { heading: "Indian Resident", progress: 51.07 },
+      { heading: "Others", progress: 2.68 },
     ],
   },
   {
     year: "2023",
     data: [
-      { heading: "Hari Prakash Gupta", progress: 26.51 },
-      { heading: "Siddharth Gupta", progress: 28.23 },
-      { heading: "Hari Prakash Gupta (HUF)", progress: 7.99 },
-      { heading: "Kusum Gupta", progress: 10.79 },
-      { heading: "Nitika Gupta", progress: 6.35 },
-      { heading: "Others", progress: 20.13 },
+      { heading: "Promoters", progress: 45.37 },
+      { heading: "Indian Resident", progress: 52.2 },
+      { heading: "Others", progress: 2.43 },
+    ],
+  },
+  {
+    year: "2024",
+    data: [
+      { heading: "Promoters", progress: 44.98 },
+      { heading: "Others", progress: 55.02 },
     ],
   },
 ];

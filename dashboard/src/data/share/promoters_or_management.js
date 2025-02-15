@@ -1,20 +1,20 @@
 export const promoters_or_management = [
   {
-    name: "Hari Prakash Gupta",
-    designation: "MD",
-    experience: "22yrs",
-    linkedin: "https://www.linkedin.com/in/hari-gupta-a064bbb6/",
+    name: "K G Anilkumar",
+    designation: "Chairman & MD",
+    experience: "33 yrs",
+    linkedin: "https://www.linkedin.com/in/k-g-anilkumar-0872141a4/",
   },
   {
-    name: "Siddharth Gupta",
-    designation: "Joint MD",
-    experience: "27yrs",
-    linkedin: "https://www.linkedin.com/in/siddharth-gupta-6965bb142/",
+    name: "Uma AnilKumar",
+    designation: "CEO",
+    experience: "20+",
+    linkedin: "https://www.linkedin.com/in/uma-anilkumar-b0a6a01a3/",
   },
   {
-    name: "Jai Narayan Tiwari",
+    name: "Madhavankutty T",
     designation: "CFO",
-    experience: "31yrs",
-    linkedin: "https://www.linkedin.com/in/jai-narayan-36685518a/",
+    experience: "20 yrs",
+    linkedin: "https://www.linkedin.com/in/madhavankutty-thekkedath-5616b199/",
   },
 ];
