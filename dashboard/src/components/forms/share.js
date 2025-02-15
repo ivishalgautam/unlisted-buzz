@@ -113,7 +113,7 @@ export default function ShareForm({
       setValue("fundamentals", data.fundamentals);
       setValue("financials", data.financials);
       setValue("shareholding_patterns", data.shareholding_patterns);
-      data?.peer_ratio && setValue("peer_ratio", data.peer_ratio);
+      data?.peer_ratio?.headers && setValue("peer_ratio", data.peer_ratio);
       setValue("promoters_or_management", data.promoters_or_management);
       setValue("faqs", data.faqs);
       setValue("meta_title", data.meta_title);
