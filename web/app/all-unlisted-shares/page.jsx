@@ -9,7 +9,8 @@ export const metadata = {
   description: "All Unlisted Shares",
 };
 
-export default async function AllUnlistedSharesPage({ searchParams: { q } }) {
+export default async function AllUnlistedSharesPage({ searchParams }) {
+  const { q } = await searchParams;
   let data;
   try {
     data = await fetchShares(q ? `q=${encodeURIComponent(q)}` : "");
