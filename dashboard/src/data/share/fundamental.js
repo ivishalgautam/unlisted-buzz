@@ -1,19 +1,19 @@
 export const fundamentals = [
   {
     key: "Price Per Equity Share",
-    value: "₹ 26",
+    value: "₹ 919",
   },
   {
     key: "Lot Size",
-    value: "1000 Shares",
+    value: "25 Shares",
   },
   {
     key: "52 Week High",
-    value: "₹ 27",
+    value: "₹ **",
   },
   {
     key: "52 Week Low",
-    value: "₹ 26",
+    value: "₹ **",
   },
   {
     key: "Depository",
@@ -21,50 +21,50 @@ export const fundamentals = [
   },
   {
     key: "PAN Number",
-    value: "AAACJ1806C",
+    value: "AABCT8138N",
   },
   {
     key: "ISIN Number",
-    value: "INE01CY01013",
+    value: "INE510I01013",
   },
   {
     key: "CIN",
-    value: "U65191TN1991PLC021815",
+    value: "U67120WB1923PLC004707",
   },
   {
     key: "RTA",
-    value: "M/s Cameo Corporate Services",
+    value: "C B Management Services",
   },
   {
     key: "Market Cap (in cr.)",
-    value: "₹ 129",
+    value: "₹ 56",
   },
   {
     key: "P/E Ratio",
-    value: "1300",
+    value: "67.67",
   },
   {
     key: "P/B Ratio",
-    value: "1.33",
+    value: "0.28",
   },
   {
     key: "Debt to Equity",
-    value: "4.37",
+    value: "0",
   },
   {
     key: "ROE (%)",
-    value: "0.08",
+    value: "0.41",
   },
   {
     key: "Book Value",
-    value: "19.5",
+    value: "3312.1",
   },
   {
     key: "Face Value",
-    value: "10",
+    value: "1",
   },
   {
     key: "Total Shares",
-    value: "49793618",
+    value: "611250",
   },
 ];

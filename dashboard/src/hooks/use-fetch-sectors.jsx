@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 const fetchSectors = async () => {
   const { data } = await http().get(endpoints.sectors.getAll);
   return (
-    data?.sectors?.map(({ id: value, name: label }) => ({
+    data?.sectors?.map(({ id: value, name: label, date }) => ({
       value,
       label: String(label).toLocaleUpperCase(),
     })) ?? []

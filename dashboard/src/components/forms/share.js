@@ -43,6 +43,8 @@ import { peer_ratio } from "@/data/share/peer_ratio";
 import { shareholding_patterns } from "@/data/share/shareholding_patterns";
 import { promoters_or_management } from "@/data/share/promoters_or_management";
 import { financials } from "@/data/share/financials";
+import useFetchEvents from "@/hooks/use-fetch-events";
+import ReactSelect from "react-select";
 
 export default function ShareForm({
   type = "create",
@@ -54,12 +56,13 @@ export default function ShareForm({
     resolver: zodResolver(shareSchema),
     defaultValues: {
       is_ipo: false,
+      faqs: [],
       // peer_ratio: peer_ratio,
       // fundamentals: fundamentals,
       // financials: financials,
       // shareholding_patterns: shareholding_patterns,
       // promoters_or_management: promoters_or_management,
-      faqs: [],
+      events: [],
     },
   });
 
@@ -71,6 +74,12 @@ export default function ShareForm({
     control,
     watch,
   } = form;
+  const {
+    data: events,
+    isLoading: isEventLoading,
+    isError: isEventError,
+    error: eventError,
+  } = useFetchEvents();
 
   const [, reRender] = useState(false);
   const [text, setText] = useState("");
@@ -84,7 +93,11 @@ export default function ShareForm({
   });
 
   const onSubmit = async (data) => {
-    const payload = { ...data, about: text };
+    const payload = {
+      ...data,
+      about: text,
+      events: data?.events?.map(({ value }) => value) ?? [],
+    };
     if (type === "edit") {
       updateMutation.mutate(payload);
     }
@@ -92,11 +105,11 @@ export default function ShareForm({
       createMutation.mutate(payload);
     }
   };
+
   const { handleFileChange, deleteFile, image, setImage } = useFileHandler();
-  console.log({ errors });
+
   useEffect(() => {
     if (data) {
-      console.log(data);
       setValue("name", data.name);
       setValue("image", data.image);
       setValue("price", data.price);
@@ -110,37 +123,26 @@ export default function ShareForm({
       }
       setValue("is_ipo", data.is_ipo);
       setValue("ipo_price", data.ipo_price);
+
       setValue("fundamentals", data.fundamentals);
       setValue("financials", data.financials);
       setValue("shareholding_patterns", data.shareholding_patterns);
       data?.peer_ratio?.headers && setValue("peer_ratio", data.peer_ratio);
       setValue("promoters_or_management", data.promoters_or_management);
+      data?.events &&
+        setValue(
+          "events",
+          events.filter((evnt) => data?.events?.includes(evnt.value)),
+        );
       setValue("faqs", data.faqs);
+
       setValue("meta_title", data.meta_title);
       setValue("meta_description", data.meta_description);
       setValue("meta_keywords", data.meta_keywords);
       setImage(data.image);
     }
     reRender(true);
-  }, [data, setValue, setImage]);
-
-  const handleCsvFileChange = async (event) => {
-    const formData = new FormData();
-    formData.append("file", event.target.files[0]);
-    try {
-      const { data } = await http().post(
-        endpoints.shares.getFormattedShareDetails,
-        formData,
-        true,
-      );
-
-      for (const [key, value] of Object.entries(data)) {
-        setValue(key, value);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  }, [data, setValue, setImage, events]);
 
   if (type === "edit" && isLoading) return <Spinner />;
   if (type === "edit" && isError) return error?.message ?? "error";
@@ -188,12 +190,6 @@ export default function ShareForm({
               </SubSection>
             </div>
 
-            {/* add csv */}
-            {/* <div className="space-y-2">
-              <Large>Add CSV File</Large>
-              <Input type="file" onChange={handleCsvFileChange} />
-            </div> */}
-
             {/* Fundamentals */}
             <div className="space-y-2">
               <Large>Fundamentals</Large>
@@ -222,6 +218,14 @@ export default function ShareForm({
             <div className="space-y-2">
               <Large>Promoters or Management</Large>
               <PromoterOrManagement />
+            </div>
+
+            {/* Events */}
+            <div className="space-y-2">
+              <Large>Events</Large>
+              <EventSelect
+                {...{ events, isEventLoading, isEventError, eventError }}
+              />
             </div>
 
             {/* faq */}
@@ -1081,6 +1085,39 @@ function PromoterOrManagement() {
       >
         <Plus /> Add Field
       </Button>
+    </SubSection>
+  );
+}
+
+function EventSelect({ events, isEventLoading, isEventError, eventError }) {
+  const {
+    control,
+    watch,
+    formState: { errors },
+  } = useFormContext();
+
+  return (
+    <SubSection className={"space-y-4"}>
+      {isEventError ? (
+        eventError?.message ?? "error"
+      ) : (
+        <div className="space-y-4">
+          <Controller
+            control={control}
+            name="events"
+            render={({ field }) => (
+              <ReactSelect
+                options={events}
+                isLoading={isEventLoading}
+                onChange={field.onChange}
+                value={field.value}
+                defaultValue={field.value}
+                isMulti
+              />
+            )}
+          />
+        </div>
+      )}
     </SubSection>
   );
 }

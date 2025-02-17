@@ -44,6 +44,18 @@ export const shareSchema = z.object({
       }),
     )
     .optional(),
+  events: z
+    .array(
+      z.object({
+        label: z
+          .string({ required_error: "Label is required!" })
+          .min(1, { message: "Label is required*" }),
+        value: z
+          .string({ required_error: "Value is required!" })
+          .min(1, { message: "Value is required*" }),
+      }),
+    )
+    .optional(),
   faqs: z
     .array(
       z.object({

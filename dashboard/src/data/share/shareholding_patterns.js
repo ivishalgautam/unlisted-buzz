@@ -2,32 +2,51 @@ export const shareholding_patterns = [
   {
     year: "2021",
     data: [
-      { heading: "Promoters", progress: 53.91 },
-      { heading: "Indian Resident", progress: 44.16 },
-      { heading: "Other", progress: 1.93 },
+      { heading: "NSE Investments Limited", progress: 30.0 },
+      { heading: "Others", progress: 70.0 },
     ],
   },
   {
     year: "2022",
     data: [
-      { heading: "Promoters", progress: 46.25 },
-      { heading: "Indian Resident", progress: 51.07 },
-      { heading: "Others", progress: 2.68 },
+      { heading: "NSE Investments Limited", progress: 21.1 },
+      { heading: "Others", progress: 78.9 },
     ],
   },
   {
     year: "2023",
     data: [
-      { heading: "Promoters", progress: 45.37 },
-      { heading: "Indian Resident", progress: 52.2 },
-      { heading: "Others", progress: 2.43 },
+      { heading: "NSE Investments Limited", progress: 21.1 },
+      { heading: "Others", progress: 78.9 },
     ],
   },
   {
     year: "2024",
     data: [
-      { heading: "Promoters", progress: 44.98 },
-      { heading: "Others", progress: 55.02 },
+      { heading: "Resident Individual", progress: 41.33 },
+      { heading: "Bodies Corporate", progress: 48.44 },
+      { heading: "IEPF", progress: 6.73 },
+      { heading: "Banks / FI", progress: 3.46 },
+      { heading: "Others", progress: 0.04 },
+    ],
+  },
+  {
+    year: "2023-24",
+    data: [
+      { heading: "Resident Individual", progress: 40.93 },
+      { heading: "Bodies Corporate", progress: 48.3 },
+      { heading: "IEPF", progress: 7.3 },
+      { heading: "Bank/Financial Institution", progress: 3.42 },
+      { heading: "Others", progress: 0.05 },
+    ],
+  },
+  {
+    year: "2024",
+    data: [
+      { heading: "Resident Individual", progress: 39.41 },
+      { heading: "Bodies Corporate", progress: 48.3 },
+      { heading: "Bank/Financial Institution", progress: 3.42 },
+      { heading: "Others", progress: 8.86 },
     ],
   },
 ];
