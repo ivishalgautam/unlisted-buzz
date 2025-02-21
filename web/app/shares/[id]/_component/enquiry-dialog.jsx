@@ -342,12 +342,20 @@ export default function EnquiryForm({ open, setOpen }) {
         )}
       </div>
 
-      <div>
+      <div className="flex gap-2">
+        <Button
+          type="button"
+          variant="outline"
+          className="w-full"
+          onClick={() => setOpen(false)}
+        >
+          Cancel
+        </Button>
         <Button
           type="submit"
           disabled={isSubmitting}
-          variant="ghost"
-          className="bg-black text-white w-full hover:bg-black/80 hover:text-white"
+          //   variant="p"
+          className="w-full"
         >
           {isSubmitting ? "Submitting..." : "Submit"}
         </Button>
