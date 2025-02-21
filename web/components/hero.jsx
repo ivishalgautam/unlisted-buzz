@@ -14,7 +14,8 @@ export default function Hero() {
           <div>
             <h1 className="text-center font-urbanist text-lg font-semibold sm:text-2xl lg:text-3xl xl:text-5xl">
               <Balancer>
-                Maximize Returns <br /> with Expert Stock Insights
+                India’s Most Trusted Platform for <br /> Buying & Selling
+                Unlisted <br /> & Pre-IPO Shares
               </Balancer>
             </h1>
             <Muted className={"text-center my-10"}>

@@ -1,126 +1,64 @@
 import Link from "next/link";
 import { Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
+import { tabs } from "./navbar";
+import Logo from "./logo";
+import { Small } from "./typography";
 
 export default function Footer() {
   return (
     <footer className="bg-secondary text-gray-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="">
+            <div className="mb-4 bg-white rounded-2xl w-max p-4">
+              <Logo />
+            </div>
+            <Small>
+              India’s Most Trusted Platform for Buying & Selling Unlisted &
+              Pre-IPO Shares – Invest in Tomorrow’s Leaders Today!
+            </Small>
+          </div>
+
           <div>
             <h2 className="text-white text-lg font-semibold mb-4">
               Quick Links
             </h2>
             <ul className="space-y-2">
-              <li>
-                <Link
-                  href="/markets"
-                  className="hover:text-white transition-colors"
-                >
-                  Markets
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/news"
-                  className="hover:text-white transition-colors"
-                >
-                  News
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/watchlist"
-                  className="hover:text-white transition-colors"
-                >
-                  Watchlist
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/portfolio"
-                  className="hover:text-white transition-colors"
-                >
-                  Portfolio
-                </Link>
-              </li>
+              {[
+                "Off Market Annexure",
+                "PAN of Unlisted Shares",
+                "SEBI Guidelines",
+                "Frequently Asked Questions",
+                "Knowledge Center",
+                "Blog",
+              ].map((item) => (
+                <li key={item}>
+                  <Link href="#" className="hover:text-white transition-colors">
+                    {item}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
+
           <div>
             <h2 className="text-white text-lg font-semibold mb-4">
-              Market Info
+              Unlisted Buzz
             </h2>
             <ul className="space-y-2">
-              <li>
-                <Link
-                  href="/market-overview"
-                  className="hover:text-white transition-colors"
-                >
-                  Market Overview
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/stocks"
-                  className="hover:text-white transition-colors"
-                >
-                  Stocks
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/commodities"
-                  className="hover:text-white transition-colors"
-                >
-                  Commodities
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/currencies"
-                  className="hover:text-white transition-colors"
-                >
-                  Currencies
-                </Link>
-              </li>
+              {tabs.map((item) => (
+                <li key={item.label}>
+                  <Link
+                    href={item.link}
+                    className="hover:text-white transition-colors"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
-          <div>
-            <h2 className="text-white text-lg font-semibold mb-4">Resources</h2>
-            <ul className="space-y-2">
-              <li>
-                <Link
-                  href="/education"
-                  className="hover:text-white transition-colors"
-                >
-                  Education
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/tools"
-                  className="hover:text-white transition-colors"
-                >
-                  Tools
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/api"
-                  className="hover:text-white transition-colors"
-                >
-                  API
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/help"
-                  className="hover:text-white transition-colors"
-                >
-                  Help Center
-                </Link>
-              </li>
-            </ul>
-          </div>
+
           <div>
             <h2 className="text-white text-lg font-semibold mb-4">
               Connect With Us
@@ -159,7 +97,7 @@ export default function Footer() {
         </div>
         <div className="mt-8 pt-8 border-t border-gray-700">
           <p className="text-sm text-gray-400">
-            © {new Date().getFullYear()} StockMarket Inc. All rights reserved.
+            © {new Date().getFullYear()} UnlistedBuzz. All rights reserved.
           </p>
           <p className="mt-4 text-xs text-gray-300">
             Disclaimer: The information provided on this website is for general
