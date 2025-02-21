@@ -13,7 +13,9 @@ import Marquee from "./marquee";
 export default function SharesMarquee() {
   const { data, isLoading, isError, error } = useQuery({
     queryFn: () =>
-      fetchShares(`time_range=${popularUnlistedShareTimeRange}&is_ipo=false`),
+      fetchShares(
+        `time_range=${popularUnlistedShareTimeRange}&is_ipo=false&limit=20&featured=true`
+      ),
     queryKey: ["shares"],
   });
 
@@ -22,7 +24,7 @@ export default function SharesMarquee() {
 
   return (
     <div className="bg-black py-1">
-      <Marquee pauseOnHover className="[--duration:300s]">
+      <Marquee pauseOnHover className="[--duration:120s]">
         {Array.from({ length: 20 }).map((item, ind) => (
           <div
             key={ind}
