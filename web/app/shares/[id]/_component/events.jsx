@@ -8,6 +8,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import config from "@/config";
+import { Download } from "lucide-react";
 
 export default function EventTable({ events }) {
   return (
@@ -34,7 +35,7 @@ export default function EventTable({ events }) {
                     download
                     target="_blank"
                   >
-                    Download
+                    <Download size={15} /> Download
                   </a>
                 </Button>
               </TableCell>

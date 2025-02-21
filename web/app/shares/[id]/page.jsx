@@ -74,6 +74,7 @@ export default async function UnlistedSharePage({ params }) {
           ticker={name}
           currentPrice={share?.price ?? 0}
           minQuantity={share.min_quantity ?? 0}
+          shareId={share?.id}
         />
       </div>
 

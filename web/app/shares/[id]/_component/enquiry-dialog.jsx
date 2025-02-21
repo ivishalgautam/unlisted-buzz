@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -39,6 +39,7 @@ import {
   AlertDialogDescription,
 } from "@/components/ui/alert-dialog";
 import { Textarea } from "@/components/ui/textarea";
+import { MainContext } from "@/store/context";
 
 const formSchema = z
   .object({
@@ -75,7 +76,7 @@ const formSchema = z
     message: "Invalid phone number",
   });
 
-export function EnquiryDialog({ open, setOpen }) {
+export function EnquiryDialog({ open, setOpen, quantity, shareId }) {
   return (
     <AlertDialog onOpenChange={setOpen} open={open}>
       <AlertDialogTrigger>Open</AlertDialogTrigger>
@@ -85,7 +86,7 @@ export function EnquiryDialog({ open, setOpen }) {
           <AlertDialogDescription className="sr-only">
             Enquiry form
           </AlertDialogDescription>
-          <EnquiryForm {...{ open, setOpen }} />
+          <EnquiryForm {...{ open, setOpen, quantity, shareId }} />
         </AlertDialogHeader>
         <AlertDialogFooter>
           {/* <AlertDialogCancel>Cancel</AlertDialogCancel>
@@ -96,9 +97,11 @@ export function EnquiryDialog({ open, setOpen }) {
   );
 }
 
-export default function EnquiryForm({ open, setOpen }) {
+export default function EnquiryForm({ open, setOpen, quantity, shareId }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { data, isLoading, isError, error } = useFetchShares();
+  const { user } = useContext(MainContext);
+
   const {
     register,
     handleSubmit,
@@ -110,10 +113,12 @@ export default function EnquiryForm({ open, setOpen }) {
     resolver: zodResolver(formSchema),
     defaultValues: {
       transaction_type: "buy",
-      share_id: "",
-      quantity: undefined,
+      share_id: shareId ? shareId : "",
+      quantity: quantity ? quantity : "",
       price_per_share: undefined,
       message: "",
+      name: user ? user.fullname : "",
+      email: user ? user.email : "",
     },
   });
   const transaction_type = watch("transaction_type");
@@ -259,7 +264,11 @@ export default function EnquiryForm({ open, setOpen }) {
             name="share_id"
             control={control}
             render={({ field }) => (
-              <Select onValueChange={field.onChange} value={field.value}>
+              <Select
+                onValueChange={field.onChange}
+                value={field.value}
+                disabled={!!shareId}
+              >
                 <SelectTrigger className="">
                   <SelectValue placeholder="Select a share" />
                 </SelectTrigger>

@@ -17,7 +17,7 @@ import { cn } from "@/lib/utils";
 import { EnquiryDialog } from "./enquiry-dialog";
 import { useContext } from "react";
 
-export function BuySell({ ticker, currentPrice, minQuantity }) {
+export function BuySell({ ticker, currentPrice, minQuantity, shareId }) {
   const [action, setAction] = useState("buy");
   const [quantity, setQuantity] = useState();
   const [open, setOpen] = useState(false);
@@ -98,6 +98,7 @@ export function BuySell({ ticker, currentPrice, minQuantity }) {
               <Button
                 type="button"
                 onClick={() => {
+                  if (!quantity) return alert("Enter quantity.");
                   if (action === "buy" && quantity < minQuantity)
                     return alert(
                       `Minimum purchase quantity is '${minQuantity}'`
@@ -113,7 +114,7 @@ export function BuySell({ ticker, currentPrice, minQuantity }) {
         </CardContent>
       </Card>
 
-      <EnquiryDialog {...{ open, setOpen }} />
+      <EnquiryDialog {...{ open, setOpen, quantity, shareId: shareId }} />
     </>
   );
 }
