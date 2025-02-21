@@ -19,7 +19,7 @@ import { useContext } from "react";
 
 export function BuySell({ ticker, currentPrice, minQuantity }) {
   const [action, setAction] = useState("buy");
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState();
   const [open, setOpen] = useState(false);
 
   const handleSubmit = (e) => {
@@ -79,8 +79,12 @@ export function BuySell({ ticker, currentPrice, minQuantity }) {
               <Input
                 id="quantity"
                 type="number"
-                min="1"
                 value={quantity}
+                placeholder={
+                  action === "buy"
+                    ? `Buy minimum (${minQuantity}) quantity.`
+                    : ""
+                }
                 onChange={(e) => setQuantity(parseInt(e.target.value))}
               />
             </div>
@@ -94,7 +98,7 @@ export function BuySell({ ticker, currentPrice, minQuantity }) {
               <Button
                 type="button"
                 onClick={() => {
-                  if (quantity < minQuantity)
+                  if (action === "buy" && quantity < minQuantity)
                     return alert(
                       `Minimum purchase quantity is '${minQuantity}'`
                     );
