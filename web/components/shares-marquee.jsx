@@ -21,45 +21,47 @@ export default function SharesMarquee() {
   if (isError) return error?.message ?? "error";
 
   return (
-    <Marquee pauseOnHover className="[--duration:300s] bg-black py-3">
-      {Array.from({ length: 20 }).map((item, ind) => (
-        <div
-          key={ind}
-          className="flex shrink-0 animate-marquee flex-row justify-around gap-6"
-        >
-          {data?.shares?.map((share, ind) => (
-            <div key={ind} className="text-white space-x-2 text-sm flex">
-              <span className="text-nowrap">{share.name}</span>
-              <span className="text-primary font-semibold">
-                {rupee.format(share.price)}
-              </span>
-              <div
-                className={cn(
-                  "flex items-center justify-start gap-1 text-green-500",
-                  {
-                    "text-green-500": share.gain_or_loss === "gain",
-                    "text-red-500": share.gain_or_loss === "loss",
-                  }
-                )}
-              >
-                {share.gain_or_loss === "gain" ? (
-                  <TrendingUp size={20} />
-                ) : share.gain_or_loss === "loss" ? (
-                  <TrendingDown size={20} />
-                ) : (
-                  <MoveRight size={20} />
-                )}
-                <Small
-                  className={"text-xs font-normal"}
-                >{`(${share.price_difference}) (${share.percentage_change}%)`}</Small>{" "}
-                <span className="text-gray-500 uppercase">
-                  {popularUnlistedShareTimeRange}
+    <div className="bg-black py-1">
+      <Marquee pauseOnHover className="[--duration:300s]">
+        {Array.from({ length: 20 }).map((item, ind) => (
+          <div
+            key={ind}
+            className="flex shrink-0 animate-marquee flex-row justify-around gap-6"
+          >
+            {data?.shares?.map((share, ind) => (
+              <div key={ind} className="text-white space-x-2 text-sm flex">
+                <span className="text-nowrap">{share.name}</span>
+                <span className="text-primary font-semibold">
+                  {rupee.format(share.price)}
                 </span>
+                <div
+                  className={cn(
+                    "flex items-center justify-start gap-1 text-green-500",
+                    {
+                      "text-green-500": share.gain_or_loss === "gain",
+                      "text-red-500": share.gain_or_loss === "loss",
+                    }
+                  )}
+                >
+                  {share.gain_or_loss === "gain" ? (
+                    <TrendingUp size={20} />
+                  ) : share.gain_or_loss === "loss" ? (
+                    <TrendingDown size={20} />
+                  ) : (
+                    <MoveRight size={20} />
+                  )}
+                  <Small
+                    className={"text-xs font-normal"}
+                  >{`(${share.price_difference}) (${share.percentage_change}%)`}</Small>{" "}
+                  <span className="text-gray-500 uppercase">
+                    {popularUnlistedShareTimeRange}
+                  </span>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-      ))}
-    </Marquee>
+            ))}
+          </div>
+        ))}
+      </Marquee>
+    </div>
   );
 }
