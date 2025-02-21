@@ -1,70 +1,70 @@
 export const fundamentals = [
   {
     key: "Price Per Equity Share",
-    value: "₹ 919",
+    value: "₹ 2700",
   },
   {
     key: "Lot Size",
-    value: "25 Shares",
+    value: "** Shares",
   },
   {
     key: "52 Week High",
-    value: "₹ **",
+    value: "₹ 900.15",
   },
   {
     key: "52 Week Low",
-    value: "₹ **",
+    value: "₹ 718.05",
   },
   {
     key: "Depository",
-    value: "NSDL & CDSL",
+    value: "**",
   },
   {
     key: "PAN Number",
-    value: "AABCT8138N",
+    value: "AAACO4007A",
   },
   {
     key: "ISIN Number",
-    value: "INE510I01013",
+    value: "INE982J01020",
   },
   {
     key: "CIN",
-    value: "U67120WB1923PLC004707",
+    value: "U72200DL2000PLC108985",
   },
   {
     key: "RTA",
-    value: "C B Management Services",
+    value: "N/A",
   },
   {
     key: "Market Cap (in cr.)",
-    value: "₹ 56",
+    value: "₹ 0",
   },
   {
     key: "P/E Ratio",
-    value: "67.67",
+    value: "N/A",
   },
   {
     key: "P/B Ratio",
-    value: "0.28",
-  },
-  {
-    key: "Debt to Equity",
     value: "0",
   },
   {
+    key: "Debt to Equity",
+    value: "N/A",
+  },
+  {
     key: "ROE (%)",
-    value: "0.41",
+    value: "N/A",
   },
   {
     key: "Book Value",
-    value: "3312.1",
+    value: "N/A",
   },
   {
     key: "Face Value",
-    value: "1",
+    value: "N/A",
   },
   {
     key: "Total Shares",
-    value: "611250",
+    value: "0",
   },
 ];
