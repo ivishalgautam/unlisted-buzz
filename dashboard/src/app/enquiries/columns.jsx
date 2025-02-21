@@ -19,6 +19,10 @@ import { cn } from "@/lib/utils";
 
 export const columns = (openModal, setId) => [
   {
+    accessorKey: "share_name",
+    header: "SHARE",
+  },
+  {
     accessorKey: "transaction_type",
     header: "TYPE",
   },
