@@ -47,7 +47,6 @@ export default async function UnlistedSharePage({ params }) {
   const { id } = await params;
   const name = id.split("-").join(" ");
   const share = await fetchShare(id);
-  console.log(share);
   return (
     <div className="container mx-auto p-4 py-10 space-y-10">
       <div className="flex flex-col md:flex-row gap-2 items-center">
@@ -71,7 +70,11 @@ export default async function UnlistedSharePage({ params }) {
           </CardContent>
         </Card>
 
-        <BuySell ticker={name} currentPrice={share?.price ?? 0} />
+        <BuySell
+          ticker={name}
+          currentPrice={share?.price ?? 0}
+          minQuantity={share.min_quantity ?? 0}
+        />
       </div>
 
       <ShareAbout companyName={name} about={share?.about ?? ""} />

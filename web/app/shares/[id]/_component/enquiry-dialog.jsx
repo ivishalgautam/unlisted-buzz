@@ -1,11 +1,13 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
 import {
   Select,
   SelectContent,
@@ -14,19 +16,29 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "../ui/select";
-import { Textarea } from "../ui/textarea";
-import { Button } from "../ui/button";
+} from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import useFetchShares from "@/hooks/use-fetch-shares";
-import { Skeleton } from "../ui/skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useMutation } from "@tanstack/react-query";
 import http from "@/utils/http";
 import { endpoints } from "@/utils/endpoints";
 import { toast } from "@/hooks/use-toast";
 import { ErrorMessage } from "@hookform/error-message";
-import PhoneSelect from "../ui/phone-select";
+import PhoneSelect from "@/components/ui/phone-select";
 import * as RPNInput from "react-phone-number-input";
+import {
+  AlertDialog,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTrigger,
+  AlertDialogAction,
+  AlertDialogTitle,
+  AlertDialogDescription,
+} from "@/components/ui/alert-dialog";
+import { Textarea } from "@/components/ui/textarea";
 
 const formSchema = z
   .object({
@@ -63,7 +75,28 @@ const formSchema = z
     message: "Invalid phone number",
   });
 
-export default function EnquiryForm() {
+export function EnquiryDialog({ open, setOpen }) {
+  return (
+    <AlertDialog onOpenChange={setOpen} open={open}>
+      <AlertDialogTrigger>Open</AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle className="sr-only">Enquiry form?</AlertDialogTitle>
+          <AlertDialogDescription className="sr-only">
+            Enquiry form
+          </AlertDialogDescription>
+          <EnquiryForm {...{ open, setOpen }} />
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          {/* <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction>Continue</AlertDialogAction> */}
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
+}
+
+export default function EnquiryForm({ open, setOpen }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { data, isLoading, isError, error } = useFetchShares();
   const {
@@ -92,6 +125,7 @@ export default function EnquiryForm() {
     onSuccess: () => {
       toast({ title: "Sucess", description: "Enquiry sent successfully." });
       reset();
+      setOpen(false);
     },
     onError: (error) => {
       toast({
