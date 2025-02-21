@@ -25,8 +25,6 @@ export const PopularUnlistedShares = (props) => {
     queryKey: ["popular-shares"],
   });
 
-  console.log(data);
-
   const slides = popularUnlistedShares.slice(0, 5);
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {

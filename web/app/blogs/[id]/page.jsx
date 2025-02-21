@@ -30,7 +30,6 @@ export async function generateMetadata({ params }) {
 export default async function Page({ params }) {
   const { id: slug } = await params;
   const blog = await fetchBlogBySlug(slug);
-  console.log({ blog });
   const recentBlogs = (await getRecentBlogs(11)).filter(
     (blg) => blg.slug !== slug
   );

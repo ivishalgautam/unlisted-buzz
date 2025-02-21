@@ -57,9 +57,7 @@ export default function SignupForm() {
       localStorage.setItem("refreshToken", resp.refresh_token);
       router.replace("/");
     },
-    onSuccess: (data) => {
-      console.log({ data });
-    },
+    onSuccess: (data) => {},
     onError: (error) => {
       toast.error(error?.response?.data?.message ?? error?.message ?? "error");
     },
@@ -71,7 +69,6 @@ export default function SignupForm() {
     getValues,
     formState: { errors },
   } = methods;
-  console.log({ errors });
   const onSubmit = (data) => {
     createMutation.mutate(data);
     // Here you would typically send the data to your backend

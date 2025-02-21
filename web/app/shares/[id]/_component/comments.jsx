@@ -67,7 +67,6 @@ export default function CommentSection({ shareId }) {
     queryKey: [`comments-${shareId}`],
     enabled: !!shareId,
   });
-  console.log({ data });
   const createMutation = useMutation({
     mutationFn: (data) => createComment({ ...data, share_id: shareId }),
     onSuccess: () => {
