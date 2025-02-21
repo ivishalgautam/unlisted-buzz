@@ -27,6 +27,18 @@ export const columns = (openModal, setId) => [
     header: "QUANTITY",
   },
   {
+    accessorKey: "name",
+    header: "NAME",
+  },
+  {
+    accessorKey: "email",
+    header: "EMAIL",
+  },
+  {
+    accessorKey: "phone",
+    header: "PHONE",
+  },
+  {
     accessorKey: "price_per_share",
     header: ({ column }) => {
       return (

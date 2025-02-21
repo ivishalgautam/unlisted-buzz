@@ -135,6 +135,7 @@ export default function ShareForm({
           events.filter((evnt) => data?.events?.includes(evnt.value)),
         );
       setValue("faqs", data.faqs);
+      setValue("min_quantity", data.min_quantity);
 
       setValue("meta_title", data.meta_title);
       setValue("meta_description", data.meta_description);
@@ -345,6 +346,19 @@ function BasicDetails({
           />
           {errors.price && (
             <InputErrorMessage>{errors.price.message}</InputErrorMessage>
+          )}
+        </div>
+
+        {/* min_quantity */}
+        <div>
+          <Label>Minimum purchase quantity</Label>
+          <Input
+            type="number"
+            {...register("min_quantity", { valueAsNumber: true })}
+            placeholder="Enter Minimum purchase quantity"
+          />
+          {errors.min_quantity && (
+            <InputErrorMessage>{errors.min_quantity.message}</InputErrorMessage>
           )}
         </div>
 
