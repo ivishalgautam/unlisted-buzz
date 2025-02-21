@@ -25,7 +25,7 @@ export default function SharesMarquee() {
   return (
     <div className="bg-black py-1">
       <Marquee pauseOnHover className="[--duration:120s]">
-        {Array.from({ length: 20 }).map((item, ind) => (
+        {Array.from({ length: 1 }).map((item, ind) => (
           <div
             key={ind}
             className="flex shrink-0 animate-marquee flex-row justify-around gap-6"
