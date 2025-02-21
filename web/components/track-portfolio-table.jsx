@@ -112,7 +112,7 @@ export default function TrackPortfolioTable() {
                                   <TrendingDown size={20} />
                                 )}
                               </span>
-                              <span>{`(${item.price_difference}) (${item.percentage_change}%)`}</span>
+                              <span>{`(${item.price_difference}) (${item.percentage_change ?? 0}%)`}</span>
                             </div>
                           </div>
                         </TableCell>
