@@ -19,9 +19,14 @@ import { Skeleton } from "./ui/skeleton";
 export const PopularUnlistedShares = (props) => {
   const { data, isLoading, isError, error } = useQuery({
     queryFn: () =>
-      fetchShares(`time_range=${popularUnlistedShareTimeRange}&is_ipo=false`),
-    queryKey: ["shares"],
+      fetchShares(
+        `time_range=${popularUnlistedShareTimeRange}&is_ipo=false&featured=true&limit=20`
+      ),
+    queryKey: ["popular-shares"],
   });
+
+  console.log(data);
+
   const slides = popularUnlistedShares.slice(0, 5);
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {

@@ -19,6 +19,7 @@ import PeerRatioTable from "./_component/peer-ratio";
 import PromoterOrManagementTable from "./_component/promoter-or-management";
 import FAQs from "./_component/faq";
 import CommentSection from "./_component/comments";
+import EventTable from "./_component/events";
 
 export async function generateMetadata({ params }) {
   const { id } = await params;
@@ -46,7 +47,7 @@ export default async function UnlistedSharePage({ params }) {
   const { id } = await params;
   const name = id.split("-").join(" ");
   const share = await fetchShare(id);
-
+  console.log(share);
   return (
     <div className="container mx-auto p-4 py-10 space-y-10">
       <div className="flex flex-col md:flex-row gap-2 items-center">
@@ -108,6 +109,13 @@ export default async function UnlistedSharePage({ params }) {
         <div>
           <H3 className={"text-center"}>Peer ratio</H3>
           <PeerRatioTable data={share?.peer_ratio ?? {}} />
+        </div>
+      )}
+
+      {share?.events?.length > 0 && (
+        <div className="space-y-6">
+          <H3 className={"text-center"}>Events</H3>
+          <EventTable events={share?.events ?? []} />
         </div>
       )}
 

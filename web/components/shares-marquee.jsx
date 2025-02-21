@@ -8,6 +8,7 @@ import { Skeleton } from "./ui/skeleton";
 import { fetchShares } from "@/service/share";
 import { MoveRight, TrendingDown, TrendingUp } from "lucide-react";
 import { Small } from "./typography";
+import Marquee from "./marquee";
 
 export default function SharesMarquee() {
   const { data, isLoading, isError, error } = useQuery({
@@ -20,7 +21,7 @@ export default function SharesMarquee() {
   if (isError) return error?.message ?? "error";
 
   return (
-    <div className="h-10 flex gap-10 items-center bg-black overflow-hidden">
+    <Marquee pauseOnHover className="[--duration:300s] bg-black py-3">
       {Array.from({ length: 20 }).map((item, ind) => (
         <div
           key={ind}
@@ -59,6 +60,6 @@ export default function SharesMarquee() {
           ))}
         </div>
       ))}
-    </div>
+    </Marquee>
   );
 }

@@ -44,7 +44,7 @@ export default function StockCard({ share }) {
               )}
               <Small
                 className={"text-xs font-normal"}
-              >{`(${share.price_difference}) (${share.percentage_change}%)`}</Small>{" "}
+              >{`(${share.price_difference}) (${share.percentage_change ?? 0}%)`}</Small>{" "}
               <span className="text-gray-500 uppercase">
                 {popularUnlistedShareTimeRange}
               </span>

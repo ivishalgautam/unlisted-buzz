@@ -25,29 +25,44 @@ import { useMutation } from "@tanstack/react-query";
 import http from "@/utils/http";
 import { endpoints } from "@/utils/endpoints";
 import { toast } from "@/hooks/use-toast";
+import { ErrorMessage } from "@hookform/error-message";
+import PhoneSelect from "../ui/phone-select";
+import * as RPNInput from "react-phone-number-input";
 
-const formSchema = z.object({
-  transaction_type: z.enum(["buy", "sell"], {
-    required_error: "You need to select a transaction type.",
-  }),
-  share_id: z.string().nonempty("Please select a share."),
-  quantity: z
-    .number({
-      required_error: "Quantity is required.",
-      invalid_type_error: "Quantity must be a number.",
-    })
-    .positive("Quantity must be positive."),
-  price_per_share: z
-    .number({
-      required_error: "Price is required.",
-      invalid_type_error: "Price must be a number.",
-    })
-    .positive("Price must be positive."),
-  message: z
-    .string()
-    .max(500, "Details must not exceed 500 characters.")
-    .optional(),
-});
+const formSchema = z
+  .object({
+    transaction_type: z.enum(["buy", "sell"], {
+      required_error: "You need to select a transaction type.",
+    }),
+    share_id: z.string().nonempty("Please select a share."),
+    quantity: z
+      .number({
+        required_error: "Quantity is required.",
+        invalid_type_error: "Quantity must be a number.",
+      })
+      .positive("Quantity must be positive."),
+    price_per_share: z
+      .number({
+        required_error: "Price is required.",
+        invalid_type_error: "Price must be a number.",
+      })
+      .positive("Price must be positive."),
+    message: z
+      .string()
+      .max(500, "Details must not exceed 500 characters.")
+      .optional(),
+    name: z
+      .string({ required_error: "Name is required*" })
+      .min(1, { message: "Name is required*" }),
+    email: z.string({ required_error: "Email is required*" }).email(),
+    phone: z
+      .string({ required_error: "Phone number is required*" })
+      .min(1, { message: "Phone number is required*" }),
+  })
+  .refine((data) => RPNInput.isValidPhoneNumber(data.phone), {
+    path: ["phone"],
+    message: "Invalid phone number",
+  });
 
 export default function EnquiryForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -94,7 +109,7 @@ export default function EnquiryForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 mx-auto">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mx-auto">
       <div>
         <Label className="block text-sm font-medium text-gray-700 mb-1">
           Transaction Type
@@ -139,6 +154,61 @@ export default function EnquiryForm() {
           </p>
         )}
       </div>
+      <div className="grid md:grid-cols-2 gap-2">
+        <div>
+          <Label
+            htmlFor="name"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
+            Name
+          </Label>
+          <Input
+            id="name"
+            {...register("name")}
+            rows={3}
+            placeholder="Enter name"
+          ></Input>
+          {errors.name && (
+            <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>
+          )}
+        </div>
+
+        <div>
+          <Label
+            htmlFor="email"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
+            Email
+          </Label>
+          <Input
+            id="email"
+            {...register("email")}
+            rows={3}
+            placeholder="Enter email"
+          ></Input>
+          {errors.email && (
+            <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
+          )}
+        </div>
+      </div>
+
+      {/* phone */}
+      <div>
+        <Label>Phone</Label>
+        {/* <Input {...register("phone")} placeholder="Enter your phone" /> */}
+        <Controller
+          control={control}
+          name="phone"
+          render={({ field }) => <PhoneSelect {...field} />}
+        />
+        <ErrorMessage
+          name="phone"
+          render={({ message }) => (
+            <span className="text-red-500 text-sm">{message}</span>
+          )}
+          errors={errors}
+        />
+      </div>
 
       <div>
         <Label
@@ -179,42 +249,46 @@ export default function EnquiryForm() {
         )}
       </div>
 
-      <div>
-        <Label
-          htmlFor="quantity"
-          className="block text-sm font-medium text-gray-700 mb-1"
-        >
-          Quantity
-        </Label>
-        <Input
-          type="number"
-          id="quantity"
-          {...register("quantity", { valueAsNumber: true })}
-          placeholder="Enter quantity"
-        />
-        {errors.quantity && (
-          <p className="mt-1 text-sm text-red-600">{errors.quantity.message}</p>
-        )}
-      </div>
+      <div className="grid md:grid-cols-2 gap-2">
+        <div>
+          <Label
+            htmlFor="quantity"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
+            Quantity
+          </Label>
+          <Input
+            type="number"
+            id="quantity"
+            {...register("quantity", { valueAsNumber: true })}
+            placeholder="Enter quantity"
+          />
+          {errors.quantity && (
+            <p className="mt-1 text-sm text-red-600">
+              {errors.quantity.message}
+            </p>
+          )}
+        </div>
 
-      <div>
-        <Label
-          htmlFor="price"
-          className="block text-sm font-medium text-gray-700 mb-1"
-        >
-          Price per Share
-        </Label>
-        <Input
-          type="number"
-          id="price"
-          {...register("price_per_share", { valueAsNumber: true })}
-          placeholder="Enter price"
-        />
-        {errors.price_per_share && (
-          <p className="mt-1 text-sm text-red-600">
-            {errors.price_per_share.message}
-          </p>
-        )}
+        <div>
+          <Label
+            htmlFor="price"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
+            Price per Share
+          </Label>
+          <Input
+            type="number"
+            id="price"
+            {...register("price_per_share", { valueAsNumber: true })}
+            placeholder="Enter price"
+          />
+          {errors.price_per_share && (
+            <p className="mt-1 text-sm text-red-600">
+              {errors.price_per_share.message}
+            </p>
+          )}
+        </div>
       </div>
 
       <div>

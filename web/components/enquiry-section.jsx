@@ -16,7 +16,7 @@ export default function EnquirySection() {
         para="Fill the form to buy or sell unlisted shares securely and hassle-free with expert guidance!"
       />
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-        <div className="bg-secondary cols-span-12 md:col-span-6 lg:col-span-8 rounded-2xl p-8 space-y-10 flex items-center justify-center flex-col">
+        <div className="bg-secondary cols-span-12 md:col-span-6 lg:col-span-7 rounded-2xl p-8 space-y-10 flex items-center justify-center flex-col">
           <div className="space-y-2">
             <div className="text-center text-xl font-semibold">
               Attention required
@@ -40,7 +40,7 @@ export default function EnquirySection() {
           </div>
         </div>
 
-        <div className="md:col-span-6 cols-span-12 lg:col-span-4 bg-gray-100 p-8 rounded-2xl">
+        <div className="md:col-span-6 cols-span-12 lg:col-span-5 bg-gray-100 p-8 rounded-2xl">
           <EnquiryForm />
         </div>
       </div>
