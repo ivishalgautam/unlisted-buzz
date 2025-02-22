@@ -5,6 +5,7 @@ import { PlaceholdersAndVanishInput } from "./ui/placeholders-and-vanish-input";
 import PageSection from "./page-section";
 import { TopStocks } from "./popular-unlisted-shares";
 import Container from "./container";
+import ActionSearchBar from "./ui/action-search-bar";
 
 export default function Hero() {
   return (
@@ -26,13 +27,15 @@ export default function Hero() {
               </Balancer>
             </Muted>
 
-            <PlaceholdersAndVanishInput
+            {/* <PlaceholdersAndVanishInput
               placeholders={[
                 "Fast, Reliable Stock Buy-Sell Platform",
                 "Buy Low, Sell High: Simplify Strategy",
                 "Power Your Portfolio with Smarter Trades",
               ]}
-            />
+            /> */}
+
+            <ActionSearchBar />
           </div>
         </div>
       </Container>
