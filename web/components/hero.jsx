@@ -1,11 +1,9 @@
 "use client";
 import Balancer from "react-wrap-balancer";
 import { Muted } from "./typography";
-import { PlaceholdersAndVanishInput } from "./ui/placeholders-and-vanish-input";
 import PageSection from "./page-section";
-import { TopStocks } from "./popular-unlisted-shares";
 import Container from "./container";
-import ActionSearchBar from "./ui/action-search-bar";
+import ShareSearchBar from "./ui/share-search-bar";
 
 export default function Hero() {
   return (
@@ -35,7 +33,7 @@ export default function Hero() {
               ]}
             /> */}
 
-            <ActionSearchBar />
+            <ShareSearchBar />
           </div>
         </div>
       </Container>

@@ -18,6 +18,7 @@ import { fetchShares } from "@/service/share";
 import Image from "next/image";
 import config from "@/config";
 import Link from "next/link";
+import { ScrollArea } from "./scroll-area";
 
 const allActions = [
   {
@@ -62,7 +63,7 @@ const allActions = [
   },
 ];
 
-function ActionSearchBar({ actions = allActions }) {
+function ShareSearchBar() {
   const [query, setQuery] = useState("");
   const [result, setResult] = useState(null);
   const [isFocused, setIsFocused] = useState(false);
@@ -185,12 +186,11 @@ function ActionSearchBar({ actions = allActions }) {
             </div>
           </div>
         </div>
-
         <div className="w-full max-w-lg relative">
           <AnimatePresence>
             {isFocused && result?.length > 0 && !selectedAction && (
               <motion.div
-                className="w-full z-10 border absolute rounded-md shadow-sm overflow-hidden dark:border-gray-800 bg-white dark:bg-black mt-1"
+                className="w-full z-10 max-h-96 border absolute rounded-md shadow-sm overflow-y-auto overflow-x-hidden dark:border-gray-800 bg-white dark:bg-black mt-1"
                 variants={container}
                 initial="hidden"
                 animate="show"
@@ -220,9 +220,6 @@ function ActionSearchBar({ actions = allActions }) {
                             <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
                               {share.name}
                             </span>
-                            <span className="text-xs text-gray-400">
-                              {share.description}
-                            </span>
                           </div>
                         </div>
                       </Link>
@@ -238,4 +235,4 @@ function ActionSearchBar({ actions = allActions }) {
   );
 }
 
-export default ActionSearchBar;
+export default ShareSearchBar;
