@@ -375,6 +375,18 @@ export const ALLROUTES = [
     roles: [],
   },
   {
+    link: "/sebi-guidelines",
+    roles: [],
+  },
+  {
+    link: "/off-market-annexures",
+    roles: [],
+  },
+  {
+    link: "/company-of-unlisted-share",
+    roles: [],
+  },
+  {
     link: "/search/[subCatSlug]",
     roles: [],
   },
@@ -412,3 +424,231 @@ export const timeRanges = [
 ];
 
 export const publicRoutes = ["/", "login", "signin"];
+
+export const OFF_MARKET_ANNEXURE = [
+  {
+    pdf: "/offmarket-annexure/annexure1.pdf",
+    label: "Aditya Birla Money Off-Market Annexure (CDSL)",
+  },
+  {
+    pdf: "/offmarket-annexure/annexure2.pdf",
+    label: "Adroit Financials Off-Market Annexure (NSDL)",
+  },
+  {
+    pdf: "/offmarket-annexure/annexure3.pdf",
+    label: "Arihant Capital Market Off Market Annexure NSDL",
+  },
+  {
+    pdf: "/offmarket-annexure/annexure4.pdf",
+    label: "Anand Rathi CDSL Off Market Annexure",
+  },
+  {
+    pdf: "/offmarket-annexure/annexure5.pdf",
+    label: "Axis Bank NSDL CDSL Off Market Annexure",
+  },
+  {
+    pdf: "/offmarket-annexure/annexure6.pdf",
+    label: "Axis Securities CDSL Off Market Annexure",
+  },
+  {
+    pdf: "/offmarket-annexure/annexure7.pdf",
+    label: "Bharat Bhushan Equity Traders Limited NSDL Off Market Annexure",
+  },
+  {
+    pdf: "/offmarket-annexure/annexure8.pdf",
+    label: "Bonanza Portfolio NSDL Off Market Annexure",
+  },
+  {
+    pdf: "/offmarket-annexure/annexure9.pdf",
+    label: "CDSL Off Market Common Annexure",
+  },
+  {
+    pdf: "/offmarket-annexure/annexure10.pdf",
+    label: "NSDL Off Market Common Annexure",
+  },
+  {
+    pdf: "/offmarket-annexure/annexure11.pdf",
+    label: "Edelweiss CDSL Off Market Annexure",
+  },
+  {
+    pdf: "/offmarket-annexure/annexure12.pdf",
+    label: "Globe Securities CDSL Off Market Annexure",
+  },
+  {
+    pdf: "/offmarket-annexure/annexure13.pdf",
+    label: "HDFC Bank NSDL CDSL Off Market Annexure",
+  },
+  {
+    pdf: "/offmarket-annexure/annexure14.pdf",
+    label: "HDFC Securities Limited CDSL Off Market Annexure",
+  },
+  {
+    pdf: "/offmarket-annexure/annexure15.pdf",
+    label: "ICICI Bank CDSL Off Market Annexure",
+  },
+  {
+    pdf: "/offmarket-annexure/annexure16.pdf",
+    label: "ICICI Bank NSDL Off Market Annexure",
+  },
+  {
+    pdf: "/offmarket-annexure/annexure17.pdf",
+    label: "IDBI Bank NSDL Off Market Annexure",
+  },
+  {
+    pdf: "/offmarket-annexure/annexure18.pdf",
+    label: "IIFL CDSL Off Market Annexure",
+  },
+  {
+    pdf: "/offmarket-annexure/annexure19.pdf",
+    label: "IIFL NSDL Off Market Annexure",
+  },
+  {
+    pdf: "/offmarket-annexure/annexure20.pdf",
+    label: "Indusind Bank NSDL Off Market Annexure",
+  },
+];
+
+export const PAN_OF_UNLISTED_SHARES = [
+  { company: "A V Thomas & Co. Limited Unlisted Shares", pan: "AABCA8810G" },
+  { company: "ACS Technologies Limited Unlisted Shares", pan: "AAACL4102B" },
+  { company: "ADIANCE TECHNOLOGIES Unlisted Shares", pan: "AAECA7251Q" },
+  { company: "Adtech Systems Limited Unlisted Shares", pan: "AAACA5355K" },
+  { company: "AGS Transact", pan: "AAECA0901H" },
+  {
+    company: "AITMC Ventures Pvt. Ltd. (AVPL) Unlisted Shares Price",
+    pan: "AAPCA0994F",
+  },
+  { company: "Amalgamations Repco Limited Unlisted Shares", pan: "ADCA8200E1" },
+  { company: "Ambadi Investments Limited (murugappa)", pan: "AAACN1078J" },
+  { company: "Amol Minechem Limited", pan: "AABCA2807K" },
+  { company: "Anand I Power Limited", pan: "AAACP0482E" },
+  { company: "Anand Rathi Wealth Services", pan: "AAACH8136P" },
+  {
+    company: "Anheuser Busch Inbev (Sabmiller) India Limited Unlisted Shares",
+    pan: "AAICS2238R",
+  },
+  {
+    company: "Anugraha Valve Castings Limited Unlisted Shares",
+    pan: "AACCA2285Q",
+  },
+  { company: "APL Metals Unlisted Shares", pan: "AACCA4246P" },
+  {
+    company: "Apollo Fashion International Unlisted Shares",
+    pan: "AAZCA3434G",
+  },
+  { company: "Apollo Green Energy Limited Unlisted Shares", pan: "AAACA6447N" },
+  { company: "Aptus Value Housing Finance", pan: "AAICA0871G" },
+  { company: "Arch Pharmalabs Limited Unlisted Shares", pan: "AACCM0306Q" },
+  { company: "Arohan Financial Services Unlisted Shares", pan: "AAECA6121D" },
+  { company: "ASK Investment Managers Limited", pan: "AAFCA2302P" },
+  {
+    company: "Assam Carbon Products Limited Unlisted Shares",
+    pan: "AACCA4236D",
+  },
+  { company: "AU Small Finance Bank Limited", pan: "AAACL2777N" },
+  { company: "Auckland Jute Co. Limited Unlisted Shares", pan: "AACCA6099G" },
+  { company: "Axles India Limited Unlisted Shares", pan: "AAACA3173D" },
+  { company: "Bagrrys India Limited Unlisted Shares", pan: "AABCB8144N" },
+  { company: "Bazar India Unlisted Shares", pan: "AALCM8166F" },
+  {
+    company: "Bellary Steel and Alloys Limited Unlisted Shares",
+    pan: "AATFB5792R",
+  },
+  { company: "Berar Finance Limited", pan: "AAACB5861B" },
+  { company: "Bharat Hotels Unlisted Shares", pan: "AAACB1298E" },
+  { company: "Bharat Nidhi (Bharat Bank) Unlisted Shares", pan: "AAACB0195J" },
+  { company: "Big Basket Unlisted Shares", pan: "AAQCS4503H" },
+  { company: "Bira Unlisted Shares", pan: "AAECD6739Q" },
+  { company: "BLSX Limited", pan: "AAKCB8340F" },
+  {
+    company: "Boat Unlisted Share Price (Imagine Marketing)",
+    pan: "AADCI3821M",
+  },
+  { company: "Bolzen and Mutter Unlisted Share", pan: "AAHCB4724C" },
+  { company: "Bombay Gas Company Limited Unlisted Shares", pan: "AAACB5863D" },
+  {
+    company: "Bombay Swadeshi Stores Limited Unlisted Shares",
+    pan: "AAACB4624J",
+  },
+  { company: "Bootes Impex Tech Ltd.", pan: "AAJCB6841Q" },
+  { company: "BVG India Limited Unlisted Share", pan: "AACCB0943N" },
+  { company: "C&S Electric Limited Unlisted Shares", pan: "AAACC0909K" },
+  {
+    company: "C2C Advanced Systems Limited Unlisted Shares",
+    pan: "AAHCC4189Q",
+  },
+  { company: "Calcutta Stock Exchange Unlisted Shares", pan: "AABCT8138N" },
+  {
+    company: "Camac Commercial Company Limited Unlisted Shares",
+    pan: "AABCC0733E",
+  },
+  {
+    company: "Capgemini Technology Services India Limited Unlisted Shares",
+    pan: "AABCM4573E",
+  },
+  { company: "Capital Small Finance Bank Unlisted Shares", pan: "AABCC3632Q" },
+  {
+    company:
+      "Care Health (Previously Religare Health) Insurance Company Limited Unlisted Shares",
+    pan: "AADCR6281N",
+  },
+  {
+    company: "Carrier Airconditioning & Refrigeration Limited Unlisted Shares",
+    pan: "AAACC8414B",
+  },
+  { company: "Claps Oiltech Unlisted Share", pan: "AAJCC8125G" },
+  {
+    company: "Cochin International Airport Limited Unlisted Shares",
+    pan: "AAACC9658B",
+  },
+  { company: "CSB", pan: "AABCT0024D" },
+  { company: "CSK Unlisted Shares", pan: "AAFCC8730K" },
+  {
+    company: "CTR Manufacturing Industries Limited Unlisted Share",
+    pan: "AAACC7256R",
+  },
+  { company: "Curis Lifesciences limited", pan: "AAGCC4108A" },
+  {
+    company: "Dalmia Bharat Refractories Limited Unlisted Shares",
+    pan: "AAKCS3708G",
+  },
+  {
+    company: "DANTECH DIGITAL DENTAL SOLUTIONS PRIVATE LIMITED",
+    pan: "AAJCD9521H",
+  },
+  { company: "Delhivery", pan: "AAPCS9575E" },
+  { company: "Delta Galaxy Unlisted Shares", pan: "AAECD0857H" },
+  {
+    company: "Deys Medical Stores (Mfg) Limited Unlisted Shares",
+    pan: "AAACD7989A",
+  },
+  { company: "DGP Securities Limited Unlisted Share", pan: "AABCS4946F" },
+  { company: "Digvijay Finlease Unlisted Shares", pan: "AAACD6998D" },
+  { company: "Down Town Hospital Limited Unlisted Shares", pan: "AAACD7247B" },
+  { company: "DSM Fresh Foods Zappfresh", pan: "AAFCD3598N" },
+  {
+    company: "East India Pharmaceutical Works Limited Unlisted Share",
+    pan: "AAACE5779P",
+  },
+  { company: "Eaton Fluid Power Limited Unlisted Shares", pan: "AAACV8426E" },
+  { company: "Ecosure Unlisted Shares", pan: "AAFCE7193L" },
+  { company: "Elcid Investment Limited Unlisted Shares", pan: "AAACE1611Q" },
+  { company: "Electrosteel Steels Limited Unlisted Shares", pan: "AABCE6875H" },
+  { company: "Elofic Industries Limited Unlisted Shares", pan: "AAACE0425C" },
+  {
+    company: "Empire Spices and Foods Limited Unlisted Shares",
+    pan: "AAACE1056D",
+  },
+  { company: "English India Clay Limited (EICL)", pan: "AAACE5011C" },
+  { company: "ESDS Unlisted Shares", pan: "AABCE4981A" },
+  { company: "FabIndia Unlisted Share Price", pan: "AAACF0782H" },
+  { company: "Fincare Business Finance Unlisted Shares", pan: "AACCF4303J" },
+];
+
+export const QUICK_LINKS = [
+  { href: "/off-market-annexures", label: "Off Market Annexure" },
+  { href: "/company-of-unlisted-share", label: "PAN of Unlisted Shares" },
+  { href: "/sebi-guidelines", label: "SEBI Guidelines" },
+  { href: "/frequently-asked-questions", label: "Frequently Asked Questions" },
+  { href: "#", label: "Blog" },
+];

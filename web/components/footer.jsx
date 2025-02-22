@@ -3,6 +3,7 @@ import { Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
 import { tabs } from "./navbar";
 import Logo from "./logo";
 import { Small } from "./typography";
+import { QUICK_LINKS } from "@/data";
 
 export default function Footer() {
   return (
@@ -24,17 +25,13 @@ export default function Footer() {
               Quick Links
             </h2>
             <ul className="space-y-2">
-              {[
-                "Off Market Annexure",
-                "PAN of Unlisted Shares",
-                "SEBI Guidelines",
-                "Frequently Asked Questions",
-                "Knowledge Center",
-                "Blog",
-              ].map((item) => (
-                <li key={item}>
-                  <Link href="#" className="hover:text-white transition-colors">
-                    {item}
+              {QUICK_LINKS.map(({ label, href }) => (
+                <li key={label}>
+                  <Link
+                    href={href}
+                    className="hover:text-white transition-colors"
+                  >
+                    {label}
                   </Link>
                 </li>
               ))}
