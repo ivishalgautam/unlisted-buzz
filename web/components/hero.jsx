@@ -11,7 +11,7 @@ export default function Hero() {
       <Container>
         <div className="w-full space-y-16">
           <div>
-            <h1 className="text-center font-urbanist text-lg font-semibold sm:text-2xl lg:text-3xl xl:text-5xl">
+            <h1 className="text-center font-urbanist text-lg font-semibold sm:text-2xl lg:text-3xl xl:text-5xl lg:!leading-tight">
               <Balancer>
                 India’s Most Trusted Platform for <br /> Buying & Selling
                 Unlisted <br /> & Pre-IPO Shares
