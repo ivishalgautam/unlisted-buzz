@@ -20,6 +20,7 @@ import Image from "next/image";
 import useFileHandler from "@/hooks/use-file-handler";
 import moment from "moment";
 import { userSchema, userUpdateSchema } from "@/validation-schemas/user";
+import PhoneSelect from "../ui/phone-select";
 
 export default function UserForm({
   id,
@@ -37,13 +38,13 @@ export default function UserForm({
     resolver: zodResolver(type === "create" ? userSchema : userUpdateSchema),
     defaultValues: { role },
   });
-
   console.log({ errors });
   const { data, isLoading, isError, error } = useQuery({
     queryFn: () => fetchUser(id),
     queryKey: [id],
     enabled: !!id && !!(type === "edit"),
   });
+
   const createMutation = useMutation({
     mutationFn: createUser,
     onSuccess: () => {
@@ -61,9 +62,8 @@ export default function UserForm({
     const payload = {
       ...data,
       role,
-      // country_code: countryCallingCode,
-      // mobile_number: nationalNumber,
     };
+    console.log({ payload });
     // return;
     if (type === "create") {
       createMutation.mutate(payload);
@@ -79,7 +79,7 @@ export default function UserForm({
       setImage(data.avatar);
       setValue("fullname", data.fullname);
       setValue("dob", data.dob);
-      // setValue("mobile_number", `+${data.country_code}${data.mobile_number}`);
+      setValue("mobile_number", data.mobile_number);
       setValue("email", data.email);
     }
   }, [data, setValue, setImage]);
@@ -214,26 +214,20 @@ export default function UserForm({
           </div>
 
           {/* Mobile Number */}
-          {/* <div>
+          <div>
             <Label>Mobile Number</Label>
             <Controller
               control={control}
               name="mobile_number"
-              render={({ field }) => (
-                <PhoneInputWithCountrySelect
-                  placeholder="Enter phone number"
-                  value={field.value}
-                  onChange={field.onChange}
-                  defaultCountry="IN"
-                />
-              )}
+              render={({ field }) => <PhoneSelect {...field} />}
             />
+
             {errors.mobile_number && (
               <span className="text-red-500">
                 {errors.mobile_number.message}
               </span>
             )}
-          </div> */}
+          </div>
 
           {/* email */}
           <div>

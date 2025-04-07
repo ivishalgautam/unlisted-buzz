@@ -101,17 +101,7 @@ export const columns = (handleUserStatus, setUserId, openModal) => [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
-              <Link
-                href={
-                  role === "patient"
-                    ? `/users/edit/${id}/patient`
-                    : role === "doctor"
-                      ? `/users/edit/${id}/doctor`
-                      : "#"
-                }
-              >
-                Edit
-              </Link>
+              <Link href={`/users/edit/${id}`}>Edit</Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem

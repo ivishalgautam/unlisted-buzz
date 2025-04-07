@@ -1,37 +1,26 @@
-// Dependencies: pnpm install react-phone-number-input lucide-react
-
-"use client";
-
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { cn } from "@/lib/utils";
-import { ChevronDown, Phone } from "lucide-react";
-import React, { forwardRef, useState } from "react";
+import * as React from "react";
 import * as RPNInput from "react-phone-number-input";
 import flags from "react-phone-number-input/flags";
+import { Input } from "./input";
+import { ChevronDown, Phone } from "lucide-react";
+import { cn } from "@/lib/utils";
 
-export default function Input46() {
-  const [value, setValue] = useState("");
-
+export default function PhoneSelect(props) {
   return (
-    <div className="space-y-2" dir="ltr">
-      <Label htmlFor="input-46">Phone number input</Label>
-      <RPNInput.default
-        // className="flex rounded-lg shadow-sm shadow-black/5"
-        international
-        flagComponent={FlagComponent}
-        countrySelectComponent={CountrySelect}
-        inputComponent={PhoneInput}
-        id="input-46"
-        placeholder="Enter phone number"
-        value={value}
-        onChange={(newValue) => setValue(newValue ?? "")}
-      />
-    </div>
+    <RPNInput.default
+      className="flex rounded-lg shadow-sm shadow-black/5"
+      international
+      flagComponent={FlagComponent}
+      countrySelectComponent={CountrySelect}
+      inputComponent={PhoneInput}
+      placeholder="Enter phone number"
+      defaultCountry="IN"
+      {...props}
+    />
   );
 }
 
-const PhoneInput = forwardRef(({ className, ...props }, ref) => {
+const PhoneInput = React.forwardRef(({ className, ...props }, ref) => {
   return (
     <Input
       className={cn(
@@ -52,7 +41,7 @@ const CountrySelect = ({ disabled, value, onChange, options }) => {
   };
 
   return (
-    <div className="relative inline-flex items-center self-stretch rounded-s-lg border border-input bg-background py-2 pe-2 ps-3 text-muted-foreground transition-shadow focus-within:z-10 focus-within:border-ring focus-within:outline-none focus-within:ring-[3px] focus-within:ring-ring/20 hover:bg-accent hover:text-foreground has-[:disabled]:pointer-events-none has-[:disabled]:opacity-50">
+    <div className="relative inline-flex h-10 items-center self-stretch rounded-s-lg border border-input bg-background py-2 pe-2 ps-3 text-muted-foreground transition-shadow focus-within:z-10 focus-within:border-ring focus-within:outline-none focus-within:ring-[3px] focus-within:ring-ring/20 hover:bg-accent hover:text-foreground has-[:disabled]:pointer-events-none has-[:disabled]:opacity-50">
       <div className="inline-flex items-center gap-1" aria-hidden="true">
         <FlagComponent country={value} countryName={value} aria-hidden="true" />
         <span className="text-muted-foreground/80">
