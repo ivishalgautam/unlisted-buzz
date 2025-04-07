@@ -33,7 +33,7 @@ export default function SharesMarquee() {
             {data?.shares?.map((share, ind) => (
               <div key={ind} className="text-white space-x-2 text-sm flex">
                 <span className="text-nowrap">{share.name}</span>
-                <span className="text-primary font-semibold">
+                <span className="text-secondary font-semibold">
                   {rupee.format(share.price)}
                 </span>
                 <div
@@ -53,9 +53,9 @@ export default function SharesMarquee() {
                     <MoveRight size={20} />
                   )}
                   <Small
-                    className={"text-xs font-normal"}
+                    className={"text-xs font-bold"}
                   >{`(${share.price_difference}) (${share.percentage_change}%)`}</Small>{" "}
-                  <span className="text-gray-500 uppercase">
+                  <span className="text-gray-400 uppercase">
                     {popularUnlistedShareTimeRange}
                   </span>
                 </div>

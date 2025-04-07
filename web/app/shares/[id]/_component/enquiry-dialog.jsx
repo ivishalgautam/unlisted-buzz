@@ -79,7 +79,7 @@ const formSchema = z
 export function EnquiryDialog({ open, setOpen, quantity, shareId }) {
   return (
     <AlertDialog onOpenChange={setOpen} open={open}>
-      <AlertDialogTrigger>Open</AlertDialogTrigger>
+      {/* <AlertDialogTrigger >Open</AlertDialogTrigger> */}
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle className="sr-only">Enquiry form?</AlertDialogTitle>
@@ -101,7 +101,6 @@ export default function EnquiryForm({ open, setOpen, quantity, shareId }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { data, isLoading, isError, error } = useFetchShares();
   const { user } = useContext(MainContext);
-
   const {
     register,
     handleSubmit,
@@ -119,6 +118,7 @@ export default function EnquiryForm({ open, setOpen, quantity, shareId }) {
       message: "",
       name: user ? user.fullname : "",
       email: user ? user.email : "",
+      phone: user ? user.mobile_number : "",
     },
   });
   const transaction_type = watch("transaction_type");

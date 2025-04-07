@@ -42,7 +42,7 @@ export default function FrequentlyAskedQuestions() {
                   <span>
                     Investors can buy unlisted shares through private deals with
                     existing shareholders, employee stock option plans, or
-                    through intermediaries such as UnlistedZone that specialize
+                    through intermediaries such as unlistedbuzz that specialize
                     in unlisted securities.
                   </span>
                 </p>
@@ -282,7 +282,7 @@ export default function FrequentlyAskedQuestions() {
 
           <AccordionItem value="q11">
             <AccordionTrigger>
-              Q.11 : How can I trust UnlistedZone when buying unlisted shares?
+              Q.11 : How can I trust unlistedbuzz when buying unlisted shares?
             </AccordionTrigger>
             <AccordionContent>
               <div className="accordion-body">
@@ -330,36 +330,36 @@ export default function FrequentlyAskedQuestions() {
 
           <AccordionItem value="q12">
             <AccordionTrigger>
-              Q.12 : Can you tell us about the founders of UnlistedZone and
+              Q.12 : Can you tell us about the founders of unlistedbuzz and
               their expertise?
             </AccordionTrigger>
             <AccordionContent>
               <div className="accordion-body">
                 <p>
-                  UnlistedZone was co-founded by Mr. Umesh Paliwal, Mr. Dinesh
+                  unlistedbuzz was co-founded by Mr. Umesh Paliwal, Mr. Dinesh
                   Gupta, and Mr. Santosh Singh Rathore. Each founder brings
                   unique expertise and vision to the platform: <br />
                   <br />
                   <strong>1. Mr. Umesh Paliwal:</strong> Known for his deep
                   knowledge in unlisted shares and finance, Umesh Paliwal has
-                  played a pivotal role in shaping UnlistedZone into a trusted
+                  played a pivotal role in shaping unlistedbuzz into a trusted
                   platform for investors. His insights into market dynamics are
                   highly valued in the financial community. <br />
                   <br />
                   <strong>2. Mr. Dinesh Gupta:</strong> With a strong background
                   in financial markets and investment strategies, Dinesh Gupta
-                  has significantly contributed to UnlistedZone's growth and
+                  has significantly contributed to unlistedbuzz's growth and
                   reputation. His analytical skills in assessing investment
                   opportunities are a key asset to the platform. 3. <br />
                   <br />
                   <strong>3. Mr. Santosh Singh Rathore:</strong> As the third
                   co-founder, Santosh Singh Rathore brings a wealth of
-                  experience and knowledge to UnlistedZone. His expertise in
+                  experience and knowledge to unlistedbuzz. His expertise in
                   strategic planning, product development and marketing has been
                   integral in driving the platform's success and innovation.{" "}
                   <br />
                   <br />
-                  Together, the three founders have established UnlistedZone as
+                  Together, the three founders have established unlistedbuzz as
                   a leading entity in the unlisted shares market, known for its
                   ethical practices, transparency, and commitment to providing
                   quality investment opportunities. <br />
@@ -375,12 +375,12 @@ export default function FrequentlyAskedQuestions() {
           <AccordionItem value="q13">
             <AccordionTrigger>
               Q.13 : What is the total value of transactions that have been
-              conducted through the UnlistedZone platform
+              conducted through the unlistedbuzz platform
             </AccordionTrigger>
             <AccordionContent>
               <div className="accordion-body">
                 <p>
-                  UnlistedZone has achieved a remarkable milestone in its
+                  unlistedbuzz has achieved a remarkable milestone in its
                   journey in the unlisted shares market. Since its inception in
                   2018, our platform has facilitated transactions worth more
                   than ₹300 crore. This significant achievement underscores our
@@ -407,14 +407,14 @@ export default function FrequentlyAskedQuestions() {
 
           <AccordionItem value="q14">
             <AccordionTrigger>
-              Q.14 : How does UnlistedZone source its unlisted shares?
+              Q.14 : How does unlistedbuzz source its unlisted shares?
             </AccordionTrigger>
             <AccordionContent>
               <div className="accordion-body">
                 <p>
                   <span>
                     <span>
-                      At UnlistedZone, we have a comprehensive and strategic
+                      At unlistedbuzz, we have a comprehensive and strategic
                       approach to sourcing unlisted shares, ensuring a diverse
                       and quality portfolio for our investors. Our shares are
                       primarily sourced through: <br />
@@ -449,7 +449,7 @@ export default function FrequentlyAskedQuestions() {
                       <br />
                       For more information on our share sourcing processes or to
                       explore current investment opportunities with
-                      UnlistedZone, please feel free to reach out to us.
+                      unlistedbuzz, please feel free to reach out to us.
                     </span>
                   </span>
                 </p>
@@ -459,13 +459,13 @@ export default function FrequentlyAskedQuestions() {
 
           <AccordionItem value="q15">
             <AccordionTrigger>
-              Q.15 : What is the Partner Program with UnlistedZone, and how can
+              Q.15 : What is the Partner Program with unlistedbuzz, and how can
               I participate?
             </AccordionTrigger>
             <AccordionContent>
               <div className="accordion-body">
                 <p>
-                  UnlistedZone offers a Partner Program aimed at expanding our
+                  unlistedbuzz offers a Partner Program aimed at expanding our
                   network and enhancing our service offerings through
                   collaboration. Here’s how you can be a part of it: <br />
                   <br />
@@ -482,7 +482,7 @@ export default function FrequentlyAskedQuestions() {
                   enhanced earnings through commissions or profit-sharing on
                   transactions facilitated by the partner. <br />
                   <br />
-                  <strong>3. Support and Training:</strong> UnlistedZone
+                  <strong>3. Support and Training:</strong> unlistedbuzz
                   provides comprehensive support and training to its partners,
                   ensuring they are well-equipped to offer quality advice and
                   services to their clients. <br />
@@ -490,7 +490,7 @@ export default function FrequentlyAskedQuestions() {
                   <strong>4. Roles and Responsibilities:</strong> Partners act
                   as intermediaries, facilitating transactions and providing
                   investment advice to their client base. They maintain the
-                  ethos of UnlistedZone, prioritizing transparency, ethical
+                  ethos of unlistedbuzz, prioritizing transparency, ethical
                   practices, and client satisfaction. <br />
                   <br />
                   <strong>5. Networking Opportunities:</strong> Being a partner
@@ -508,13 +508,13 @@ export default function FrequentlyAskedQuestions() {
 
           <AccordionItem value="q16">
             <AccordionTrigger>
-              Q.16 : Can you tell us about the Partner Program at UnlistedZone,
+              Q.16 : Can you tell us about the Partner Program at unlistedbuzz,
               and how widespread is its network?
             </AccordionTrigger>
             <AccordionContent>
               <div className="accordion-body">
                 <p>
-                  UnlistedZone's Partner Program is an integral part of our
+                  unlistedbuzz's Partner Program is an integral part of our
                   business, designed to create mutually beneficial relationships
                   with finance professionals across the country. Here's what you
                   need to know: <br />
@@ -535,7 +535,7 @@ export default function FrequentlyAskedQuestions() {
                   financial rewards through commissions or profit-sharing from
                   transactions. <br />
                   <br />
-                  <strong>4. Support and Resources:</strong> UnlistedZone
+                  <strong>4. Support and Resources:</strong> unlistedbuzz
                   provides comprehensive support, training, and resources to all
                   partners, ensuring they are well-equipped to assist their
                   clients effectively. <br />

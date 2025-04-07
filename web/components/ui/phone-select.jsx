@@ -14,6 +14,7 @@ export default function PhoneSelect(props) {
       countrySelectComponent={CountrySelect}
       inputComponent={PhoneInput}
       placeholder="Enter phone number"
+      defaultCountry="IN"
       {...props}
     />
   );

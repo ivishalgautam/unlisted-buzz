@@ -24,6 +24,7 @@ import { cn } from "@/lib/utils";
 import useFetchShares from "@/hooks/use-fetch-shares";
 import { newStockSchema } from "@/validation-schema/stock";
 import { useState } from "react";
+import ReactSelect from "react-select";
 
 export function AddInvestmentForm({ createMutation, shareType }) {
   const methods = useForm({ resolver: zodResolver(newStockSchema) });
@@ -31,12 +32,12 @@ export function AddInvestmentForm({ createMutation, shareType }) {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
   } = methods;
-
   const { data, isLoading, isError, error } = useFetchShares();
   const onSubmitForm = (data) => {
     const newStock = {
-      share_id: data.share_id,
+      share_id: data.share_id.value,
       quantity: data.quantity,
       purchase_price: data.purchase_price,
       date_of_purchase: data.date_of_purchase,
@@ -125,56 +126,11 @@ function ShareSelect({ data }) {
       render={({ field }) => (
         <div className="flex flex-col">
           <Label htmlFor="share_id">Stock</Label>
-          <Popover open={open} onOpenChange={setOpen}>
-            <PopoverTrigger asChild>
-              <div>
-                <Button
-                  type="button"
-                  variant="outline"
-                  role="combobox"
-                  className={cn(
-                    "w-full justify-between",
-                    !field.value && "text-muted-foreground"
-                  )}
-                >
-                  {field.value
-                    ? data.find((share) => share.value === field.value)?.label
-                    : "Select share"}
-                  <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                </Button>
-              </div>
-            </PopoverTrigger>
-            <PopoverContent className="w-full p-0">
-              <Command>
-                <CommandInput placeholder="Search share..." />
-                <CommandList>
-                  <CommandEmpty>No share found.</CommandEmpty>
-                  <CommandGroup>
-                    {data.map((share) => (
-                      <CommandItem
-                        value={share.label}
-                        key={share.value}
-                        onSelect={() => {
-                          setValue("share_id", share.value);
-                          setOpen(false);
-                        }}
-                      >
-                        {share.label}
-                        <Check
-                          className={cn(
-                            "ml-auto",
-                            share.value === field.value
-                              ? "opacity-100"
-                              : "opacity-0"
-                          )}
-                        />
-                      </CommandItem>
-                    ))}
-                  </CommandGroup>
-                </CommandList>
-              </Command>
-            </PopoverContent>
-          </Popover>
+          <ReactSelect
+            options={data}
+            onChange={field.onChange}
+            value={field.value}
+          />
           <ErrorMessage
             errors={errors}
             name="share_id"

@@ -21,6 +21,7 @@ import Image from "next/image";
 import useFileHandler from "@/hooks/use-file-handler";
 import moment from "moment";
 import { userSchema, userUpdateSchema } from "@/validation-schema/user";
+import PhoneSelect from "../ui/phone-select";
 
 export default function UserForm({ id, type = "create", updateMutation }) {
   const {
@@ -48,15 +49,9 @@ export default function UserForm({ id, type = "create", updateMutation }) {
   });
   const { handleFileChange, deleteFile, image, setImage } = useFileHandler();
   const onSubmit = (data) => {
-    // const { countryCallingCode, nationalNumber } = parsePhoneNumber(
-    //   data.mobile_number
-    // );
     const payload = {
       ...data,
-      //   country_code: countryCallingCode,
-      //   mobile_number: nationalNumber,
     };
-    // return;
     if (type === "create") {
       createMutation.mutate(payload);
     }
@@ -71,7 +66,7 @@ export default function UserForm({ id, type = "create", updateMutation }) {
       setImage(data.avatar);
       setValue("fullname", data.fullname);
       setValue("dob", data.dob);
-      //   setValue("mobile_number", `+${data.country_code}${data.mobile_number}`);
+      setValue("mobile_number", data.mobile_number);
       setValue("email", data.email);
     }
   }, [data, setValue, setImage]);
@@ -207,26 +202,20 @@ export default function UserForm({ id, type = "create", updateMutation }) {
             </div>
 
             {/* Mobile Number */}
-            {/* <div>
-            <Label>Mobile Number</Label>
-            <Controller
-              control={control}
-              name="mobile_number"
-              render={({ field }) => (
-                <PhoneInputWithCountrySelect
-                  placeholder="Enter phone number"
-                  value={field.value}
-                  onChange={field.onChange}
-                  defaultCountry="IN"
-                />
+            <div>
+              <Label>Mobile Number</Label>
+              <Controller
+                control={control}
+                name="mobile_number"
+                render={({ field }) => <PhoneSelect {...field} />}
+              />
+
+              {errors.mobile_number && (
+                <span className="text-red-500">
+                  {errors.mobile_number.message}
+                </span>
               )}
-            />
-            {errors.mobile_number && (
-              <span className="text-red-500">
-                {errors.mobile_number.message}
-              </span>
-            )}
-          </div> */}
+            </div>
 
             {/* email */}
             <div>

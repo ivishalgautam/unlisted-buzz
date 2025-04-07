@@ -1,7 +1,10 @@
 import { z } from "zod";
 
 export const newStockSchema = z.object({
-  share_id: z.string({ required_error: "Share is required*" }).uuid(),
+  share_id: z.object({
+    label: z.string({ required_error: "Share is required" }),
+    value: z.string({ required_error: "Share is required" }).uuid(),
+  }),
   quantity: z
     .number({ required_error: "Please enter quantity*" })
     .positive("Quantity must be greater than 0")
