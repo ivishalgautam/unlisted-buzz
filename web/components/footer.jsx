@@ -1,8 +1,15 @@
 import Link from "next/link";
-import { Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
+import {
+  Facebook,
+  Twitter,
+  Linkedin,
+  Instagram,
+  Phone,
+  Mail,
+} from "lucide-react";
 import { tabs } from "./navbar";
 import Logo from "./logo";
-import { Small } from "./typography";
+import { H6, Muted, Small } from "./typography";
 import { QUICK_LINKS } from "@/data";
 
 export default function Footer() {
@@ -89,6 +96,23 @@ export default function Footer() {
                 <Instagram className="h-6 w-6" />
                 <span className="sr-only">Instagram</span>
               </Link>
+            </div>
+            <div className="mt-4">
+              <div
+                className={"flex items-center gap-2 justify-start font-medium"}
+              >
+                <Phone size={20} className="text-secondary" />{" "}
+                <span>Phone</span>
+              </div>
+              <Small>+919220902567</Small>
+            </div>
+            <div className="mt-2">
+              <div
+                className={"flex items-center gap-2 justify-start font-medium"}
+              >
+                <Mail size={20} className="text-secondary" /> <span>Email</span>
+              </div>
+              <Small>aqifybesol@gmail.com</Small>
             </div>
           </div>
         </div>
