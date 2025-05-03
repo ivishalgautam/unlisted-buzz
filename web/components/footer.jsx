@@ -7,10 +7,18 @@ import {
   Phone,
   Mail,
 } from "lucide-react";
-import { tabs } from "./navbar";
 import Logo from "./logo";
-import { H6, Muted, Small } from "./typography";
+import { Small } from "./typography";
 import { QUICK_LINKS } from "@/data";
+
+export const tabs = [
+  { label: "Home", link: "/" },
+  { label: "All Unlisted Shares", link: "/all-unlisted-shares" },
+  { label: "DRHP-Filed", link: "/drhp-filed" },
+  { label: "About", link: "#" },
+  { label: "Contact Us", link: "/contact-us" },
+  { label: "Banking alert", link: "/banking-alert" },
+];
 
 export default function Footer() {
   return (
