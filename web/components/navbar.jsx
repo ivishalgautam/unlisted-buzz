@@ -31,6 +31,7 @@ import { nameShorter } from "@/lib/name-shorter";
 
 export const tabs = [
   { label: "Home", link: "/" },
+  { label: "About", link: "/about" },
   { label: "All Unlisted Shares", link: "/all-unlisted-shares" },
   { label: "DRHP-Filed", link: "/drhp-filed" },
   { label: "About", link: "#" },
@@ -46,7 +47,6 @@ export const logout = () => {
 };
 
 export default function Navbar() {
-  const { user, isUserLoading, setUser } = useContext(MainContext);
   return (
     <header className="bg-primary-300 py-6 bg-white shadow-sm border-b">
       <div className="container">
@@ -55,9 +55,9 @@ export default function Navbar() {
           <nav className="hidden items-center justify-start text-sm lg:flex lg:gap-8 lg:text-base">
             <NavigationTabs tabs={tabs} />
           </nav>
-          <div className="hidden sm:block">
+          {/* <div className="hidden sm:block">
             <CTA {...{ user, isUserLoading, setUser }} />
-          </div>
+          </div> */}
           <div className="block lg:hidden">
             <MobileNav />
           </div>
@@ -112,9 +112,9 @@ function MobileNav() {
                 })}
               </ul>
             </nav>
-            <div className="block sm:hidden">
+            {/* <div className="block sm:hidden">
               <CTA />
-            </div>
+            </div> */}
           </div>
         </SheetHeader>
       </SheetContent>

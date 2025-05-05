@@ -39,7 +39,6 @@ import {
   AlertDialogDescription,
 } from "@/components/ui/alert-dialog";
 import { Textarea } from "@/components/ui/textarea";
-import { MainContext } from "@/store/context";
 
 const formSchema = z
   .object({
@@ -100,7 +99,6 @@ export function EnquiryDialog({ open, setOpen, quantity, shareId }) {
 export default function EnquiryForm({ open, setOpen, quantity, shareId }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { data, isLoading, isError, error } = useFetchShares();
-  const { user } = useContext(MainContext);
   const {
     register,
     handleSubmit,
@@ -116,9 +114,9 @@ export default function EnquiryForm({ open, setOpen, quantity, shareId }) {
       quantity: quantity ? quantity : "",
       price_per_share: undefined,
       message: "",
-      name: user ? user.fullname : "",
-      email: user ? user.email : "",
-      phone: user ? user.mobile_number : "",
+      name: "",
+      email: "",
+      phone: "",
     },
   });
   const transaction_type = watch("transaction_type");

@@ -6,6 +6,7 @@ import {
   Instagram,
   Phone,
   Mail,
+  Youtube,
 } from "lucide-react";
 import Logo from "./logo";
 import { Small } from "./typography";
@@ -13,9 +14,9 @@ import { QUICK_LINKS } from "@/data";
 
 export const tabs = [
   { label: "Home", link: "/" },
+  { label: "About", link: "/about" },
   { label: "All Unlisted Shares", link: "/all-unlisted-shares" },
   { label: "DRHP-Filed", link: "/drhp-filed" },
-  { label: "About", link: "#" },
   { label: "Contact Us", link: "/contact-us" },
   { label: "Banking alert", link: "/banking-alert" },
 ];
@@ -76,34 +77,23 @@ export default function Footer() {
               Connect With Us
             </h2>
             <div className="flex space-x-4">
-              <Link
-                href="#"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                <Facebook className="h-6 w-6" />
-                <span className="sr-only">Facebook</span>
-              </Link>
-              <Link
-                href="#"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                <Twitter className="h-6 w-6" />
-                <span className="sr-only">Twitter</span>
-              </Link>
-              <Link
-                href="#"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                <Linkedin className="h-6 w-6" />
-                <span className="sr-only">LinkedIn</span>
-              </Link>
-              <Link
-                href="#"
+              <a
+                target="_blank"
+                href="https://www.instagram.com/unlistedbuzz"
                 className="text-gray-400 hover:text-white transition-colors"
               >
                 <Instagram className="h-6 w-6" />
                 <span className="sr-only">Instagram</span>
-              </Link>
+              </a>
+
+              <a
+                target="_blank"
+                href="https://www.youtube.com/@UnlistedBuzz"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
+                <Youtube className="h-6 w-6" />
+                <span className="sr-only">YouTube</span>
+              </a>
             </div>
             <div className="mt-4">
               <div

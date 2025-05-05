@@ -122,7 +122,7 @@ export default function TrackPortfolioTable() {
                 </TableBody>
               </Table>
             </div>
-            <div className="text-center">
+            {/* <div className="text-center">
               <Link
                 href={"signup"}
                 className={cn(
@@ -132,7 +132,7 @@ export default function TrackPortfolioTable() {
               >
                 Sign up
               </Link>
-            </div>
+            </div> */}
           </div>
         </div>
       </Container>

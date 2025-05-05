@@ -9,6 +9,7 @@ import Spinner from "@/components/spinner";
 export const MainContext = createContext(null);
 
 export default function Context({ children }) {
+  return children;
   const [user, setUser] = useState(null);
   const [isUserLoading, setIsUserLoading] = useState(true);
   const pathname = usePathname();

@@ -139,7 +139,7 @@ export default async function UnlistedSharePage({ params }) {
         </div>
       )}
       {/*  */}
-      <CommentSection data={share?.faqs ?? []} shareId={share.id} />
+      {/* <CommentSection data={share?.faqs ?? []} shareId={share.id} /> */}
     </div>
   );
 }
