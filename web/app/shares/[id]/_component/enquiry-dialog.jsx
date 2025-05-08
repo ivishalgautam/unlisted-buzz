@@ -75,7 +75,7 @@ const formSchema = z
     message: "Invalid phone number",
   });
 
-export function EnquiryDialog({ open, setOpen, quantity, shareId }) {
+export function EnquiryDialog({ open, action, setOpen, quantity, shareId }) {
   return (
     <AlertDialog onOpenChange={setOpen} open={open}>
       {/* <AlertDialogTrigger >Open</AlertDialogTrigger> */}
@@ -85,7 +85,7 @@ export function EnquiryDialog({ open, setOpen, quantity, shareId }) {
           <AlertDialogDescription className="sr-only">
             Enquiry form
           </AlertDialogDescription>
-          <EnquiryForm {...{ open, setOpen, quantity, shareId }} />
+          <EnquiryForm {...{ open, action, setOpen, quantity, shareId }} />
         </AlertDialogHeader>
         <AlertDialogFooter>
           {/* <AlertDialogCancel>Cancel</AlertDialogCancel>
@@ -96,7 +96,13 @@ export function EnquiryDialog({ open, setOpen, quantity, shareId }) {
   );
 }
 
-export default function EnquiryForm({ open, setOpen, quantity, shareId }) {
+export default function EnquiryForm({
+  open,
+  action,
+  setOpen,
+  quantity,
+  shareId,
+}) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { data, isLoading, isError, error } = useFetchShares();
   const {
@@ -109,7 +115,7 @@ export default function EnquiryForm({ open, setOpen, quantity, shareId }) {
   } = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      transaction_type: "buy",
+      transaction_type: action ?? "buy",
       share_id: shareId ? shareId : "",
       quantity: quantity ? quantity : "",
       price_per_share: undefined,

@@ -16,6 +16,7 @@ import { rupee } from "@/hooks/Intl";
 import { cn } from "@/lib/utils";
 import { EnquiryDialog } from "./enquiry-dialog";
 import { useContext } from "react";
+import { H3 } from "@/components/typography";
 
 export function BuySell({ ticker, currentPrice, minQuantity, shareId }) {
   const [action, setAction] = useState("buy");
@@ -33,6 +34,7 @@ export function BuySell({ ticker, currentPrice, minQuantity, shareId }) {
     <>
       <Card>
         <CardHeader>
+          <H3>Enquiry</H3>
           <CardTitle>
             Buy / Sell <span className="capitalize">{ticker}</span>
           </CardTitle>
@@ -107,14 +109,16 @@ export function BuySell({ ticker, currentPrice, minQuantity, shareId }) {
                 }}
                 className="w-full"
               >
-                Place {action.toUpperCase()} Order
+                Place {action.toUpperCase()} Enquiry
               </Button>
             }
           </form>
         </CardContent>
       </Card>
 
-      <EnquiryDialog {...{ open, setOpen, quantity, shareId: shareId }} />
+      <EnquiryDialog
+        {...{ open, action, setOpen, quantity, shareId: shareId }}
+      />
     </>
   );
 }

@@ -27,6 +27,7 @@ import { toast } from "@/hooks/use-toast";
 import { ErrorMessage } from "@hookform/error-message";
 import PhoneSelect from "../ui/phone-select";
 import * as RPNInput from "react-phone-number-input";
+import { H3 } from "../typography";
 
 const formSchema = z
   .object({
@@ -109,9 +110,11 @@ export default function EnquiryForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mx-auto">
+      <H3>Enquiry</H3>
+
       <div>
         <Label className="block text-sm font-medium text-gray-700 mb-1">
-          Transaction Type
+          Enquiry Type
         </Label>
         <div className="flex space-x-4">
           <Label
@@ -153,6 +156,7 @@ export default function EnquiryForm() {
           </p>
         )}
       </div>
+
       <div className="grid md:grid-cols-2 gap-2">
         <div>
           <Label

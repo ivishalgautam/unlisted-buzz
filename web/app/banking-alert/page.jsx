@@ -11,6 +11,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import Image from "next/image";
 
 export default function BankingAlertPage() {
   return (
@@ -43,16 +44,29 @@ export default function BankingAlertPage() {
 
           <Card className="mb-8 border-green-100 shadow-md">
             <CardHeader className="bg-green-50 border-b border-green-100">
-              <div className="flex items-center gap-2">
-                <Shield className="h-5 w-5 text-green-600" />
-                <CardTitle className="text-green-800">
-                  Verified Banking Details
-                </CardTitle>
+              <div className="flex items-center justify-center">
+                <div className="space-y-1 w-full">
+                  <div className="flex items-center gap-2">
+                    <Shield className="h-5 w-5 text-green-600" />
+                    <CardTitle className="text-green-800">
+                      Verified Banking Details
+                    </CardTitle>
+                  </div>
+                  <CardDescription className="text-green-700">
+                    Please use only these official banking details for all
+                    transactions
+                  </CardDescription>
+                </div>
+                <figure className="grow-0 w-44">
+                  <Image
+                    width={100}
+                    height={100}
+                    alt="axis bank"
+                    src={"/axis-bank-logo.png"}
+                    className="w-full h-full object-contain object-center"
+                  />
+                </figure>
               </div>
-              <CardDescription className="text-green-700">
-                Please use only these official banking details for all
-                transactions
-              </CardDescription>
             </CardHeader>
             <CardContent className="pt-6">
               <div className="space-y-4">
