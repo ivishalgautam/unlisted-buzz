@@ -34,7 +34,6 @@ export const tabs = [
   { label: "About", link: "/about" },
   { label: "All Unlisted Shares", link: "/all-unlisted-shares" },
   { label: "DRHP-Filed", link: "/drhp-filed" },
-  { label: "About", link: "#" },
   { label: "Contact Us", link: "/contact-us" },
 ];
 

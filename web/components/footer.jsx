@@ -102,7 +102,10 @@ export default function Footer() {
                 <Phone size={20} className="text-secondary" />{" "}
                 <span>Phone</span>
               </div>
-              <Small>+919220902567</Small>
+              <div className="flex flex-col mt-2 space-y-2">
+                <Small>+91 92209 02567</Small>
+                <Small>+91 88007 30066</Small>
+              </div>
             </div>
             <div className="mt-2">
               <div

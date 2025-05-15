@@ -12,6 +12,7 @@ import { TopSectors } from "./top-sectors";
 import EnquirySection from "./enquiry-section";
 import { PopularUnlistedShares } from "./popular-unlisted-shares";
 import { BlogCarousel } from "./blogs-carousel";
+import WhatsAppChatbot from "./whatsapp-chatbot";
 
 export default function Home() {
   return (
@@ -30,6 +31,7 @@ export default function Home() {
         <TestimonialsVariant />
         <BlogCarousel />
         <FAQs />
+        <WhatsAppChatbot />
       </div>
     </div>
   );
