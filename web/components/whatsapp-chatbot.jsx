@@ -58,8 +58,8 @@ export default function WhatsAppChatbot() {
             <div className="self-start max-w-[75%] rounded-lg bg-primary/10 px-4 py-3">
               <p className="text-gray-800 text-sm">I can assist you with:</p>
               <ul className="list-disc list-inside text-gray-800 text-sm mt-1">
-                <li>Buying Unlisted Buzz Shares</li>
-                <li>Selling Unlisted Buzz Shares</li>
+                <li>Buying Unlisted Shares</li>
+                <li>Selling Unlisted Shares</li>
                 <li>Company Insights & Reports</li>
               </ul>
             </div>
