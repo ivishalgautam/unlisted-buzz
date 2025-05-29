@@ -23,33 +23,33 @@ export const sidebarData = [
     isVisible: true,
     items: [],
   },
-  {
-    title: "User",
-    url: "#",
-    icon: Users,
-    roles: [ROLES.ADMIN],
-    isVisible: true,
-    items: [
-      {
-        title: "All Users",
-        url: "/users",
-        roles: [ROLES.ADMIN],
-        isVisible: true,
-      },
-      {
-        title: "Create",
-        url: "/users/create",
-        roles: [ROLES.ADMIN],
-        isVisible: true,
-      },
-      {
-        title: "Edit",
-        url: "/users/edit/[id]",
-        roles: [ROLES.ADMIN],
-        isVisible: false,
-      },
-    ],
-  },
+  // {
+  //   title: "User",
+  //   url: "#",
+  //   icon: Users,
+  //   roles: [ROLES.ADMIN],
+  //   isVisible: true,
+  //   items: [
+  //     {
+  //       title: "All Users",
+  //       url: "/users",
+  //       roles: [ROLES.ADMIN],
+  //       isVisible: true,
+  //     },
+  //     {
+  //       title: "Create",
+  //       url: "/users/create",
+  //       roles: [ROLES.ADMIN],
+  //       isVisible: true,
+  //     },
+  //     {
+  //       title: "Edit",
+  //       url: "/users/edit/[id]",
+  //       roles: [ROLES.ADMIN],
+  //       isVisible: false,
+  //     },
+  //   ],
+  // },
   {
     title: "Sectors",
     url: "#",
@@ -158,21 +158,21 @@ export const sidebarData = [
       },
     ],
   },
-  {
-    title: "Comments",
-    url: "#",
-    icon: MessageSquareText,
-    roles: [ROLES.ADMIN],
-    isVisible: true,
-    items: [
-      {
-        title: "All comments",
-        url: "/comments",
-        roles: [ROLES.ADMIN],
-        isVisible: true,
-      },
-    ],
-  },
+  // {
+  //   title: "Comments",
+  //   url: "#",
+  //   icon: MessageSquareText,
+  //   roles: [ROLES.ADMIN],
+  //   isVisible: true,
+  //   items: [
+  //     {
+  //       title: "All comments",
+  //       url: "/comments",
+  //       roles: [ROLES.ADMIN],
+  //       isVisible: true,
+  //     },
+  //   ],
+  // },
   {
     title: "Enquiries",
     url: "#",

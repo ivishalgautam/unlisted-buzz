@@ -82,7 +82,9 @@ export default function BlogForm({
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const data = await http().get(`${endpoints.blogs.getAll}/${blogId}`);
+        const data = await http().get(
+          `${endpoints.blogs.getAll}/getById/${blogId}`,
+        );
 
         data && setValue("title", data?.title);
         data && setValue("short_description", data?.short_description);

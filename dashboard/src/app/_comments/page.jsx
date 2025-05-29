@@ -3,8 +3,8 @@ import { serialize, searchParamsCache } from "@/lib/searchparams";
 import { DataTableSkeleton } from "@/components/ui/table/data-table-skeleton";
 import { Heading } from "@/components/ui/heading";
 import PageContainer from "@/components/layout/page-container";
-import ReviewTableActions from "./_components/table-actions";
-import Listing from "./_components/listing";
+import ReviewTableActions from "../comments/_components/table-actions";
+import Listing from "../comments/_components/listing";
 
 export const metadata = {
   title: "Comments",

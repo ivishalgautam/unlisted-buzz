@@ -1,5 +1,5 @@
 "use client";
-import { columns } from "../columns";
+import { columns } from "../../_comments/columns";
 import { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";

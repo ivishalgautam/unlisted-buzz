@@ -33,7 +33,7 @@ export default function Listing() {
   const deleteMutation = useMutation({
     mutationFn: ({ id }) => deleteBlog(id),
     onSuccess: () => {
-      toast.success("Event deleted.");
+      toast.success("Blog deleted.");
       queryClient.invalidateQueries(["blogs", searchParamStr]);
       setIsDeleteOpen(false);
     },
