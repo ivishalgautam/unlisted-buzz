@@ -650,5 +650,5 @@ export const QUICK_LINKS = [
   { href: "/company-of-unlisted-share", label: "PAN of Unlisted Shares" },
   { href: "/sebi-guidelines", label: "SEBI Guidelines" },
   { href: "/frequently-asked-questions", label: "Frequently Asked Questions" },
-  { href: "#", label: "Blog" },
+  { href: "/blogs", label: "Blogs" },
 ];
