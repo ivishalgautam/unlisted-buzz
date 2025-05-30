@@ -91,6 +91,7 @@ export default function BlogForm({
         data && setValue("image", data?.image);
         data && setText(data?.content);
         data && setImage(data?.image);
+        data && setValue("slug", data.slug);
         data && setValue("meta_title", data.meta_title);
         data && setValue("meta_description", data.meta_description);
         data && setValue("meta_keywords", data.meta_keywords);
