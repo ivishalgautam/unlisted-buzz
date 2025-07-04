@@ -62,7 +62,7 @@ export default function BankingAlertPage() {
                     width={100}
                     height={100}
                     alt="axis bank"
-                    src={"/axis-bank-logo.png"}
+                    src={"/icici-bank.png"}
                     className="w-full h-full object-contain object-center"
                   />
                 </figure>
