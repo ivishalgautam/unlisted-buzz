@@ -8,7 +8,7 @@ import moment from "moment";
 export default function BlogCard({ post }) {
   return (
     <Link href={`/blogs/${post.slug}`}>
-      <Card className="h-full hover:shadow-lg transition-shadow bg-gray-100 duration-200">
+      <Card className="h-full shadow-none border-none duration-200 bg-transparent">
         <CardHeader className="p-4">
           <figure className="w-full h-56 aspect-video mb-4">
             <Image
@@ -21,7 +21,7 @@ export default function BlogCard({ post }) {
           </figure>
           <CardTitle className="text-lg">{post.title}</CardTitle>
           <CardDescription>
-            <p className="text-sm">{post.short_description}</p>
+            <p className="text-sm line-clamp-5">{post.short_description}</p>
             <p className="text-xs text-gray-500 mt-2">
               By Admin on {moment(post.created_at).format("DD MMM, YYYY")}
             </p>
